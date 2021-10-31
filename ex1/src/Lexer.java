@@ -74,6 +74,18 @@ public class Lexer {
         {
             return new Symbol(TokenNames.EQ);
         }
+        else if(buff[0] == ',')
+        {
+            return new Symbol(TokenNames.COMMA);
+        }
+        else if(buff[0] == '.')
+        {
+            return new Symbol(TokenNames.DOT);
+        }
+        else if(buff[0] == ':')
+        {
+            return new Symbol(TokenNames.SEMICOLON);
+        }
 
 
         return null;
