@@ -86,6 +86,10 @@ public class Lexer {
         {
             return new Symbol(TokenNames.SEMICOLON);
         }
+        else if(buff[0] <= '9' && buff[0] >= '0' )
+        {
+            return new Symbol(TokenNames.NUMBER);
+        }
 
 
         return null;
