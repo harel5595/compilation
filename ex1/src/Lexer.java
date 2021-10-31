@@ -36,8 +36,34 @@ public class Lexer {
         }
         else if(buff[0] == ']')
         {
-            return new Symbol(TokenNames.LPAREN);
+            return new Symbol(TokenNames.RBRACK);
         }
+        else if(buff[0] == '}')
+        {
+            return new Symbol(TokenNames.RBRACE);
+        }
+        else if(buff[0] == '{')
+        {
+            return new Symbol(TokenNames.LBRACE);
+        }
+        else if(buff[0] == '+')
+        {
+            return new Symbol(TokenNames.PLUS);
+        }
+        else if(buff[0] == '-')
+        {
+            return new Symbol(TokenNames.MINUS);
+        }
+        else if(buff[0] == '/')
+        {
+            return new Symbol(TokenNames.DIVIDE);
+        }
+        else if(buff[0] == '*')
+        {
+            return new Symbol(TokenNames.TIMES);
+        }
+
+
         return null;
     }
 
