@@ -62,6 +62,18 @@ public class Lexer {
         {
             return new Symbol(TokenNames.TIMES);
         }
+        else if(buff[0] == '>')
+        {
+            return new Symbol(TokenNames.GT);
+        }
+        else if(buff[0] == '<')
+        {
+            return new Symbol(TokenNames.LT);
+        }
+        else if(buff[0] == '=')
+        {
+            return new Symbol(TokenNames.EQ);
+        }
 
 
         return null;
