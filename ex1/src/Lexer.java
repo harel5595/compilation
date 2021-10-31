@@ -23,15 +23,18 @@ public class Lexer {
         else
         {
             if(buff[0] == '')
+            {
+
+            }
         }
     }
 
-    public boolean getLine() {
-        return false;
+    public int getLine() {
+        return lineCounter;
     }
 
-    public boolean getTokenStartPosition() {
-        return false;
+    public int getTokenStartPosition() {
+        return offset_from_start_of_file;
     }
 
     public void yyclose() {
