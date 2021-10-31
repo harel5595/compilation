@@ -21,7 +21,7 @@ public class Lexer {
                 to_check == '(' || to_check == '{' || to_check == '}'
                 || to_check == '[' || to_check == ']' || to_check == '+'
                 || to_check == '+' || to_check == '-' || to_check == '/'
-                || to_check == '*' || to_check == )
+                || to_check == '*')
         {
 
         }
