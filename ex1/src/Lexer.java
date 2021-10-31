@@ -82,7 +82,7 @@ public class Lexer {
         {
             return new Symbol(TokenNames.DOT);
         }
-        else if(buff[0] == ':')
+        else if(buff[0] == ';')
         {
             return new Symbol(TokenNames.SEMICOLON);
         }
