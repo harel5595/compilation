@@ -33,5 +33,75 @@ public interface TokenNames {
   public static final int STRING = 29;
   public static final int TYPE_STRING = 30;
 
+  public static String to_name(int type)
+  {
+    switch (type)
+    {
+      case 0:
+      return "EOF";
+      case 1:
+        return "PLUS";
+      case 2:
+        return "MINUS";
+      case 3:
+        return "TIMES";
+      case 4:
+        return "DIVIDE";
+      case 5:
+        return "LPAREN";
+      case 6:
+        return "RPAREN";
+      case 7:
+        return "NUMBER";
+      case 8:
+        return "ID";
+      case 9:
+        return "LBRACK";
+      case 10:
+        return "RBRACK";
+      case 11:
+        return "LBRACE";
+      case 12:
+        return "RBRACE";
+      case 13:
+        return "NIL";
+      case 14:
+        return "COMMA";
+      case 15:
+        return "DOT";
+      case 16:
+        return "SEMICOLON";
+      case 17:
+        return "TYPE_INT";
+      case 18:
+        return "ASSIGN";
+      case 19:
+        return "EQ";
+      case 20:
+        return "LT";
+      case 21:
+        return "GT";
+      case 22:
+        return "ARRAY";
+      case 23:
+        return "CLASS";
+      case 24:
+        return "EXTENDS";
+      case 25:
+        return "RETURN";
+      case 26:
+        return "WHILE";
+      case 27:
+        return "IF";
+      case 28:
+        return "NEW";
+      case 29:
+        return "STRING";
+      case 30:
+        return "TYPE_STRING";
+      default:
+        return "ERROR";
+    }
+  }
 
 }
