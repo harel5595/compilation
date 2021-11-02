@@ -73,7 +73,7 @@ import java_cup.runtime.*;
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-z]+
+ID				= [a-zA-Z][a-zA-Z0-9]*
 COMMENT         = [/][/][a-zA-Z0-9 \t\f]*
 
 /******************************/
@@ -94,6 +94,27 @@ COMMENT         = [/][/][a-zA-Z0-9 \t\f]*
 
 <YYINITIAL> {
 {COMMENT}           { /* skip */ }
+"int"               { return symbol(TokenNames.TYPE_INT); }
+"["                 { return symbol(TokenNames.LBRACK); }
+"]"                 { return symbol(TokenNames.RBRACK); }
+"{"                 { return symbol(TokenNames.LBRACE); }
+"}"                 { return symbol(TokenNames.RBRACE); }
+"nil"               { return symbol(TokenNames.NIL); }
+","                 { return symbol(TokenNames.COMMA); }
+"."                 { return symbol(TokenNames.DOT); }
+";"                 { return symbol(TokenNames.SEMICOLON); }
+":="                { return symbol(TokenNames.ASSIGN); }
+"="                 { return symbol(TokenNames.EQ); }
+"<"                 { return symbol(TokenNames.LT); }
+">"                 { return symbol(TokenNames.GT); }
+"array"             { return symbol(TokenNames.ARRAY); }
+"extends"           { return symbol(TokenNames.EXTENDS); }
+"return"            { return symbol(TokenNames.RETURN); }
+"while"             { return symbol(TokenNames.WHILE); }
+"if"                { return symbol(TokenNames.IF); }
+"new"               { return symbol(TokenNames.NEW); }
+"string"            { return symbol(TokenNames.TYPE_STRING); }
+{STRING}            { return symbol(TokenNames.STRING, new String(yytext())); }
 "class"             { return symbol(TokenNames.CLASS);}
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
