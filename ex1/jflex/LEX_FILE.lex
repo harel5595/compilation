@@ -75,7 +75,7 @@ WhiteSpace		= {LineTerminator} | [ \t\f]
 LETTERS         = [a-zA-Z]
 INTEGER			= 0 | [1-9][0-9]*
 ID				= {LETTERS}[a-zA-Z0-9]*
-COMMENT         = \/\/[a-zA-Z0-9 \t\f.\(\)\[\]\{\}?!]*
+COMMENT         = \/\/[a-zA-Z0-9 \t\f.\(\)\[\]\{\}\?\!\+\-\*\/\.\;]*
 BIG_COMMENT     = [/][\*][a-zA-Z0-9 \t\f]*[\*][/]
 STRING          = "[a-zA-Z0-9 \t\f]*"
 
