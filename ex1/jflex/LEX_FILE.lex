@@ -75,6 +75,8 @@ WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
 ID				= [a-z]+
 COMMENT         = [/][/][a-zA-Z0-9 \t\f]*
+BIG_COMMENT     = [/][\*][a-zA-Z0-9 \t\f]*[\*][/]
+STRING          = ["][a-zA-Z0-9 \t\f]*["]
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
