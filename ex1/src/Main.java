@@ -46,12 +46,19 @@ public class Main
 				/* [6] Print to console */
 				/************************/
 				System.out.print(TokenNames.to_name(s.sym));
+				if(s.sym == TokenNames.ID || s.sym == TokenNames.NUMBER)
+				{
+					System.out.print("(");
+					System.out.print(s.value);
+					System.out.print(")");
+				}
+
 				System.out.print("[");
 				System.out.print(l.getLine());
 				System.out.print(",");
 				System.out.print(l.getTokenStartPosition());
-				System.out.print("]:");
-				System.out.print(s.value);
+				System.out.print("]");
+				//System.out.print(s.value);
 				System.out.print("\n");
 				
 				/*********************/

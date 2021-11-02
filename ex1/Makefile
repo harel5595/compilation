@@ -69,7 +69,7 @@ all:
 	@echo "*                                                                   *"
 	@echo "*                                                                   *"
 	@echo "*********************************************************************"
-	javac -cp ${EXTERNAL_JAR_FILES} -d ${BIN_DIR} ${SRC_FILES}
+	/mnt/c/Users/harel/.jdks/openjdk-17.0.1/bin/javac.exe -cp ${EXTERNAL_JAR_FILES} -d ${BIN_DIR} ${SRC_FILES}
 	@echo "\n"
 	@echo "************************************************************************"
 	@echo "*                                                                      *"
@@ -78,7 +78,7 @@ all:
 	@echo "*                                                                      *"
 	@echo "*                                                                      *"
 	@echo "************************************************************************"
-	jar cfm LEXER ${MANIFEST_FILE} -C ${BIN_DIR} .
+	/mnt/c/Users/harel/.jdks/openjdk-17.0.1/bin/jar.exe cfm LEXER ${MANIFEST_FILE} -C ${BIN_DIR} .
 	@echo "\n"
 	@echo "*****************************"
 	@echo "*                           *"
@@ -87,5 +87,5 @@ all:
 	@echo "*                           *"
 	@echo "*                           *"
 	@echo "*****************************"
-	java -jar LEXER ${INPUT} ${OUTPUT}
+	/mnt/c/Users/harel/.jdks/openjdk-17.0.1/bin/java.exe -jar LEXER ${INPUT} ${OUTPUT}
 

@@ -74,6 +74,7 @@ LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
 ID				= [a-z]+
+COMMENT         = [/][/][a-zA-Z0-9 \t\f]*
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -92,7 +93,7 @@ ID				= [a-z]+
 /**************************************************************/
 
 <YYINITIAL> {
-
+"class"             { return symbol(TokenNames.CLASS);}
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
 "PPP"				{ return symbol(TokenNames.TIMES);}
