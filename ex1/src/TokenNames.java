@@ -52,7 +52,7 @@ public interface TokenNames {
       case 6:
         return "RPAREN";
       case 7:
-        return "NUMBER";
+        return "INT";
       case 8:
         return "ID";
       case 9:
