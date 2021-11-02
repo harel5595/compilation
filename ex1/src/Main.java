@@ -64,10 +64,26 @@ public class Main
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
+				file_writer.print(TokenNames.to_name(s.sym));
+				if(s.sym == TokenNames.ID || s.sym == TokenNames.NUMBER)
+				{
+					file_writer.print("(");
+					file_writer.print(s.value);
+					file_writer.print(")");
+				}
+
+				file_writer.print("[");
 				file_writer.print(l.getLine());
-				file_writer.print(": ");
-				file_writer.print(s.value);
+				file_writer.print(",");
+				file_writer.print(l.getTokenStartPosition());
+				file_writer.print("]");
+				//file_writer.print(s.value);
 				file_writer.print("\n");
+
+				//file_writer.print(l.getLine());
+				//file_writer.print(": ");
+				//file_writer.print(s.value);
+				//file_writer.print("\n");
 				
 				/***********************/
 				/* [8] Read next token */

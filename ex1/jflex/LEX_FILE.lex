@@ -76,7 +76,7 @@ INTEGER			= 0 | [1-9][0-9]*
 ID				= [a-zA-Z][a-zA-Z0-9]*
 COMMENT         = [/][/][a-zA-Z0-9 \t\f]*
 BIG_COMMENT     = [/][\*][a-zA-Z0-9 \t\f]*[\*][/]
-STRING          = ["][a-zA-Z0-9 \t\f]*["]
+STRING          = "[a-zA-Z0-9 \t\f]*"
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -96,6 +96,7 @@ STRING          = ["][a-zA-Z0-9 \t\f]*["]
 
 <YYINITIAL> {
 {COMMENT}           { /* skip */ }
+{BIG_COMMENT}       { /* skip */ }
 "int"               { return symbol(TokenNames.TYPE_INT); }
 "["                 { return symbol(TokenNames.LBRACK); }
 "]"                 { return symbol(TokenNames.RBRACK); }
@@ -120,7 +121,7 @@ STRING          = ["][a-zA-Z0-9 \t\f]*["]
 "class"             { return symbol(TokenNames.CLASS);}
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
-"PPP"				{ return symbol(TokenNames.TIMES);}
+"*"				{ return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
