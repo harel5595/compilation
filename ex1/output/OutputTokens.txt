@@ -1,6 +1,20 @@
-1: abcd
-2: moish
-2: 77
-2: 999
-2: zebra
-3: 90
+TYPE_INT[2,1]
+ID(a)[2,5]
+ASSIGN[2,7]
+INT(0)[2,10]
+SEMICOLON[2,11]
+TYPE_INT[3,1]
+ID(b)[3,5]
+ASSIGN[3,7]
+INT(4)[3,10]
+SEMICOLON[3,11]
+ID(isPrime)[5,1]
+LPAREN[5,8]
+ID(a)[5,9]
+RPAREN[5,10]
+SEMICOLON[5,11]
+ID(printf)[7,1]
+LPAREN[7,7]
+STRING("hello")[7,8]
+RPAREN[7,15]
+SEMICOLON[7,16]
