@@ -93,6 +93,7 @@ COMMENT         = [/][/][a-zA-Z0-9 \t\f]*
 /**************************************************************/
 
 <YYINITIAL> {
+{COMMENT}           { /* skip */ }
 "class"             { return symbol(TokenNames.CLASS);}
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
