@@ -75,9 +75,14 @@ WhiteSpace		= {LineTerminator} | [ \t\f]
 LETTERS         = [a-zA-Z]
 INTEGER			= 0 | [1-9][0-9]*
 ID				= {LETTERS}[a-zA-Z0-9]*
-COMMENT         = \/\/[a-zA-Z0-9 \t\f.\(\)\[\]\{\}\?\!\+\-\*\/\.\;]*
-BIG_COMMENT     = [/][\*][a-zA-Z0-9 \t\f]*[\*][/]
-STRING          = "[a-zA-Z0-9 \t\f]*"
+COMMENT         = \/\/[a-zA-Z0-9 \t\f.\(\)\[\]\{\}\?\!\+\-\*\/\.\;]*[\n\r]
+BIG_COMMENT     = \/\*[a-zA-Z0-9 \r\n\t\f.\(\)\[\]\{\}\?\!\+\-\*\/\.\;]*\*\/
+STRING          = \"[a-zA-Z]*\"
+UNCLOSED_STRING = \"[]*
+BAD_NUMBER      = 0[0-9]+
+ALL             = .*
+BAD_COMMENT     = \/\/.*[\n\r]
+
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -97,7 +102,10 @@ STRING          = "[a-zA-Z0-9 \t\f]*"
 
 <YYINITIAL> {
 {COMMENT}           { /* skip */ }
+{BAD_COMMENT}       {  throw new java.io.IOException("bad comment"); }
 {BIG_COMMENT}       { /* skip */ }
+"/*"                {  throw new java.io.IOException("bad comment"); }
+{BAD_NUMBER}        {  throw new java.io.IOException("bad number"); }
 "int"               { return symbol(TokenNames.TYPE_INT); }
 "["                 { return symbol(TokenNames.LBRACK); }
 "]"                 { return symbol(TokenNames.RBRACK); }
@@ -126,8 +134,9 @@ STRING          = "[a-zA-Z0-9 \t\f]*"
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
+{INTEGER}			{ if(0 <= Integer.parseInt(yytext()) && Integer.parseInt(yytext()) <= 32767) return symbol(TokenNames.NUMBER, new Integer(yytext())); else throw new java.io.IOException("lexical error");}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
+{UNCLOSED_STRING}   { throw new java.io.IOException("unclosed string"); }
 }

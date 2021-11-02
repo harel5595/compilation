@@ -11,10 +11,10 @@ public class Main
 		Lexer l;
 		Symbol s;
 		FileReader file_reader;
-		PrintWriter file_writer;
+		PrintWriter file_writer = null;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		
+		boolean error = false;
 		try
 		{
 			/********************************/
@@ -46,7 +46,7 @@ public class Main
 				/* [6] Print to console */
 				/************************/
 				System.out.print(TokenNames.to_name(s.sym));
-				if(s.sym == TokenNames.ID || s.sym == TokenNames.NUMBER)
+				if(s.sym == TokenNames.ID || s.sym == TokenNames.NUMBER || s.sym == TokenNames.STRING)
 				{
 					System.out.print("(");
 					System.out.print(s.value);
@@ -65,7 +65,7 @@ public class Main
 				/* [7] Print to file */
 				/*********************/
 				file_writer.print(TokenNames.to_name(s.sym));
-				if(s.sym == TokenNames.ID || s.sym == TokenNames.NUMBER)
+				if(s.sym == TokenNames.ID || s.sym == TokenNames.NUMBER || s.sym == TokenNames.STRING)
 				{
 					file_writer.print("(");
 					file_writer.print(s.value);
@@ -102,6 +102,26 @@ public class Main
 			file_writer.close();
     	}
 			     
+		catch (Exception | Error e)
+		{
+			error = true;
+		}
+
+		try
+		{
+			if(error)
+			{
+				if(file_writer != null)
+					file_writer.close();
+				file_writer = new PrintWriter(outputFilename);
+				file_writer.print("ERROR");
+				file_writer.close();
+			}
+		}
+		catch (Error e)
+		{
+			e.printStackTrace();
+		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
