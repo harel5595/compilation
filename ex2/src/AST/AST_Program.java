@@ -55,8 +55,9 @@ public class AST_Program extends AST_Node {
         /****************************************/
         if (l != null) {
             for (AST_dec menachem : l) {
-				AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, menachem.SerialNumber);
-                menachem.PrintMe();
+				menachem.PrintMe();
+                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, menachem.SerialNumber);
+
             }
         }
     }

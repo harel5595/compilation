@@ -44,10 +44,7 @@ public class AST_func_call2 extends AST_dec {
 
         for (AST_EXP exp :
                 lexp) {
-            AST_GRAPHVIZ.getInstance().logNode(
-                    exp.SerialNumber,
-                    String.format("Function\nName\n...->%s", exp.moish));
-
+            exp.PrintMe();
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
 
         }

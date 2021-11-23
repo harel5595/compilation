@@ -28,6 +28,7 @@ public class AST_EXP_VAR extends AST_EXP
 	/***********************************************/
 	/* The default message for an exp var AST node */
 	/***********************************************/
+	@Override
 	public void PrintMe()
 	{
 		/************************************/
@@ -50,6 +51,7 @@ public class AST_EXP_VAR extends AST_EXP
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
+		var.PrintMe();
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 			
 	}

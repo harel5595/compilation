@@ -1,0 +1,269 @@
+digraph
+{
+graph [ordering = "out"]
+v82 [label = "Program
+"];
+v80 [label = "func(main)
+Return, Params, Commands"];
+v76 [label = "Type
+...->void , "];
+v80 -> v76;
+v79 [label = "Function
+Name
+...->PrintPrimes"];
+v78 [label = "INT(100)"];
+v79 -> v78;
+v77 [label = "INT(2)"];
+v79 -> v77;
+v80 -> v79;
+v82 -> v81;
+v74 [label = "func(PrintPrimes)
+Return, Params, Commands"];
+v50 [label = "Type
+...->void , "];
+v74 -> v50;
+v53 [label = "Type
+...->int , "];
+v74 -> v53;
+v73 [label = "Type
+...->int , "];
+v74 -> v73;
+v72 [label = "While
+Cond, commands"];
+v58 [label = "SIMPLE
+VAR
+(p)"];
+v59 [label = "EXP
+VAR"];
+v58 [label = "SIMPLE
+VAR
+(p)"];
+v59 -> v58;
+v60 [label = "SIMPLE
+VAR
+(end)"];
+v61 [label = "EXP
+VAR"];
+v60 [label = "SIMPLE
+VAR
+(end)"];
+v61 -> v60;
+v62 [label = "BINOP(<)"];
+v62 -> v59;
+v62 -> v61;
+v63 [label = "INT(1)"];
+v64 [label = "BINOP(+)"];
+v64 -> v62;
+v64 -> v63;
+v72 -> v64;
+v71 [label = "If
+Cond, commands"];
+v67 [label = "Function
+Name
+...->IsPrime"];
+v65 [label = "SIMPLE
+VAR
+(p)"];
+v66 [label = "EXP
+VAR"];
+v65 [label = "SIMPLE
+VAR
+(p)"];
+v66 -> v65;
+v67 -> v66;
+v71 -> v67;
+v70 [label = "Function
+Name
+...->PrintInt"];
+v68 [label = "SIMPLE
+VAR
+(p)"];
+v69 [label = "EXP
+VAR"];
+v68 [label = "SIMPLE
+VAR
+(p)"];
+v69 -> v68;
+v70 -> v69;
+v71 -> v70;
+v72 -> v71;
+v74 -> v72;
+v54 [label = "Type
+...->int , "];
+v55 [label = "INT(2)"];
+v56 [label = "ASSIGN
+left := right
+"];
+v56 -> v54;
+v56 -> v55;
+v74 -> v57;
+v82 -> v75;
+v48 [label = "func(IsPrime)
+Return, Params, Commands"];
+v0 [label = "Type
+...->int , "];
+v48 -> v0;
+v47 [label = "Type
+...->int , "];
+v48 -> v47;
+v46 [label = "Return
+Value"];
+v45 [label = "INT(0)"];
+v46 -> v45;
+v48 -> v46;
+v44 [label = "While
+Cond, commands"];
+v10 [label = "SIMPLE
+VAR
+(i)"];
+v11 [label = "EXP
+VAR"];
+v10 [label = "SIMPLE
+VAR
+(i)"];
+v11 -> v10;
+v12 [label = "SIMPLE
+VAR
+(p)"];
+v13 [label = "EXP
+VAR"];
+v12 [label = "SIMPLE
+VAR
+(p)"];
+v13 -> v12;
+v14 [label = "BINOP(<)"];
+v14 -> v11;
+v14 -> v13;
+v44 -> v14;
+v38 [label = "SIMPLE
+VAR
+(i)"];
+v39 [label = "SIMPLE
+VAR
+(i)"];
+v40 [label = "EXP
+VAR"];
+v39 [label = "SIMPLE
+VAR
+(i)"];
+v40 -> v39;
+v41 [label = "INT(1)"];
+v42 [label = "BINOP(+)"];
+v42 -> v40;
+v42 -> v41;
+v43 [label = "ASSIGN
+left := right
+"];
+v43 -> v38;
+v43 -> v42;
+v44 -> v43;
+v37 [label = "While
+Cond, commands"];
+v15 [label = "SIMPLE
+VAR
+(j)"];
+v16 [label = "EXP
+VAR"];
+v15 [label = "SIMPLE
+VAR
+(j)"];
+v16 -> v15;
+v17 [label = "SIMPLE
+VAR
+(p)"];
+v18 [label = "EXP
+VAR"];
+v17 [label = "SIMPLE
+VAR
+(p)"];
+v18 -> v17;
+v19 [label = "BINOP(<)"];
+v19 -> v16;
+v19 -> v18;
+v37 -> v19;
+v31 [label = "SIMPLE
+VAR
+(j)"];
+v32 [label = "SIMPLE
+VAR
+(j)"];
+v33 [label = "EXP
+VAR"];
+v32 [label = "SIMPLE
+VAR
+(j)"];
+v33 -> v32;
+v34 [label = "INT(1)"];
+v35 [label = "BINOP(+)"];
+v35 -> v33;
+v35 -> v34;
+v36 [label = "ASSIGN
+left := right
+"];
+v36 -> v31;
+v36 -> v35;
+v37 -> v36;
+v30 [label = "If
+Cond, commands"];
+v20 [label = "SIMPLE
+VAR
+(i)"];
+v21 [label = "EXP
+VAR"];
+v20 [label = "SIMPLE
+VAR
+(i)"];
+v21 -> v20;
+v22 [label = "SIMPLE
+VAR
+(j)"];
+v23 [label = "EXP
+VAR"];
+v22 [label = "SIMPLE
+VAR
+(j)"];
+v23 -> v22;
+v24 [label = "SIMPLE
+VAR
+(p)"];
+v25 [label = "EXP
+VAR"];
+v24 [label = "SIMPLE
+VAR
+(p)"];
+v25 -> v24;
+v26 [label = "BINOP(=)"];
+v26 -> v23;
+v26 -> v25;
+v27 [label = "BINOP(*)"];
+v27 -> v21;
+v27 -> v26;
+v30 -> v27;
+v29 [label = "Return
+Value"];
+v28 [label = "INT(1)"];
+v29 -> v28;
+v30 -> v29;
+v37 -> v30;
+v44 -> v37;
+v48 -> v44;
+v6 [label = "Type
+...->int , "];
+v7 [label = "INT(2)"];
+v8 [label = "ASSIGN
+left := right
+"];
+v8 -> v6;
+v8 -> v7;
+v48 -> v9;
+v2 [label = "Type
+...->int , "];
+v3 [label = "INT(2)"];
+v4 [label = "ASSIGN
+left := right
+"];
+v4 -> v2;
+v4 -> v3;
+v48 -> v5;
+v82 -> v49;
+}

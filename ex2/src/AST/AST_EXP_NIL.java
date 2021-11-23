@@ -38,7 +38,7 @@ public class AST_EXP_NIL extends AST_EXP {
         /*********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("NIL"));
+                "NIL");
     }
 
 
