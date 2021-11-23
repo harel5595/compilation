@@ -202,6 +202,9 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call();:}
                     | var:v DOT ID:name LPAREN RPAREN                  {:RESULT = new AST_func_call(name, v);:}
                     | var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN  {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
+					| MINUS INT :i                        {: RESULT = new AST_EXP_INT(-i);          :}
+					| NIL                               {: RESULT = new AST_EXP_NIL(i);          :}
+					| STRING                            {: RESULT = new AST_EXP_STR(i);          :}
 					;
 
 
