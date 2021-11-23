@@ -16,4 +16,32 @@ public class AST_VAR_dec extends AST_dec{
         this(type, name);
         this.exp = exp;
     }
+
+    public void PrintMe()
+    {
+        /********************************************/
+        /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
+        /********************************************/
+        System.out.print("AST NODE ASSIGN STMT\n");
+
+        /***********************************/
+        /* RECURSIVELY PRINT VAR + EXP ... */
+        /***********************************/
+        if (type != null) type.PrintMe();
+        if (exp != null) exp.PrintMe();
+
+        /***************************************/
+        /* PRINT Node to AST GRAPHVIZ DOT file */
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "ASSIGN\nleft := right\n");
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+    }
+
 }

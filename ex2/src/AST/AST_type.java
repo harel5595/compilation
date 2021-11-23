@@ -17,4 +17,11 @@ public class AST_type extends AST_dec{
         if(type.name != null)
             throw new RuntimeException("called with type that have name.");
     }
+
+    @Override
+    public void PrintMe() {
+        AST_GRAPHVIZ.getInstance().logNode(
+                this.SerialNumber,
+                String.format("Type\n...->%s , ", type, name));
+    }
 }
