@@ -214,8 +214,8 @@ newExp      ::=     NEW type:t                          {:RESULT = new AST_new_e
                     | NEW type:t LBRACK exp:e RBRACK    {:RESULT = new AST_new_exp(t,e);:}
                     ;
 
-type       ::=      TYPE_INT:t {:RESULT = new AST_type(t, null);:}
-                    | TYPE_STRING:t {:RESULT = new AST_type(t, null);:}
-                    | TYPE_VOID:t {:RESULT = new AST_type(t, null);:}
+type       ::=      TYPE_INT {:RESULT = new AST_type("int", null);:}
+                    | TYPE_STRING {:RESULT = new AST_type("string", null);:}
+                    | TYPE_VOID {:RESULT = new AST_type("void", null);:}
                     | ID:t {:RESULT = new AST_type(t, null);:}
                     ;
