@@ -75,7 +75,6 @@ terminal COMMA;
 terminal TYPE_INT;
 terminal NIL;
 terminal NEW;
-terminal STRING;
 terminal ARRAY;
 terminal CLASS;
 terminal RETURN;
@@ -88,6 +87,7 @@ terminal EXTENDS;
 /*************/
 terminal Integer INT;
 terminal String ID;
+terminal String STRING;
 
 /*****************/
 /* NON TERMINALS */
@@ -180,7 +180,7 @@ stmt		::=		varDec:v                                                    {:RESULT 
 					| RETURN exp:e SEMICOLON                                      {:RESULT = new AST_return(e);:}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_WHILE(cond,body); :}
-					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_func_call();:}
+					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_func_call(name);:}
 					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                 {:RESULT = new AST_func_call(name, v);:}
 					| var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
 					;
@@ -199,12 +199,12 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
 					| exp:e1 EQ exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
 					| LBRACK exp:e1 RBRACK              {: RESULT = e1; :}
-					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call();:}
+					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call(name);:}
                     | var:v DOT ID:name LPAREN RPAREN                  {:RESULT = new AST_func_call(name, v);:}
-                    | var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN  {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
-					| MINUS INT :i                        {: RESULT = new AST_EXP_INT(-i);          :}
-					| NIL                               {: RESULT = new AST_EXP_NIL(i);          :}
-					| STRING                            {: RESULT = new AST_EXP_STR(i);          :}
+                    | var:v DOT ID:name LPAREN exp:e expList:l RPAREN  {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
+					| MINUS INT:i                        {: RESULT = new AST_EXP_INT(-i); :}
+					| NIL                               {: RESULT = new AST_EXP_NIL();    :}
+					| STRING:s                            {: RESULT = new AST_EXP_STR(s); :}
 					;
 
 

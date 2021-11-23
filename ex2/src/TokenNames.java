@@ -9,24 +9,24 @@ public class TokenNames {
   public static final int TIMES = 7;
   public static final int RBRACK = 15;
   public static final int LT = 8;
-  public static final int TYPE_STRING = 28;
-  public static final int CLASS = 26;
+  public static final int TYPE_STRING = 27;
+  public static final int CLASS = 25;
   public static final int SEMICOLON = 18;
   public static final int PLUS = 5;
-  public static final int INT = 31;
+  public static final int INT = 30;
   public static final int RBRACE = 17;
   public static final int RPAREN = 13;
   public static final int WHILE = 10;
   public static final int TYPE_INT = 21;
   public static final int LBRACK = 14;
-  public static final int RETURN = 27;
+  public static final int RETURN = 26;
   public static final int IF = 2;
   public static final int NIL = 22;
   public static final int LPAREN = 12;
   public static final int GT = 9;
   public static final int LBRACE = 16;
-  public static final int ID = 32;
-  public static final int STRING = 24;
+  public static final int ID = 31;
+  public static final int STRING = 32;
   public static final int COMMA = 20;
   public static final int EOF = 0;
   public static final int DIVIDE = 11;
@@ -36,9 +36,9 @@ public class TokenNames {
   public static final int ASSIGN = 19;
   public static final int EQ = 3;
   public static final int NEW = 23;
-  public static final int EXTENDS = 30;
-  public static final int ARRAY = 25;
-  public static final int TYPE_VOID = 29;
+  public static final int EXTENDS = 29;
+  public static final int ARRAY = 24;
+  public static final int TYPE_VOID = 28;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -64,7 +64,6 @@ public class TokenNames {
   "TYPE_INT",
   "NIL",
   "NEW",
-  "STRING",
   "ARRAY",
   "CLASS",
   "RETURN",
@@ -72,7 +71,8 @@ public class TokenNames {
   "TYPE_VOID",
   "EXTENDS",
   "INT",
-  "ID"
+  "ID",
+  "STRING"
   };
 }
 
