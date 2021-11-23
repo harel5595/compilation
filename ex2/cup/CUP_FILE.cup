@@ -190,6 +190,9 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
 					| exp:e1 EQUALS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
 					| LBRACK exp:e1 RBRACK              {: RESULT = e1; :}
+					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call();:}
+                    | var:v DOT ID:name LPAREN RPAREN                  {:RESULT = new AST_func_call(name, v);:}
+                    | var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN  {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
 					;
 
 
