@@ -89,15 +89,6 @@ public class AST_class extends AST_dec {
             /* PRINT Edges to AST GRAPHVIZ DOT file */
             /****************************************/
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, field.SerialNumber);
-
-
-
-
-
         }
-
-
     }
-
-
 }
