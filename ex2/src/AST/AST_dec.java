@@ -7,6 +7,6 @@ public abstract class AST_dec extends AST_Node
 	/*********************************************************/
 	public void PrintMe()
 	{
-		System.out.print("UNKNOWN AST STATEMENT NODE");
+		System.out.print("UNKNOWN AST STATEMENT NODE\n");
 	}
 }

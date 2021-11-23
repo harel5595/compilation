@@ -183,13 +183,14 @@ stmt		::=		varDec:v                                                    {:RESULT 
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_WHILE(cond,body); :}
 					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_func_call2(name);:}
 					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                 {:RESULT = new AST_func_call2(name, v);:}
-					| var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call2(name, v, l); :}
+					| var:v DOT ID:name LPAREN exp:e expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call2(name, v, l); :}
+					| ID:name LPAREN exp:e expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call2(name, null, l); :}
 					;
 
 expList     ::=     COMMA exp:e expList:l {:l.add(e); RESULT = l;:}
                     | /* empty */ {:RESULT = new LinkedList<AST_EXP>();:}
-
                     ;
+
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
@@ -203,12 +204,11 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call(name);:}
                     | var:v DOT ID:name LPAREN RPAREN                  {:RESULT = new AST_func_call(name, v);:}
                     | var:v DOT ID:name LPAREN exp:e expList:l RPAREN  {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
+                    | ID:name LPAREN exp:e expList:l RPAREN {:l.add(e); RESULT = new AST_func_call(name, null, l); :}
 					| MINUS INT:i                        {: RESULT = new AST_EXP_INT(-i); :}
 					| NIL                               {: RESULT = new AST_EXP_NIL();    :}
 					| STRING:s                            {: RESULT = new AST_EXP_STR(s); :}
-					;
-
-
+		            ;
 
 cField      ::=     varDec:v                              {:RESULT = new AST_dec_Node(v); :}
                     |funcDec:f                            {:RESULT = new AST_dec_Node(f); :}
