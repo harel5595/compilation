@@ -42,7 +42,7 @@ public class AST_func_dec_empty extends AST_func_dec {
 		System.out.print("AST NODE FUNC DEC EMPTY\n");
 
 		/**************************************/
-		/* RECURSIVLY PRINT body */
+		/* RECURSIVLY PRINT */
 		/**************************************/
 		
 		if (returnType != null) returnType.PrintMe();

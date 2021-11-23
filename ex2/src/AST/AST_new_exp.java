@@ -1,12 +1,13 @@
 package AST;
 
 public class AST_new_exp extends  AST_Node{
-    public int value;
+    public AST_EXP exp;
+    public AST_type type;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_new_exp(int value)
+    public AST_new_exp(AST_type type, AST_EXP exp)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -16,12 +17,30 @@ public class AST_new_exp extends  AST_Node{
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.format("====================== exp -> INT( %d )\n", value);
+        System.out.format("====================== AST New_EXP( type:%s, value: %s)\n",type,exp );
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.value = value;
+        this.exp = exp;
+        this.type = type;
+    }
+    public AST_new_exp(AST_type type)
+    {
+        /******************************/
+        /* SET A UNIQUE SERIAL NUMBER */
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
+
+        /***************************************/
+        /* PRINT CORRESPONDING DERIVATION RULE */
+        /***************************************/
+        System.out.format("====================== AST New_EXP( type:%s)\n",type);
+
+        /*******************************/
+        /* COPY INPUT DATA NENBERS ... */
+        /*******************************/
+        this.type = type;
     }
 
     /************************************************/
@@ -32,14 +51,21 @@ public class AST_new_exp extends  AST_Node{
         /*******************************/
         /* AST NODE TYPE = AST INT EXP */
         /*******************************/
-        System.out.format("AST NODE INT( %d )\n",value);
-
+        if(exp != null)
+            System.out.format("AST New_EXP( type:%s, value: %s)\n",type,exp );
+        else
+            System.out.format("AST New_EXP( type:%s, value: %s)\n",type);
         /*********************************/
         /* Print to AST GRAPHIZ DOT file */
         /*********************************/
-        AST_GRAPHVIZ.getInstance().logNode(
+        if(exp != null)
+            AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("INT(%d)",value));
+                String.format("NEW %s(%s)",type, exp));
+        else
+            AST_GRAPHVIZ.getInstance().logNode(
+                    SerialNumber,
+                    String.format("NEW %s",type));
     }
 
 
