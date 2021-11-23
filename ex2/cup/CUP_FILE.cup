@@ -143,15 +143,15 @@ varDec      ::=     type:t ID:name SEMICOLON   {:RESULT = new AST_VAR_dec(t, nam
 arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACE SEMICOLON {:RESULT = new AST_arrayTypeDef(name, t);:}
                     ;
 
-funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); RESULT = new AST_func_Dec(t,sl);:}
-                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_Dec(t,sl,fp);:}
+funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); RESULT = new AST_func_dec(t,sl);:}
+                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec(t,sl,fp);:}
                     ;
 classDec     ::=   CLASS ID:name LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl); :}
                     | CLASS ID:name EXTENDS ID:name2 LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl, name2); :}
                     ;
 
-funcParams       ::=   COMMA type:t ID:name funcParams:l {:l.add(AST_type(t,name)); RESULT = l;:}
-                    |  /* empty */   {:RESULT = new LinkedList<AST_type>();:}
+funcParams       ::=   COMMA type:t ID:name funcParams:l    {:l.add(AST_type(t,name)); RESULT = l;:}
+                    |  /* empty */                          {:RESULT = new LinkedList<AST_type>();:}
                     ;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
@@ -159,8 +159,8 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
 
-stmtList    ::=     stmt:s stmtList:sl                 {:sl.add(s); RESULT = sl;:}
-                    | /* empty */                      {: RESULT = new LinkedList<AST_dec>(); :}
+stmtList    ::=     stmt:s stmtList:sl                  {:sl.add(s); RESULT = sl;:}
+                    | /* empty */                       {: RESULT = new LinkedList<AST_dec>(); :}
                     ;
 
 
@@ -184,6 +184,11 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
+					| exp:e1 TIMES exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 2);:}
+					| exp:e1 DIVIDE exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 3);:}
+					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4);:}
+					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
+					| exp:e1 EQUALS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
 					| LBRACK exp:e1 RBRACK              {: RESULT = e1; :}
 					;
 
