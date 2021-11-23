@@ -163,3 +163,10 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
 					;
+
+cfield      ::=     varDec                              {:RESULT = new AST_dec_Node(v); :}
+                    |funcdec                            {:RESULT = new AST_dec_Node(f); :}
+                    ;
+
+
+
