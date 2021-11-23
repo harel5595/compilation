@@ -8,6 +8,7 @@ import java.util.*;
 parser code 
 {:
 	public Lexer lexer;
+	public int error_line = -1;
 
 	public Parser(Lexer lexer)
 	{
@@ -21,8 +22,10 @@ parser code
 		System.out.print(lexer.getLine());
 		System.out.print(":");
 		System.out.print(lexer.getTokenStartPosition());
-		System.out.print("] ");		
-		System.exit(0);
+		System.out.print("] ");
+		error_line = lexer.getLine();
+        throw new RuntimeException("syntax error");
+        //System.exit(0);
 	}
 :}
 
@@ -158,6 +161,10 @@ funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRAC
 
 classDec     ::=   CLASS ID:name LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl); :}
                     | CLASS ID:name EXTENDS ID:name2 LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl, name2); :}
+                    ;
+
+cFieldList   ::=    cField:f cFieldList:fl {:fl.add(f); RESULT = fl;:}
+                    | /* empty */           {:RESULT = new LinkedList<AST_dec>();:}
                     ;
 
 funcParams       ::=   COMMA type:t ID:name funcParams:l    {:l.add(new AST_type(t,name)); RESULT = l;:}

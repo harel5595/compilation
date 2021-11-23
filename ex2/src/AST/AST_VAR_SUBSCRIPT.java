@@ -53,7 +53,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
+		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
+		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.getSerialNumber());
 	}
 }

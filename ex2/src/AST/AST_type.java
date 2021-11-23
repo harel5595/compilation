@@ -20,8 +20,13 @@ public class AST_type extends AST_dec{
 
     @Override
     public void PrintMe() {
+        if(name != null)
         AST_GRAPHVIZ.getInstance().logNode(
                 this.SerialNumber,
-                String.format("Type\n...->%s , ", type, name));
+                String.format("Type\n...->%s , %s", type, name));
+        else
+            AST_GRAPHVIZ.getInstance().logNode(
+                    this.SerialNumber,
+                    String.format("Type\n...->%s", type));
     }
 }

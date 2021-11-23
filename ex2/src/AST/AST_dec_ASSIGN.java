@@ -33,6 +33,7 @@ public class AST_dec_ASSIGN extends AST_dec
 	/*********************************************************/
 	/* The printing message for an assign statement AST node */
 	/*********************************************************/
+	@Override
 	public void PrintMe()
 	{
 		/********************************************/
@@ -56,7 +57,7 @@ public class AST_dec_ASSIGN extends AST_dec
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
 	}
 }

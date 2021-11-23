@@ -42,10 +42,11 @@ public class AST_func_call extends AST_EXP {
                 SerialNumber,
                 String.format("Function\nName\n...->%s", name));
 
+        if(lexp != null)
         for (AST_EXP exp :
                 lexp) {
             exp.PrintMe();
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
 
         }
 
@@ -53,6 +54,6 @@ public class AST_func_call extends AST_EXP {
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.getSerialNumber());
     }
 }

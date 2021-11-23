@@ -15,4 +15,10 @@ public class AST_dec_Node extends AST_dec{
     public void PrintMe() {
         head.PrintMe();
     }
+    @Override
+    public int getSerialNumber()
+    {
+        return head.getSerialNumber();
+    }
+
 }

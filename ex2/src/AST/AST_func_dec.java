@@ -27,17 +27,17 @@ public class AST_func_dec extends AST_dec{
         AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
                 String.format("func(%s)\nReturn, Params, Commands", this.name));
         type.PrintMe();
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, type.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, type.getSerialNumber());
         if(paramList != null)
             for (AST_type param : paramList) {
                 param.PrintMe();
-                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, param.SerialNumber);
+                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, param.getSerialNumber());
             }
         if(commands != null)
             for (AST_dec command :
                     commands) {
                 command.PrintMe();
-                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.SerialNumber);
+                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.getSerialNumber());
             }
 
     }

@@ -40,8 +40,10 @@ public class AST_VAR_dec extends AST_dec{
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+        if(type != null)
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.getSerialNumber());
+        if(exp != null)
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
     }
 
 }

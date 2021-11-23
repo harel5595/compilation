@@ -22,11 +22,11 @@ public class AST_dec_IF extends AST_dec
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
 				"If\nCond, commands");
 		cond.PrintMe();
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cond.SerialNumber);
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cond.getSerialNumber());
 		for(AST_dec command: body)
 		{
 			command.PrintMe();
-			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.SerialNumber);
+			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.getSerialNumber());
 		}
 	}
 }

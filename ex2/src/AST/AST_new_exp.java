@@ -35,7 +35,7 @@ public class AST_new_exp extends  AST_EXP{
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.format("====================== AST New_EXP( type:%s)\n",type);
+        System.out.format("====================== AST New_EXP( type:%s)\n",type.type);
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
@@ -52,16 +52,16 @@ public class AST_new_exp extends  AST_EXP{
         /* AST NODE TYPE = AST INT EXP */
         /*******************************/
         if(exp != null)
-            System.out.format("AST New_EXP( type:%s, value: %s)\n",type,exp );
+            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, exp.moish);
         else
-            System.out.format("AST New_EXP( type:%s, value: %s)\n",type);
+            System.out.format("AST New_EXP( type:%s)\n",type.type);
         /*********************************/
         /* Print to AST GRAPHIZ DOT file */
         /*********************************/
-        if(exp != null)
+        if(type.name != null)
             AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("NEW %s(%s)",type, exp));
+                String.format("NEW %s(%s)",type.type, type.name));
         else
             AST_GRAPHVIZ.getInstance().logNode(
                     SerialNumber,

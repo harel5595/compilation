@@ -45,7 +45,7 @@ public class AST_func_call2 extends AST_dec {
         for (AST_EXP exp :
                 lexp) {
             exp.PrintMe();
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.SerialNumber);
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
 
         }
 
@@ -53,6 +53,6 @@ public class AST_func_call2 extends AST_dec {
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.SerialNumber);
+        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.getSerialNumber());
     }
 }

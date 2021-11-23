@@ -68,7 +68,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
-		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
-		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
+		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.getSerialNumber());
+		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.getSerialNumber());
 	}
 }
