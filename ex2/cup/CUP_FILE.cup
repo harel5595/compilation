@@ -149,12 +149,13 @@ varDec      ::=     type:t ID:name SEMICOLON   {:RESULT = new AST_VAR_dec(t, nam
                     | type:t ID:name ASSIGN newExp:e SEMICOLON {:RESULT = new AST_VAR_dec(t, name, e);:}
                     ;
 
-arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACE SEMICOLON {:RESULT = new AST_arrayTypeDef(name, t);:}
+arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON {:RESULT = new AST_arrayTypeDef(name, t);:}
                     ;
 
-funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); RESULT = new AST_func_dec(t,sl);:}
-                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec(t,sl,fp);:}
+funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); RESULT = new AST_func_dec_empty(t, name, sl);:}
+                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec_with_param(t, name, fp, sl);:}
                     ;
+                    
 classDec     ::=   CLASS ID:name LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl); :}
                     | CLASS ID:name EXTENDS ID:name2 LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl, name2); :}
                     ;
