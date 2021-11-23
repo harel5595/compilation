@@ -100,6 +100,7 @@ non terminal List<AST_dec> decllist;
 non terminal List<AST_type> funcParams;
 non terminal List<AST_dec> stmtList;
 non terminal List<AST_dec> cFieldList;
+non terminal List<AST_EXP> expList;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -163,11 +164,22 @@ stmtList    ::=     stmt:s stmtList:sl                 {:sl.add(s); RESULT = sl;
                     ;
 
 
-stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_dec_ASSIGN(v,e); :}
+stmt		::=		varDec:v                                                    {:RESULT = new AST_dec_Node(v); :}
+                    | var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_dec_ASSIGN(v,e); :}
+                    | var:v ASSIGN newExp:e SEMICOLON                           {: RESULT = new AST_dec_ASSIGN(v,e); :} // mabye wont work
+					| RETURN SEMICOLON                                           {: RESULT = new AST_return(); :}
+					| RETURN exp:e SEMICOLON                                      {:RESULT = new AST_return(e);:}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_WHILE(cond,body); :}
+					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_func_call();:}
+					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                 {:RESULT = new AST_func_call(name, v);:}
+					| var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
 					;
 
+expList     ::=     COMMA exp:e expList:l {:l.add(e); RESULT = l;:}
+                    | /* empty */ {:RESULT = new LinkedList<AST_EXP>();:}
+
+                    ;
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
@@ -175,16 +187,18 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| LBRACK exp:e1 RBRACK              {: RESULT = e1; :}
 					;
 
-cField      ::=     varDec                              {:RESULT = new AST_dec_Node(v); :}
-                    |funcdec                            {:RESULT = new AST_dec_Node(f); :}
+
+
+cField      ::=     varDec:v                              {:RESULT = new AST_dec_Node(v); :}
+                    |funcdec:f                            {:RESULT = new AST_dec_Node(f); :}
                     ;
 
 newExp      ::=     NEW type:t                          {:RESULT = new AST_new_exp(t);:}
                     | NEW type:t LBRACK exp:e RBRACK    {:RESULT = new AST_new_exp(t,e);:}
                     ;
 
-
-
-
-
-
+type       ::=      TYPE_INT:t {:RESULT = new AST_type(t, null);:}
+                    | TYPE_STRING:t {:RESULT = new AST_type(t, null);:}
+                    | TYPE_VOID:t {:RESULT = new AST_type(t, null);:}
+                    | ID:t {:RESULT = new AST_type(t, null);:}
+                    ;
