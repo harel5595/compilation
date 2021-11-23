@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_STMT_ASSIGN extends AST_STMT
+public class AST_dec_ASSIGN extends AST_dec
 {
 	/***************/
 	/*  var := exp */
@@ -11,7 +11,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_ASSIGN(AST_VAR var,AST_EXP exp)
+	public AST_dec_ASSIGN(AST_VAR var, AST_EXP exp)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */

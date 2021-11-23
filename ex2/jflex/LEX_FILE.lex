@@ -112,6 +112,7 @@ BAD_COMMENT     = \/\/.*[\n\r]
 "{"                 { return symbol(TokenNames.LBRACE); }
 "}"                 { return symbol(TokenNames.RBRACE); }
 "nil"               { return symbol(TokenNames.NIL); }
+"void"              { return symbol(TokenNames.TYPE_VOID); }
 ","                 { return symbol(TokenNames.COMMA); }
 "."                 { return symbol(TokenNames.DOT); }
 ";"                 { return symbol(TokenNames.SEMICOLON); }
@@ -134,7 +135,7 @@ BAD_COMMENT     = \/\/.*[\n\r]
 "/"					{ return symbol(TokenNames.DIVIDE);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
-{INTEGER}			{ if(0 <= Integer.parseInt(yytext()) && Integer.parseInt(yytext()) <= 32767) return symbol(TokenNames.NUMBER, new Integer(yytext())); else throw new java.io.IOException("lexical error");}
+{INTEGER}			{ if(0 <= Integer.parseInt(yytext()) && Integer.parseInt(yytext()) <= 32767) return symbol(TokenNames.INT, new Integer(yytext())); else throw new java.io.IOException("lexical error");}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}

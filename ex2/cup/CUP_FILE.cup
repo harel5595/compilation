@@ -19,7 +19,7 @@ parser code
 		System.out.print("[");
 		System.out.print(lexer.getLine());
 		System.out.print(":");
-		System.out.print(lexer.getCharPos());
+		System.out.print(lexer.getTokenStartPosition());
 		System.out.print("] ");		
 		System.exit(0);
 	}
@@ -36,7 +36,7 @@ scan with
 	System.out.print("[");
 	System.out.print(lexer.getLine());
 	System.out.print(":");
-	System.out.print(lexer.getCharPos());
+	System.out.print(lexer.getTokenStartPosition());
 	System.out.print("] ");
 	System.out.print(TokenNames.terminalNames[s.sym]);
 	if (s.value != null)
@@ -58,6 +58,8 @@ terminal DOT;
 terminal PLUS;
 terminal MINUS;
 terminal TIMES;
+terminal LT;
+terminal GT;
 terminal WHILE;
 terminal DIVIDE;
 terminal LPAREN;
@@ -68,6 +70,17 @@ terminal LBRACE;
 terminal RBRACE;
 terminal SEMICOLON;
 terminal ASSIGN;
+terminal COMMA;
+terminal TYPE_INT;
+terminal NIL;
+terminal NEW;
+terminal STRING;
+terminal ARRAY;
+terminal CLASS;
+terminal RETURN;
+terminal TYPE_STRING;
+terminal TYPE_VOID;
+terminal EXTENDS;
 
 /*************/
 /* TERMINALS */
@@ -80,8 +93,9 @@ terminal String ID;
 /*****************/
 non terminal AST_EXP exp;
 non terminal AST_VAR var;
-non terminal AST_STMT stmt;
-non terminal AST_STMT_LIST stmtList;
+non terminal AST_dec dec;
+non terminal AST_Program Program;
+non terminal AST_VAR_dec varDec;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -90,6 +104,8 @@ precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
 precedence left DIVIDE;
+precedence left LT;
+precedence left GT;
 
 /************************/
 /* START WITH: stmtList */
@@ -100,18 +116,37 @@ start with stmtList;
 /* DERIVATION RULES */
 /********************/
 
-stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
-					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
+Program	    ::=		dec:s	Program:l		{: RESULT = new AST_Program(s,l);    :}
+					| dec:s				    {: RESULT = new AST_Program(s,null); :}
 					;
 
+dec         ::=     varDec:v                   {:RESULT = new AST_dec_Node(v); :}
+                    | funcDec:f                {:RESULT = new AST_dec_Node(f); :}
+                    | classDec:c            {:RESULT = new AST_dec_Node(c); :}
+                    | arrayTypeDef:a           {:RESULT = new AST_dec_Node(a); :}
+                    ;
+
+varDec      ::=     type:t ID:name SEMICOLON   {:RESULT = new AST_VAR_dec(t, name);:}
+                    | type:t ID:name ASSIGN exp:e SEMICOLON {:RESULT = new AST_VAR_dec(t, name, e);:}
+                    | type:t ID:name ASSIGN newExp:e SEMICOLON {:RESULT = new AST_VAR_dec(t, name, e);:}
+                    ;
+
+arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACE SEMICOLON {:RESULT = new AST_arrayTypeDef(name, t);:}
+                    ;
+
+funcDec     ::=     type:t ID LPAREN RPAREN LBRACE stmt:s RBRACE {:RESULT = new AST_func_Dec(t,s);:}
+                    ;
+
+
+
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
-					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
+					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :}
+					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
-					
-stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
-					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
+
+stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_dec_ASSIGN(v,e); :}
+					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_IF(   cond,body); :}
+					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_WHILE(cond,body); :}
 					;
 
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}

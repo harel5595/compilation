@@ -1,17 +1,17 @@
 package AST;
 
-public class AST_STMT_LIST extends AST_Node
+public class AST_Program extends AST_Node
 {
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
-	public AST_STMT head;
-	public AST_STMT_LIST tail;
+	public AST_dec head;
+	public AST_Program tail;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_LIST(AST_STMT head,AST_STMT_LIST tail)
+	public AST_Program(AST_dec head, AST_Program tail)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
