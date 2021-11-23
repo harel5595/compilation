@@ -65,7 +65,7 @@ public class AST_new_exp extends  AST_EXP{
         else
             AST_GRAPHVIZ.getInstance().logNode(
                     SerialNumber,
-                    String.format("NEW %s",type));
+                    String.format("NEW %s",type.type));
     }
 
 
