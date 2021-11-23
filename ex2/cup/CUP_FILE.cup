@@ -170,6 +170,11 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
 					;
 
+newExp      ::=     NEW type:t                          {:RESULT = new AST_new_exp(t);:}
+                    | NEW type:t LBRACK exp:e RBRACK    {:RESULT = new AST_new_exp(t,e);:}
+                    ;
+
+
 cfield      ::=     varDec                              {:RESULT = new AST_dec_Node(v); :}
                     |funcdec                            {:RESULT = new AST_dec_Node(f); :}
                     ;
