@@ -21,4 +21,49 @@ public class AST_func_call extends AST_EXP {
         this(name, var);
         this.lexp = lexp;
     }
+
+    public void PrintMe()
+    {
+
+        /*********************************/
+        /* AST NODE TYPE = AST FIELD VAR */
+        /*********************************/
+        System.out.print("function_call\n");
+
+        /**********************************************/
+        /* RECURSIVELY PRINT VAR, then FIELD NAME ... */
+        /**********************************************/
+        if (var != null) var.PrintMe();
+        System.out.format("Function Name( %s )\n",name);
+
+        /***************************************/
+        /* PRINT Node to AST GRAPHVIZ DOT file */
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("Function\nName\n...->%s",name));
+
+        for (AST_EXP exp:
+             lexp) {
+            AST_GRAPHVIZ.getInstance().logNode(
+                    exp.SerialNumber,
+                    String.format("Function\nName\n...->%s",exp.moish));
+
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+
+        }
+
+
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
+    }
+
+
+
+
+
+
 }
