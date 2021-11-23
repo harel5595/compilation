@@ -20,7 +20,7 @@ class Student extends Person
 		int sum := 0;
 		while (i<10)
 		{
-			sum := (sum+grades)[i];
+			sum := sum+grades[i];
 			i := i+1;
 		}
 		return sum/10;

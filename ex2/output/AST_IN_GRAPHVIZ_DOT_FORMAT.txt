@@ -50,19 +50,6 @@ v111 -> v109;
 v111 -> v110;
 v112 [label = "EXP
 VAR"];
-v108 [label = "SIMPLE
-VAR
-(moish)"];
-v109 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v109 -> v108;
-v110 [label = "INT(7)"];
-v111 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v111 -> v109;
-v111 -> v110;
 v112 -> v111;
 v113 [label = "INT(1000)"];
 v114 [label = "BINOP(+)"];
@@ -87,9 +74,6 @@ VAR
 (COMPILATION)"];
 v96 [label = "EXP
 VAR"];
-v95 [label = "SIMPLE
-VAR
-(COMPILATION)"];
 v96 -> v95;
 v97 [label = "SUBSCRIPT
 VAR
@@ -119,7 +103,7 @@ v84 [label = "FIELD
 VAR
 ...->lastYearSalaries"];
 v84 -> v83;
-v87 [label = "NEW AST.AST_type@76fb509a"];
+v87 [label = "NEW int"];
 v88 [label = "ASSIGN
 left := right
 "];
@@ -133,7 +117,7 @@ v78 [label = "FIELD
 VAR
 ...->grades"];
 v78 -> v77;
-v81 [label = "NEW AST.AST_type@7eda2dbb"];
+v81 [label = "NEW int"];
 v82 [label = "ASSIGN
 left := right
 "];
@@ -142,7 +126,7 @@ v82 -> v81;
 v117 -> v82;
 v72 [label = "Type
 ...->Student"];
-v74 [label = "NEW AST.AST_type@1a6c5a9e"];
+v74 [label = "NEW Student"];
 v75 [label = "ASSIGN
 left := right
 "];
@@ -166,9 +150,6 @@ VAR
 (sum)"];
 v63 [label = "EXP
 VAR"];
-v62 [label = "SIMPLE
-VAR
-(sum)"];
 v63 -> v62;
 v64 [label = "INT(10)"];
 v65 [label = "BINOP(/)"];
@@ -183,9 +164,6 @@ VAR
 (i)"];
 v42 [label = "EXP
 VAR"];
-v41 [label = "SIMPLE
-VAR
-(i)"];
 v42 -> v41;
 v43 [label = "INT(10)"];
 v44 [label = "BINOP(<)"];
@@ -200,9 +178,6 @@ VAR
 (i)"];
 v57 [label = "EXP
 VAR"];
-v56 [label = "SIMPLE
-VAR
-(i)"];
 v57 -> v56;
 v58 [label = "INT(1)"];
 v59 [label = "BINOP(+)"];
@@ -222,9 +197,6 @@ VAR
 (sum)"];
 v47 [label = "EXP
 VAR"];
-v46 [label = "SIMPLE
-VAR
-(sum)"];
 v47 -> v46;
 v48 [label = "SIMPLE
 VAR
@@ -234,9 +206,6 @@ VAR
 (i)"];
 v50 [label = "EXP
 VAR"];
-v49 [label = "SIMPLE
-VAR
-(i)"];
 v50 -> v49;
 v51 [label = "SUBSCRIPT
 VAR
@@ -245,23 +214,6 @@ v51 -> v48;
 v51 -> v50;
 v52 [label = "EXP
 VAR"];
-v48 [label = "SIMPLE
-VAR
-(grades)"];
-v49 [label = "SIMPLE
-VAR
-(i)"];
-v50 [label = "EXP
-VAR"];
-v49 [label = "SIMPLE
-VAR
-(i)"];
-v50 -> v49;
-v51 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v51 -> v48;
-v51 -> v50;
 v52 -> v51;
 v53 [label = "BINOP(+)"];
 v53 -> v47;
@@ -316,9 +268,6 @@ VAR
 (age)"];
 v21 [label = "EXP
 VAR"];
-v20 [label = "SIMPLE
-VAR
-(age)"];
 v21 -> v20;
 v22 [label = "INT(1)"];
 v23 [label = "BINOP(+)"];
@@ -343,9 +292,6 @@ VAR
 (age)"];
 v14 [label = "EXP
 VAR"];
-v13 [label = "SIMPLE
-VAR
-(age)"];
 v14 -> v13;
 v15 -> v14;
 v16 -> v15;
