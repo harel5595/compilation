@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_new_exp extends  AST_Node{
+public class AST_new_exp extends  AST_EXP{
     public AST_EXP exp;
     public AST_type type;
 

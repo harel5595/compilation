@@ -1,5 +1,7 @@
 package AST;
 
+import java.util.List;
+
 public class AST_dec_IF extends AST_dec
 {
 	public AST_EXP cond;

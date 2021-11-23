@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_dec_Node extends AST_Program{
+public class AST_dec_Node extends AST_dec{
 
     /**
      * @param head the node

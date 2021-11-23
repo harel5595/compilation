@@ -220,7 +220,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\033\020\035\013\036\017\041\012\001\002\000\004\002" +
     "\000\001\002\000\004\002\uffff\001\002\000\004\005\222" +
     "\001\002\000\012\027\005\035\013\036\017\041\012\001" +
-    "\002\000\004\020\224\001\002\000\004\023\225\001\002" +
+    "\002\000\004\020\224\001\002\000\004\021\225\001\002" +
     "\000\004\024\226\001\002\000\020\002\ufff6\027\ufff6\032" +
     "\ufff6\033\ufff6\035\ufff6\036\ufff6\041\ufff6\001\002\000\004" +
     "\002\001\001\002" });
@@ -554,7 +554,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // arrayTypeDef ::= ARRAY ID EQ type LBRACK RBRACE SEMICOLON 
+          case 11: // arrayTypeDef ::= ARRAY ID EQ type LBRACK RBRACK SEMICOLON 
             {
               AST_arrayTypeDef RESULT =null;
 		int nameleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
@@ -584,7 +584,7 @@ class CUP$Parser$actions {
 		int slleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<AST_dec> sl = (List<AST_dec>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		sl.add(s); RESULT = new AST_func_dec(t,sl);
+		sl.add(s); RESULT = new AST_func_dec(t,name,sl);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcDec",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -614,7 +614,7 @@ class CUP$Parser$actions {
 		int slleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<AST_dec> sl = (List<AST_dec>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec(t,sl,fp);
+		sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec(t,name,sl,fp);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcDec",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
