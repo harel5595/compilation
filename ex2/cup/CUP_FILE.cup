@@ -179,5 +179,12 @@ cField      ::=     varDec                              {:RESULT = new AST_dec_N
                     |funcdec                            {:RESULT = new AST_dec_Node(f); :}
                     ;
 
+newExp      ::=     NEW type:t                          {:RESULT = new AST_new_exp(t);:}
+                    | NEW type:t LBRACK exp:e RBRACK    {:RESULT = new AST_new_exp(t,e);:}
+                    ;
+
+
+
+
 
 
