@@ -97,7 +97,8 @@ non terminal AST_dec dec;
 non terminal AST_Program Program;
 non terminal AST_VAR_dec varDec;
 non terminal List<AST_dec> decllist;
-non terminal commaType ctype;
+non terminal List<AST_type> funcParams;
+non terminal List<AST_dec> stmtList;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -140,18 +141,23 @@ varDec      ::=     type:t ID:name SEMICOLON   {:RESULT = new AST_VAR_dec(t, nam
 arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACE SEMICOLON {:RESULT = new AST_arrayTypeDef(name, t);:}
                     ;
 
-funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s RBRACE {:RESULT = new AST_func_Dec(t,s);:}
-                    |type:t ID:name LPAREN type:t2 ID:name1 ctype RPAREN LBRACE stmt:s RBRACE {:RESULT = new AST_func_Dec(t,s);:}
+funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); RESULT = new AST_func_Dec(t,sl);:}
+                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_Dec(t,sl,fp);:}
                     ;
 
-ctype       ::=     COMMA type:t ID:name ctype {:RESULT = new AST_func_Dec(t,s);:}
-                    |  COMMA type:t ID:name    {:RESULT = new AST_func_Dec(t,s);:}
+funcParams       ::=   COMMA type:t ID:name funcParams:l {:l.add(AST_type(t,name)); RESULT = l;:}
+                    |  /* empty */   {:RESULT = new LinkedList<AST_type>();:}
                     ;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :}
 					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :}
 					;
+
+stmtList    ::=     stmt:s stmtList:sl                 {:sl.add(s); RESULT = sl;:}
+                    | /* empty */                      {: RESULT = new LinkedList<AST_dec>(); :}
+                    ;
+
 
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_dec_ASSIGN(v,e); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_IF(   cond,body); :}
