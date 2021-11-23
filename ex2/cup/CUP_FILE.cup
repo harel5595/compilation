@@ -96,6 +96,8 @@ non terminal AST_VAR var;
 non terminal AST_dec dec;
 non terminal AST_Program Program;
 non terminal AST_VAR_dec varDec;
+non terminal List<AST_dec> decllist;
+non terminal commaType ctype;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -110,15 +112,19 @@ precedence left GT;
 /************************/
 /* START WITH: stmtList */
 /************************/
-start with stmtList;
+start with Program;
 
 /********************/
 /* DERIVATION RULES */
 /********************/
 
-Program	    ::=		dec:s	Program:l		{: RESULT = new AST_Program(s,l);    :}
-					| dec:s				    {: RESULT = new AST_Program(s,null); :}
+Program	    ::=		dec:s decllist:l {:l.add(s); RESULT = new AST_Program(l);    :}
 					;
+
+decllist    ::=     dec:s decllist:l  {:l.add(s); RESULT = l;:}
+                    |  /* empty */ {:RESULT = new LinkedList<AST_dec_Node>();:}
+                    ;
+
 
 dec         ::=     varDec:v                   {:RESULT = new AST_dec_Node(v); :}
                     | funcDec:f                {:RESULT = new AST_dec_Node(f); :}
@@ -134,10 +140,13 @@ varDec      ::=     type:t ID:name SEMICOLON   {:RESULT = new AST_VAR_dec(t, nam
 arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACE SEMICOLON {:RESULT = new AST_arrayTypeDef(name, t);:}
                     ;
 
-funcDec     ::=     type:t ID LPAREN RPAREN LBRACE stmt:s RBRACE {:RESULT = new AST_func_Dec(t,s);:}
+funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s RBRACE {:RESULT = new AST_func_Dec(t,s);:}
+                    |type:t ID:name LPAREN type:t2 ID:name1 ctype RPAREN LBRACE stmt:s RBRACE {:RESULT = new AST_func_Dec(t,s);:}
                     ;
 
-
+ctype       ::=     COMMA type:t ID:name ctype {:RESULT = new AST_func_Dec(t,s);:}
+                    |  COMMA type:t ID:name    {:RESULT = new AST_func_Dec(t,s);:}
+                    ;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :}
