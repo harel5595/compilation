@@ -3,6 +3,7 @@
 /*************/
 import java_cup.runtime.*;
 import AST.*;
+import java.util.*;
 
 parser code 
 {:
@@ -101,6 +102,13 @@ non terminal List<AST_type> funcParams;
 non terminal List<AST_dec> stmtList;
 non terminal List<AST_dec> cFieldList;
 non terminal List<AST_EXP> expList;
+non terminal AST_func_dec funcDec;
+non terminal AST_class classDec;
+non terminal AST_type type;
+non terminal AST_arrayTypeDef arrayTypeDef;
+non terminal AST_new_exp newExp;
+non terminal AST_dec stmt;
+non terminal AST_dec_Node cField;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
@@ -111,6 +119,7 @@ precedence left TIMES;
 precedence left DIVIDE;
 precedence left LT;
 precedence left GT;
+precedence left EQ;
 
 /************************/
 /* START WITH: stmtList */
@@ -188,7 +197,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 DIVIDE exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 3);:}
 					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4);:}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
-					| exp:e1 EQUALS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
+					| exp:e1 EQ exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
 					| LBRACK exp:e1 RBRACK              {: RESULT = e1; :}
 					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call();:}
                     | var:v DOT ID:name LPAREN RPAREN                  {:RESULT = new AST_func_call(name, v);:}
@@ -198,7 +207,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 
 
 cField      ::=     varDec:v                              {:RESULT = new AST_dec_Node(v); :}
-                    |funcdec:f                            {:RESULT = new AST_dec_Node(f); :}
+                    |funcDec:f                            {:RESULT = new AST_dec_Node(f); :}
                     ;
 
 newExp      ::=     NEW type:t                          {:RESULT = new AST_new_exp(t);:}
