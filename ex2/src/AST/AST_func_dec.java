@@ -7,6 +7,8 @@ public class AST_func_dec extends AST_dec{
     public AST_type type;
     public String name;
     public List<AST_dec> commands;
+
+
     public AST_func_dec(AST_type type, String name, List<AST_dec> list)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();

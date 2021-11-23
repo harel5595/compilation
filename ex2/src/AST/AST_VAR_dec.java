@@ -13,9 +13,7 @@ public class AST_VAR_dec extends AST_dec{
 
     public AST_VAR_dec(AST_type type ,String name, AST_Node exp)
     {
-        this.type = type;
-        this.name = name;
+        this(type, name);
         this.exp = exp;
-        SerialNumber  = AST_Node_Serial_Number.getFresh();
     }
 }

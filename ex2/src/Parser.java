@@ -449,7 +449,7 @@ class CUP$Parser$actions {
           case 3: // decllist ::= 
             {
               List<AST_dec> RESULT =null;
-		RESULT = new LinkedList<AST_dec_Node>();
+		RESULT = new LinkedList<AST_dec>();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("decllist",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -614,7 +614,7 @@ class CUP$Parser$actions {
 		int slleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<AST_dec> sl = (List<AST_dec>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec(t,name,sl,fp);
+		sl.add(s); fp.add(new AST_type(t2,name1));RESULT = new AST_func_dec(t,name,sl,fp);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcDec",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -671,7 +671,7 @@ class CUP$Parser$actions {
 		int lleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		List<AST_type> l = (List<AST_type>)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		l.add(AST_type(t,name)); RESULT = l;
+		l.add(new AST_type(t,name)); RESULT = l;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcParams",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -851,7 +851,7 @@ class CUP$Parser$actions {
 		int nameleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int nameright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		String name = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 RESULT = new AST_func_call(name);
+		 RESULT = new AST_func_call2(name);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -866,7 +866,7 @@ class CUP$Parser$actions {
 		int nameleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int nameright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		String name = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		RESULT = new AST_func_call(name, v);
+		RESULT = new AST_func_call2(name, v);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -887,7 +887,7 @@ class CUP$Parser$actions {
 		int lleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		List<AST_EXP> l = (List<AST_EXP>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		l.add(e); RESULT = new AST_func_call(name, v, l); 
+		l.add(e); RESULT = new AST_func_call2(name, v, l); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

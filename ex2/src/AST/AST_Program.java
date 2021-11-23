@@ -57,7 +57,7 @@ public class AST_Program extends AST_Node {
         /**************************************/
         /* AST NODE TYPE = AST STATEMENT LIST */
         /**************************************/
-        System.out.print("AST NODE STMT LIST\n");
+        System.out.print("AST NODE Program\n");
 
         /*************************************/
         /* RECURSIVELY PRINT HEAD + TAIL ... */
@@ -70,7 +70,7 @@ public class AST_Program extends AST_Node {
         /**********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "STMT\nLIST\n");
+                "Program\n");
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */

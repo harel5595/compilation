@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_arrayTypeDef extends AST_Node {
+public class AST_arrayTypeDef extends AST_dec {
 	public String arrayName;
 	public AST_type t;
 	

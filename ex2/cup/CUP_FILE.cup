@@ -134,7 +134,7 @@ Program	    ::=		dec:s decllist:l {:l.add(s); RESULT = new AST_Program(l);    :}
 					;
 
 decllist    ::=     dec:s decllist:l  {:l.add(s); RESULT = l;:}
-                    |  /* empty */ {:RESULT = new LinkedList<AST_dec_Node>();:}
+                    |  /* empty */ {:RESULT = new LinkedList<AST_dec>();:}
                     ;
 
 
@@ -153,14 +153,14 @@ arrayTypeDef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON {:RESULT = n
                     ;
 
 funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); RESULT = new AST_func_dec(t,name,sl);:}
-                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(AST_type(t2,name1));RESULT = new AST_func_dec(t,name,sl,fp);:}
+                    |type:t ID:name LPAREN type:t2 ID:name1 funcParams:fp RPAREN LBRACE stmt:s stmtList:sl RBRACE {:sl.add(s); fp.add(new AST_type(t2,name1));RESULT = new AST_func_dec(t,name,sl,fp);:}
                     ;
 
 classDec     ::=   CLASS ID:name LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl); :}
                     | CLASS ID:name EXTENDS ID:name2 LBRACE cField:f cFieldList:fl RBRACE {:fl.add(f); RESULT = new AST_class(name, fl, name2); :}
                     ;
 
-funcParams       ::=   COMMA type:t ID:name funcParams:l    {:l.add(AST_type(t,name)); RESULT = l;:}
+funcParams       ::=   COMMA type:t ID:name funcParams:l    {:l.add(new AST_type(t,name)); RESULT = l;:}
                     |  /* empty */                          {:RESULT = new LinkedList<AST_type>();:}
                     ;
 
@@ -181,9 +181,9 @@ stmt		::=		varDec:v                                                    {:RESULT 
 					| RETURN exp:e SEMICOLON                                      {:RESULT = new AST_return(e);:}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_dec_WHILE(cond,body); :}
-					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_func_call(name);:}
-					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                 {:RESULT = new AST_func_call(name, v);:}
-					| var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call(name, v, l); :}
+					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_func_call2(name);:}
+					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                 {:RESULT = new AST_func_call2(name, v);:}
+					| var:v DOT ID:name LPAREN exp:e COMMA expList:l RPAREN SEMICOLON {:l.add(e); RESULT = new AST_func_call2(name, v, l); :}
 					;
 
 expList     ::=     COMMA exp:e expList:l {:l.add(e); RESULT = l;:}
