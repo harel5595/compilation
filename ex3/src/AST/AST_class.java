@@ -103,7 +103,7 @@ public class AST_class extends AST_dec {
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
-        SYMBOL_TABLE.getInstance().beginScope();
+        SYMBOL_TABLE.getInstance().beginScope(ID);
 
         /***************************/
         /* [2] Semant Data Members */

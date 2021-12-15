@@ -68,7 +68,7 @@ public class AST_func_dec extends AST_dec{
         /****************************/
         /* [1] Begin Function Scope */
         /****************************/
-        SYMBOL_TABLE.getInstance().beginScope();
+        SYMBOL_TABLE.getInstance().beginScope(name);
 
         /***************************/
         /* [2] Semant Input Params */

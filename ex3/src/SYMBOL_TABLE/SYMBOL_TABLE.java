@@ -7,6 +7,8 @@ package SYMBOL_TABLE;
 /* GENERAL IMPORTS */
 /*******************/
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 
 /*******************/
 /* PROJECT IMPORTS */
@@ -26,7 +28,13 @@ public class SYMBOL_TABLE
 	private SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
 	private SYMBOL_TABLE_ENTRY top;
 	private int top_index = 0;
-	
+	public String name;
+
+	static public List<SYMBOL_TABLE> usedScopes = new LinkedList<SYMBOL_TABLE>();
+
+	private SYMBOL_TABLE father = null;
+
+
 	/**************************************************************/
 	/* A very primitive hash function for exposition purposes ... */
 	/**************************************************************/
@@ -92,14 +100,15 @@ public class SYMBOL_TABLE
 				return e.type;
 			}
 		}
-		
-		return null;
+		if(father == null)
+			return null;
+		return father.find(name);
 	}
 
 	/***************************************************************************/
 	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
 	/***************************************************************************/
-	public void beginScope()
+	public void beginScope(String scopeName)
 	{
 		/************************************************************************/
 		/* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
@@ -107,14 +116,31 @@ public class SYMBOL_TABLE
 		/* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
 		/* class only contain their type name which is the bottom sign: _|_     */
 		/************************************************************************/
-		enter(
-			"SCOPE-BOUNDARY",
-			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
-
+//		enter(
+//			"SCOPE-BOUNDARY",
+//			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
+		SYMBOL_TABLE newScope = new SYMBOL_TABLE();
+		newScope.name = scopeName;
+		newScope.father = instance;
+		instance = newScope;
 		/*********************************************/
 		/* Print the symbol table after every change */
 		/*********************************************/
 		PrintMe();
+	}
+
+	public TYPE findInScope(String name)
+	{
+		SYMBOL_TABLE_ENTRY e;
+
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+			if (name.equals(e.name))
+			{
+				return e.type;
+			}
+		}
+		return null;
 	}
 
 	/********************************************************************************/
@@ -126,18 +152,21 @@ public class SYMBOL_TABLE
 		/**************************************************************************/
 		/* Pop elements from the symbol table stack until a SCOPE-BOUNDARY is hit */		
 		/**************************************************************************/
-		while (top.name != "SCOPE-BOUNDARY")
-		{
-			table[top.index] = top.next;
-			top_index = top_index-1;
-			top = top.prevtop;
-		}
-		/**************************************/
-		/* Pop the SCOPE-BOUNDARY sign itself */		
-		/**************************************/
-		table[top.index] = top.next;
-		top_index = top_index-1;
-		top = top.prevtop;
+//		while (top.name != "SCOPE-BOUNDARY")
+//		{
+//			table[top.index] = top.next;
+//			top_index = top_index-1;
+//			top = top.prevtop;
+//		}
+//		/**************************************/
+//		/* Pop the SCOPE-BOUNDARY sign itself */
+//		/**************************************/
+//		table[top.index] = top.next;
+//		top_index = top_index-1;
+//		top = top.prevtop;
+
+		usedScopes.add(instance);
+		instance = instance.father;
 
 		/*********************************************/
 		/* Print the symbol table after every change */		
@@ -250,7 +279,7 @@ public class SYMBOL_TABLE
 			/*****************************************/
 			instance.enter("int",   TYPE_INT.getInstance());
 			instance.enter("string",TYPE_STRING.getInstance());
-
+			instance.name = "global";
 			/*************************************/
 			/* [2] How should we handle void ??? */
 			/*************************************/

@@ -51,7 +51,7 @@ public class AST_dec_WHILE extends AST_dec
 		/*************************/
 		/* [1] Begin Class Scope */
 		/*************************/
-		SYMBOL_TABLE.getInstance().beginScope();
+		SYMBOL_TABLE.getInstance().beginScope("while");
 
 		/***************************/
 		/* [2] Semant Data Members */
