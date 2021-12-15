@@ -125,7 +125,7 @@ BAD_COMMENT     = \/\/.*[\n\r]
 "return"            { return symbol(TokenNames.RETURN); }
 "while"             { return symbol(TokenNames.WHILE); }
 "if"                { return symbol(TokenNames.IF); }
-"new"               { return symbol(TokenNames.NEW); }
+"NEW"               { return symbol(TokenNames.NEW); }
 "string"            { return symbol(TokenNames.TYPE_STRING); }
 {STRING}            { return symbol(TokenNames.STRING, new String(yytext())); }
 "class"             { return symbol(TokenNames.CLASS);}
