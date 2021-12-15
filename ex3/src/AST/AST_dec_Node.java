@@ -14,6 +14,9 @@ public class AST_dec_Node extends AST_dec{
     }
 
     @Override
+    public String getName() {return head.getName();}
+
+    @Override
     public void PrintMe() {
         head.PrintMe();
     }

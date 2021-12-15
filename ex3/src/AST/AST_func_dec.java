@@ -155,6 +155,6 @@ public class AST_func_dec extends AST_dec{
         /*********************************************************/
         /* [6] Return value is irrelevant for class declarations */
         /*********************************************************/
-        return null;
+        return new TYPE_FUNCTION(returnType,name,type_list);
     }
 }

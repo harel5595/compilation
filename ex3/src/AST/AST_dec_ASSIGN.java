@@ -92,7 +92,7 @@ public class AST_dec_ASSIGN extends AST_dec
 
 				}
 				else {
-					System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n", 2, 2);
+					System.out.format(">> ERROR [%d:%d] mismatching assignment types. of %s and %s\n", 2, 2, t.name, expType.name);
 					Printer.printError(line);
 				}
 			}

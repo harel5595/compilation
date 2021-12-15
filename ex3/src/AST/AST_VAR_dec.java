@@ -125,7 +125,7 @@ public class AST_VAR_dec extends AST_dec{
         /*********************************************************/
         /* [4] Return value is irrelevant for class declarations */
         /*********************************************************/
-        return null;
+        return t;
     }
 
 }

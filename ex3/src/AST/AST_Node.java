@@ -11,6 +11,9 @@ public abstract class AST_Node
 	/*******************************************/
 	public int SerialNumber;
 	public int line;
+
+	public String getName() { return null;}
+
 	/***********************************************/
 	/* The default message for an unknown AST node */
 	/***********************************************/

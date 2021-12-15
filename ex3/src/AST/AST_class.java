@@ -124,17 +124,25 @@ public class AST_class extends AST_dec {
                 return null;
             }
         }
-        TYPE_CLASS t = new TYPE_CLASS(father,ID,null, null);
+        TYPE_CLASS t = new TYPE_CLASS(father,ID,null,null);
         SYMBOL_TABLE.getInstance().enter(ID,t);
         /*******/
         /* [3] End Scope */
         /*******/
         SYMBOL_TABLE.getInstance().beginScope(ID);
         TYPE_LIST l = null;
-        for(AST_dec field : fields)
+        LinkedList<String> names = new LinkedList<String>();
+        Collections.reverse(fields);
+        for(AST_dec field : fields) {
+
             l = new TYPE_LIST(field.SemantMe(), l);
+
+            names.add(field.getName());
+        }
         SYMBOL_TABLE.getInstance().endScope();
+        Collections.reverse(names);
         t.data_members = l;
+        t.data_names = names;
         /****************/
         /* [4] Enter the Class Type to the Symbol Table */
         /****************/

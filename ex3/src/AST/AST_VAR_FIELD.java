@@ -7,6 +7,7 @@ import TYPES.TYPE_CLASS;
 import TYPES.TYPE_LIST;
 import TYPES.TYPE_VOID;
 
+import java.util.List;
 import java.util.Objects;
 
 public class AST_VAR_FIELD extends AST_VAR
@@ -86,31 +87,25 @@ public class AST_VAR_FIELD extends AST_VAR
 			Printer.printError(line);
 		}
 		TYPE_LIST fields = ((TYPE_CLASS)(t)).data_members;
+		List<String> names = ((TYPE_CLASS)(t)).data_names;
+		int counter = 0;
 		while(fields.tail != null)
 		{
-			if (fields.head != null && fields.head.name.equals(fieldName))
+			if (names.get(counter) != null && names.get(counter).equals(fieldName))
 			{
-				flag = true;
-				break;
+				return fields.head;
 			}
 			fields = fields.tail;
-		}
-		if (fields.head != null && fields.head.name.equals(fieldName))
-		{
-			flag = true;
-		}
-		if(!flag)
-		{
-			System.out.format(">> ERROR [%d:%d] non existing field %s\n",2,2,fieldName);
-			Printer.printError(line);
+			counter ++;
 		}
 
+		System.out.format(">> ERROR [%d:%d] non existing field %s\n",2,2,fieldName);
+		Printer.printError(line);
+
+		return null;
 
 		/****************************************/
 		/* [2] return the head that we found*/
 		/****************************************/
-
-
-		return fields.head;
 	}
 }
