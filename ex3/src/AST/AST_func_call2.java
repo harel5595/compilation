@@ -77,14 +77,15 @@ public class AST_func_call2 extends AST_dec {
                 System.out.format("ERROR: wrong number of params to the func %s", name);
                 return null;
             }
-            counter ++;
+
             if(!Objects.equals(curr.head.name, lexp.get(counter).SemantMe().name))
             {
-                System.out.format("ERROR: wrong type of param number %d, to the func %s.", counter,name);
+                System.out.format("ERROR: wrong type of param number %d, to the func %s.", counter + 1,name);
             }
-
+            counter ++;
+            curr = curr.tail;
         }
-        return null;
+        return func_type.returnType;
 
     }
 }

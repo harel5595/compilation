@@ -1,5 +1,6 @@
 package AST;
 
+import java.util.Collections;
 import java.util.List;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -68,9 +69,8 @@ public class AST_func_dec extends AST_dec{
         /* [2] Semant Input Params */
         /***************************/
         if(paramList != null) {
-            AST_type curr = null;
-            for (int i = 0; i < paramList.size(); i++) {
-                curr = paramList.get(i);
+            Collections.reverse(paramList);
+            for (AST_type curr : paramList) {
                 t = SYMBOL_TABLE.getInstance().find(curr.type);
                 if (t == null) {
                     System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, curr.type);
@@ -97,6 +97,7 @@ public class AST_func_dec extends AST_dec{
         /*******************/
         /* [3] Semant Body */
         /*******************/
+        Collections.reverse(commands);
         for (AST_dec command: commands) {
             command.SemantMe();
         }

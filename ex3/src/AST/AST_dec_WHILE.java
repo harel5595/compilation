@@ -1,6 +1,9 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
+
 import java.util.List;
+import TYPES.*;
 
 public class AST_dec_WHILE extends AST_dec
 {
@@ -32,7 +35,35 @@ public class AST_dec_WHILE extends AST_dec
 	}
 
 
+	public TYPE SemantMe()
+	{
+		/****************************/
+		/* [0] Semant the Condition */
+		/****************************/
+		if (cond.SemantMe() != TYPE_INT.getInstance())
+		{
+			System.out.format(">> ERROR [%d:%d] condition inside WHILE is not integral\n",2,2);
+		}
 
+		/*************************/
+		/* [1] Begin Class Scope */
+		/*************************/
+		SYMBOL_TABLE.getInstance().beginScope();
 
+		/***************************/
+		/* [2] Semant Data Members */
+		/***************************/
+		for (AST_dec line: body)
+		{line.SemantMe();}
 
+		/*****************/
+		/* [3] End Scope */
+		/*****************/
+		SYMBOL_TABLE.getInstance().endScope();
+
+		/*********************************************************/
+		/* [4] Return value is irrelevant for class declarations */
+		/*********************************************************/
+		return null;
+	}
 }
