@@ -85,7 +85,7 @@ public class AST_EXP_BINOP extends AST_EXP
 
 		if(OP==3 && right != null && right instanceof AST_EXP_INT  && ((AST_EXP_INT) right).value == 0)
 		{
-			System.out.format(">> ERROR divide by zero %s\n",right.moish);
+			System.out.format(">> ERROR divide by zero %s\n",((AST_EXP_INT) right).value);
 			Printer.printError(line);
 		}
 
