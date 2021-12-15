@@ -1,5 +1,9 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+
 public class AST_STMT_RETURN extends AST_STMT
 {
 	/****************/
@@ -46,5 +50,42 @@ public class AST_STMT_RETURN extends AST_STMT
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (exp != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+	}
+
+	public TYPE SemantMe()
+	{
+		TYPE t;
+		if(exp != null)
+			exp.SemantMe();
+		return null;
+
+		/****************************/
+		/* [1] Check If Type exists */
+		/****************************/
+//		t = SYMBOL_TABLE.getInstance().find("lol");
+//		if (t == null)
+//		{
+//			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,"lol");
+//			System.exit(0);
+//		}
+//
+//		/**************************************/
+//		/* [2] Check That Name does NOT exist */
+//		/**************************************/
+//		if (SYMBOL_TABLE.getInstance().find("lol") != null)
+//		{
+//			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,"lol");
+//		}
+//
+//		/***************************************************/
+//		/* [3] Enter the Function Type to the Symbol Table */
+//		/***************************************************/
+//		SYMBOL_TABLE.getInstance().enter("lol",t);
+//
+//		/*********************************************************/
+//		/* [4] Return value is irrelevant for class declarations */
+//		/*********************************************************/
+//		return null;
+//
 	}
 }
