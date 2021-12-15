@@ -9,7 +9,6 @@ public class AST_VAR_dec extends AST_dec{
     public AST_type type;
     public String name;
     public AST_Node exp;
-    public AST_type ar_type;
     public AST_VAR_dec(AST_type type ,String name)
     {
         this.type = type;
@@ -18,11 +17,6 @@ public class AST_VAR_dec extends AST_dec{
     }
 
     public AST_VAR_dec(AST_type type ,String name, AST_Node exp)
-    {
-        this(type, name);
-        this.exp = exp;
-    }
-    public AST_VAR_dec(AST_type type ,String name, AST_Node exp, AST_type ar_type)
     {
         this(type, name);
         this.exp = exp;
