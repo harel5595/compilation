@@ -18,7 +18,7 @@ import TYPES.*;
 /****************/
 public class SYMBOL_TABLE
 {
-	private int hashArraySize = 13;
+	private int hashArraySize = 17;
 	
 	/**********************************************/
 	/* The actual symbol table data structure ... */
@@ -32,15 +32,13 @@ public class SYMBOL_TABLE
 	/**************************************************************/
 	private int hash(String s)
 	{
-		if (s.charAt(0) == 'l') {return 1;}
-		if (s.charAt(0) == 'm') {return 1;}
-		if (s.charAt(0) == 'r') {return 3;}
-		if (s.charAt(0) == 'i') {return 6;}
-		if (s.charAt(0) == 'd') {return 6;}
-		if (s.charAt(0) == 'k') {return 6;}
-		if (s.charAt(0) == 'f') {return 6;}
-		if (s.charAt(0) == 'S') {return 6;}
-		return 12;
+		int counter = 0;
+		for(char letter : s.toCharArray())
+		{
+			counter += (int)letter;
+			counter %= hashArraySize;
+		}
+		return counter;
 	}
 
 	/****************************************************************************/
@@ -256,7 +254,7 @@ public class SYMBOL_TABLE
 			/*************************************/
 			/* [2] How should we handle void ??? */
 			/*************************************/
-
+			instance.enter("void",TYPE_VOID.getInstance());
 			/***************************************/
 			/* [3] Enter library function PrintInt */
 			/***************************************/

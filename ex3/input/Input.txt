@@ -1,5 +1,5 @@
-int a := 5;
-int func(int b)
+void a := 5;
+void func(int b)
 {
     PrintInt(b);
     return b;

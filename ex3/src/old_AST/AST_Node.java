@@ -1,4 +1,4 @@
-package AST;
+package old_AST;
 
 public abstract class AST_Node
 {
@@ -16,7 +16,4 @@ public abstract class AST_Node
 	{
 		System.out.print("AST NODE UNKNOWN\n");
 	}
-	public int getSerialNumber() {return SerialNumber;}
-
-    public void SemantMe() { }
 }
