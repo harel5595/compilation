@@ -83,6 +83,12 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) t1 = left.SemantMe();
 		if (right != null) t2 = right.SemantMe();
 
+		if(OP==3 && right != null && right.moish == 0)
+		{
+			System.out.format(">> ERROR divide by zero %s\n",right.moish);
+			Printer.printError(line);
+		}
+
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{
 			return TYPE_INT.getInstance();
