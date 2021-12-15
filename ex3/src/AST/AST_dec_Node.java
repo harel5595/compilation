@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_dec_Node extends AST_dec{
     public AST_dec head;
     /**
@@ -21,4 +23,6 @@ public class AST_dec_Node extends AST_dec{
         return head.getSerialNumber();
     }
 
+    @Override
+    public TYPE SemantMe() { return head.SemantMe(); }
 }
