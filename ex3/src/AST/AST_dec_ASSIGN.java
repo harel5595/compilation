@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.TYPE;
+
 public class AST_dec_ASSIGN extends AST_dec
 {
 	/***************/
@@ -59,5 +61,24 @@ public class AST_dec_ASSIGN extends AST_dec
 		/****************************************/
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
+	}
+
+	public TYPE SemantMe()
+	{
+		if(var.SemantMe() == null)
+		{
+			System.out.format(">> ERROR [%d:%d] bad assignment type.\n",2,2);
+		}
+		if(exp != null)
+		{
+			if(var.SemantMe().name != exp.SemantMe().name)
+			{
+				System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n",2,2);
+			}
+		}
+
+
+
+		return null;
 	}
 }
