@@ -2,6 +2,8 @@ package AST;
 
 import java.util.Collections;
 import java.util.List;
+
+import Printer.Printer;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 
@@ -60,6 +62,7 @@ public class AST_func_dec extends AST_dec{
         if (returnType == null)
         {
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
+            Printer.printError(line);
         }
 
         /****************************/
@@ -76,6 +79,7 @@ public class AST_func_dec extends AST_dec{
                 t = SYMBOL_TABLE.getInstance().find(curr.type);
                 if (t == null) {
                     System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, curr.type);
+                    Printer.printError(line);
                 } else {
                     type_list = new TYPE_LIST(t, type_list);
                     SYMBOL_TABLE.getInstance().enter(curr.name, t);

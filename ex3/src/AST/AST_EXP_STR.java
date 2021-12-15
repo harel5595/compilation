@@ -1,5 +1,9 @@
 package AST;
 
+import TYPES.TYPE;
+import TYPES.TYPE_NIL;
+import TYPES.TYPE_STRING;
+
 public class AST_EXP_STR extends AST_EXP{
     public String content;
     public AST_EXP_STR(String content, int line)
@@ -24,6 +28,9 @@ public class AST_EXP_STR extends AST_EXP{
                 String.format("String %s", content));
     }
 
-
+    public TYPE SemantMe()
+    {
+        return TYPE_STRING.getInstance();
+    }
 
 }

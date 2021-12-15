@@ -1,6 +1,8 @@
 package AST;
 
 import java.util.List;
+
+import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
@@ -42,6 +44,7 @@ public class AST_dec_IF extends AST_dec
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
+			Printer.printError(line);
 		}
 
 		/*************************/

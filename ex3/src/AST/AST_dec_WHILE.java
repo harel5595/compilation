@@ -1,5 +1,6 @@
 package AST;
 
+import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class AST_dec_WHILE extends AST_dec
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside WHILE is not integral\n",2,2);
+			Printer.printError(line);
 		}
 
 		/*************************/

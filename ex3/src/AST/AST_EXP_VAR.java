@@ -1,5 +1,6 @@
 package AST;
 
+import Printer.Printer;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -71,7 +72,7 @@ public class AST_EXP_VAR extends AST_EXP
 		if (t == null || t instanceof TYPE_VOID)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,var.SemantMe().name);
-			System.exit(0);
+			Printer.printError(line);
 		}
 
 

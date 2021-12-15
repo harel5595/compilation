@@ -2,6 +2,8 @@ package AST;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
@@ -114,6 +116,7 @@ public class AST_class extends AST_dec {
         if(father == null)
         {
             System.out.format("ERROR: the father %s of the class %s don't exist.", name2, ID);
+            Printer.printError(line);
             return null;
         }
 

@@ -1,5 +1,6 @@
 package AST;
 
+import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
@@ -72,15 +73,17 @@ public class AST_dec_ASSIGN extends AST_dec
 		if(t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] bad assignment type.\n",2,2);
+			Printer.printError(line);
 		}
 		if(exp != null)
 		{
 			if(!Objects.equals(var.SemantMe().name, exp.SemantMe().name))
 			{
 				System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n",2,2);
+				Printer.printError(line);
 			}
 		}
-		System.out.println("got here.......");
+		//System.out.println("got here.......");
 		//SYMBOL_TABLE.getInstance().enter(, t);
 
 		return null;

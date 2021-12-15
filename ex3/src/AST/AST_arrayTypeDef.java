@@ -42,7 +42,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("ARRAYNAME(%s)",arrayName));
-		Printer.printError(line);
+
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 			/****************************************/
@@ -59,6 +59,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		if (St == null || St instanceof TYPE_VOID)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,t.type);
+			Printer.printError(line);
 			System.exit(0);
 		}
 
@@ -68,7 +69,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		if (SYMBOL_TABLE.getInstance().find(arrayName) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,arrayName);
-
+			Printer.printError(line);
 		}
 
 		/***************************************************/

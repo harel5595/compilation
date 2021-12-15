@@ -3,6 +3,7 @@ package AST;
 import java.util.List;
 import java.util.Objects;
 
+import Printer.Printer;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 
@@ -68,6 +69,7 @@ public class AST_func_call extends AST_EXP {
         if(func_type == null)
         {
             System.out.format("ERROR: try to call undefined func %s", name);
+            Printer.printError(line);
         }
 
         int counter = 0;
@@ -77,12 +79,14 @@ public class AST_func_call extends AST_EXP {
             if(counter >= lexp.size())
             {
                 System.out.format("ERROR: wrong number of params to the func %s", name);
+                Printer.printError(line);
                 return null;
             }
 
             if(!Objects.equals(curr.head.name, lexp.get(counter).SemantMe().name))
             {
                 System.out.format("ERROR: wrong type of param number %d, to the func %s.", counter + 1,name);
+                Printer.printError(line);
             }
             counter ++;
             curr = curr.tail;

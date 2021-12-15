@@ -78,8 +78,6 @@ public class AST_Program extends AST_Node {
             stmt.SemantMe();
             System.out.println("Done to SemantMe!!");
         }
-        SYMBOL_TABLE.getInstance().PrintMe();
-
         return null;
     }
 
