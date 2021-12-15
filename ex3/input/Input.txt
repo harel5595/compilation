@@ -10,4 +10,5 @@ void main()
 {
     A a;
     a := new B;
+    int k := 0 / 1;
 }
