@@ -1,6 +1,9 @@
 package AST;
 
-import TYPES.TYPE;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.*;
+
+import java.util.Objects;
 
 public class AST_dec_ASSIGN extends AST_dec
 {
@@ -65,19 +68,20 @@ public class AST_dec_ASSIGN extends AST_dec
 
 	public TYPE SemantMe()
 	{
-		if(var.SemantMe() == null)
+		TYPE t = var.SemantMe();
+		if(t == null)
 		{
 			System.out.format(">> ERROR [%d:%d] bad assignment type.\n",2,2);
 		}
 		if(exp != null)
 		{
-			if(var.SemantMe().name != exp.SemantMe().name)
+			if(!Objects.equals(var.SemantMe().name, exp.SemantMe().name))
 			{
 				System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n",2,2);
 			}
 		}
-
-
+		System.out.println("got here.......");
+		//SYMBOL_TABLE.getInstance().enter(, t);
 
 		return null;
 	}

@@ -60,7 +60,7 @@ public class AST_TYPE_NAME extends AST_Node
 			/**************************/
 			/* ERROR: undeclared type */
 			/**************************/
-			System.exit(0);
+			//System.exit(0);
 			return null;
 		}
 		else

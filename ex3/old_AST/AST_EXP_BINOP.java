@@ -80,7 +80,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		{
 			return TYPE_INT.getInstance();
 		}
-		System.exit(0);
+		//System.exit(0);
 		return null;
 	}
 

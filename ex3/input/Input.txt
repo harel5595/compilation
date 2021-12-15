@@ -1,8 +1,37 @@
-array Values = int[];
+int IsPrime(int p)
+{
+    int i := 2;
+    int j := 2;
+
+    while (i<p)
+    {
+        while (j<p)
+        {
+            if (i*j = p)
+            {
+                 return 1;
+            }
+            j := j+1;
+        }
+        i := i+1;
+    }
+    return 0;
+}
+
+void PrintPrimes(int start, int end)
+{
+    int p := start;
+
+    while (p < end+1)
+    {
+        if (IsPrime(p))
+        {
+            PrintInt(p);
+        }
+    }
+}
 
 void main()
 {
-    Values v := new int[3];
+    PrintPrimes(2,100);
 }
-
-
