@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
 	public AST_VAR var;
@@ -56,4 +58,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.getSerialNumber());
 	}
+
+
+	public TYPE SemantMe(){} // TODO: fix
+
 }
