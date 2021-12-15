@@ -2,7 +2,7 @@ array Values := int[];
 
 void main()
 {
-    Values v := NEW int[3];
+    Values v := new int[3];
 }
 
 

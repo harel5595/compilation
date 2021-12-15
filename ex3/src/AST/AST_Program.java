@@ -1,6 +1,7 @@
 package AST;
 
 import java.util.List;
+import TYPES.*;
 
 public class AST_Program extends AST_Node {
     /****************/
@@ -62,5 +63,15 @@ public class AST_Program extends AST_Node {
         }
     }
 
+    public TYPE SemantMe()
+    {
+        /*************************************/
+        /* RECURSIVELY PRINT HEAD + TAIL ... */
+        /*************************************/
+
+        for(AST_dec stmt: l)
+            stmt.SemantMe();
+        return null;
+    }
 
 }

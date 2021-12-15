@@ -1,5 +1,10 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+
+import java.util.Objects;
+
 public class AST_VAR_dec extends AST_dec{
     public AST_type type;
     public String name;
@@ -44,6 +49,49 @@ public class AST_VAR_dec extends AST_dec{
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.getSerialNumber());
         if(exp != null)
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
+    }
+
+    public TYPE SemantMe()
+    {
+        TYPE t;
+
+        /****************************/
+        /* [1] Check If Type exists */
+        /****************************/
+        t = SYMBOL_TABLE.getInstance().find(type.type);
+        if (t == null || t instanceof TYPE_VOID)
+        {
+            System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
+            System.exit(0);
+        }
+
+        /**************************************/
+        /* [2] Check That Name does NOT exist */
+        /**************************************/
+        if (SYMBOL_TABLE.getInstance().find(name) != null)
+        {
+            System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+        }
+
+        /****************************************/
+        /* [2] Check If The EXP is the Same Type*/
+        /****************************************/
+
+        TYPE exp_type = exp.SemantMe();
+        if(!Objects.equals(exp_type.name, t.name))
+        {
+            System.out.format(">> ERROR [%d:%d] variable %s from type %s, have assaing with exp from type %s.\n",2,2,name, t.name, exp_type.name);
+        }
+
+        /***************************************************/
+        /* [3] Enter the Function Type to the Symbol Table */
+        /***************************************************/
+        SYMBOL_TABLE.getInstance().enter(name,t);
+
+        /*********************************************************/
+        /* [4] Return value is irrelevant for class declarations */
+        /*********************************************************/
+        return null;
     }
 
 }

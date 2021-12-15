@@ -1,5 +1,8 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
+
+
 public class AST_type extends AST_dec{
     public String type;
     public String name;
