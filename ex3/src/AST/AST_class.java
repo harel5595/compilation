@@ -106,7 +106,7 @@ public class AST_class extends AST_dec {
             System.out.format(">> ERROR [%d:%d] class%s local scope\n",2,2,ID);
             Printer.printError(line);
         }
-        if (SYMBOL_TABLE.getInstance().find(ID) != null)
+        if (SYMBOL_TABLE.getInstance().find_in_class(ID, name2) != null)
         {
             System.out.format(">> ERROR [%d:%d] class %s already exists in scope\n",2,2,ID);
             Printer.printError(line);

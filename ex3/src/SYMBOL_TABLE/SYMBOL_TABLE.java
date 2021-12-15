@@ -117,6 +117,36 @@ public class SYMBOL_TABLE
 		return father.find(name);
 	}
 
+
+
+
+	/***********************************************/
+	/* Find the inner-most scope element with name */
+	/***********************************************/
+	public TYPE find_in_class(String name, String myfather)
+	{
+		SYMBOL_TABLE_ENTRY e;
+
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+			if (name.equals(e.name))
+			{
+				return e.type;
+			}
+		}
+		if(myfather != null)
+		{
+			if (SYMBOL_TABLE.find_in_scopes(myfather) != null && SYMBOL_TABLE.find_in_scopes(myfather).find(name) != null)
+			{
+				return SYMBOL_TABLE.find_in_scopes(myfather).find(name);
+			}
+		}
+		if(father == null)
+			return null;
+		return father.find(name);
+	}
+
+
 	/***************************************************************************/
 	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
 	/***************************************************************************/
