@@ -76,10 +76,21 @@ public class AST_VAR_dec extends AST_dec{
         /**************************************/
         /* [2] Check That Name does NOT exist */
         /**************************************/
-        if (SYMBOL_TABLE.getInstance().find(name) != null)
+        if (SYMBOL_TABLE.getInstance().findInScope(name) != null)
         {
             System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
             Printer.printError(line);
+        }
+        else
+        {
+            if(SYMBOL_TABLE.getInstance().find(name)!=null)
+            {
+                if(SYMBOL_TABLE.getInstance().find(name) != t)
+                {
+                    System.out.format(">> ERROR [%d:%d] %s is defined with a different type elsewhere\n",2,2,name);
+                    Printer.printError(line);
+                }
+            }
         }
 
         /****************************************/
