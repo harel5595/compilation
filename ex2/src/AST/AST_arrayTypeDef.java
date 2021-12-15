@@ -5,8 +5,8 @@ public class AST_arrayTypeDef extends AST_dec {
 	public AST_type t;
 	
 	
-	public AST_arrayTypeDef(String arrayName, AST_type t) {
-		
+	public AST_arrayTypeDef(String arrayName, AST_type t, int line) {
+		this.line = line;
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/

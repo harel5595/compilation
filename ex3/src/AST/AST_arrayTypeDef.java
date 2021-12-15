@@ -7,13 +7,13 @@ public class AST_arrayTypeDef extends AST_dec {
 	public AST_type t;
 	
 	
-	public AST_arrayTypeDef(String arrayName, AST_type t) {
+	public AST_arrayTypeDef(String arrayName, AST_type t, int line) {
 		
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/
 		SerialNumber = AST_Node_Serial_Number.getFresh();
-
+		this.line = line;
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/

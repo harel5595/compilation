@@ -5,9 +5,9 @@ public class AST_dec_Node extends AST_dec{
     /**
      * @param head the node
      ****************/
-    public AST_dec_Node(AST_dec head) {
+    public AST_dec_Node(AST_dec head, int line) {
         SerialNumber = AST_Node_Serial_Number.getFresh();
-
+        this.line = line;
         this.head = head;
     }
 

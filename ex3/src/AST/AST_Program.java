@@ -13,7 +13,6 @@ public class AST_Program extends AST_Node {
     public List<AST_dec> l;
     /******************/
     /* CONSTRUCTOR(S) */
-
     /******************/
 
     public AST_Program(List<AST_dec> l) {

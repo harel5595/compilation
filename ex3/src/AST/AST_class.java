@@ -19,12 +19,12 @@ public class AST_class extends AST_dec {
     /*******************/
 
 
-    public AST_class(String ID, List<AST_dec> fields) {
+    public AST_class(String ID, List<AST_dec> fields, int line) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
-
+        this.line = line;
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/

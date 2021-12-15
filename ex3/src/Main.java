@@ -10,13 +10,14 @@ public class Main
 	static public void main(String argv[])
 	{
 		Lexer l;
-		Parser p;
+		Parser p = null;
 		Symbol s;
 		AST_Program AST;
 		FileReader file_reader;
-		PrintWriter file_writer;
+		PrintWriter file_writer = null;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
+		boolean error = false;
 		
 		try
 		{
@@ -54,7 +55,9 @@ public class Main
 			/* [7] Semant the AST ... */
 			/**************************/
 			AST.SemantMe();
-			
+
+			file_writer.print("OK");
+
 			/*************************/
 			/* [8] Close output file */
 			/*************************/
@@ -66,6 +69,30 @@ public class Main
 			AST_GRAPHVIZ.getInstance().finalizeFile();			
     	}
 			     
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			error = true;
+		}
+
+		try
+		{
+			if(error)
+			{
+				if(file_writer != null)
+					file_writer.close();
+				file_writer = new PrintWriter(outputFilename);
+				if(p != null && p.error_line != -1)
+					file_writer.print(String.format("ERROR(%s)",p.error_line));
+				else
+					file_writer.print("ERROR");
+				file_writer.close();
+			}
+		}
+		catch (Error e)
+		{
+			e.printStackTrace();
+		}
 		catch (Exception e)
 		{
 			e.printStackTrace();

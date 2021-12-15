@@ -16,13 +16,13 @@ public class AST_dec_ASSIGN extends AST_dec
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_dec_ASSIGN(AST_VAR var, AST_EXP exp)
+	public AST_dec_ASSIGN(AST_VAR var, AST_EXP exp, int line)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/
 		SerialNumber = AST_Node_Serial_Number.getFresh();
-
+		this.line = line;
 		/***************************************/
 		/* PRINT CORRESPONDING DERIVATION RULE */
 		/***************************************/

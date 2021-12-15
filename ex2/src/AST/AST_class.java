@@ -16,12 +16,12 @@ public class AST_class extends AST_dec {
     /*******************/
 
 
-    public AST_class(String ID, List<AST_dec> fields) {
+    public AST_class(String ID, List<AST_dec> fields, int line) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
-
+        this.line = line;
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
@@ -33,12 +33,12 @@ public class AST_class extends AST_dec {
         this.ID = ID;
         this.fields = fields;
     }
-    public AST_class(String ID, List<AST_dec> fields, String name2) {
+    public AST_class(String ID, List<AST_dec> fields, String name2, int line) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
-
+        this.line = line;
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/

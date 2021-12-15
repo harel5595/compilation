@@ -10,11 +10,12 @@ public class AST_dec_IF extends AST_dec
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_dec_IF(AST_EXP cond, List<AST_dec> body)
+	public AST_dec_IF(AST_EXP cond, List<AST_dec> body, int line)
 	{
 		SerialNumber = AST_Node_Serial_Number.getFresh();
 		this.cond = cond;
 		this.body = body;
+		this.line = line;
 	}
 
 	@Override

@@ -13,10 +13,10 @@ public class AST_dec_WHILE extends AST_dec
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_dec_WHILE(AST_EXP cond, List<AST_dec> body)
+	public AST_dec_WHILE(AST_EXP cond, List<AST_dec> body, int line)
 	{
 		SerialNumber = AST_Node_Serial_Number.getFresh();
-
+		this.line = line;
 		this.cond = cond;
 		this.body = body;
 	}

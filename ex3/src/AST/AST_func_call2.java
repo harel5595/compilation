@@ -11,18 +11,19 @@ public class AST_func_call2 extends AST_dec {
     public AST_VAR var;
     public List<AST_EXP> lexp;
 
-    public AST_func_call2(String name) {
+    public AST_func_call2(String name, int line) {
         SerialNumber = AST_Node_Serial_Number.getFresh();
         this.name = name;
+        this.line = line;
     }
 
-    public AST_func_call2(String name, AST_VAR var) {
-        this(name);
+    public AST_func_call2(String name, AST_VAR var, int line) {
+        this(name, line);
         this.var = var;
     }
 
-    public AST_func_call2(String name, AST_VAR var, List<AST_EXP> lexp) {
-        this(name, var);
+    public AST_func_call2(String name, AST_VAR var, List<AST_EXP> lexp, int line) {
+        this(name, var, line);
         this.lexp = lexp;
     }
 
