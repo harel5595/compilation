@@ -86,17 +86,22 @@ public class AST_VAR_FIELD extends AST_VAR
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,var.SemantMe().name);
 			Printer.printError(line);
 		}
-		TYPE_LIST fields = ((TYPE_CLASS)(t)).data_members;
-		List<String> names = ((TYPE_CLASS)(t)).data_names;
-		int counter = 0;
-		while(fields.tail != null)
-		{
-			if (names.get(counter) != null && names.get(counter).equals(fieldName))
-			{
+		TYPE_CLASS curr = ((TYPE_CLASS)(t));
+		while (curr != null) {
+			TYPE_LIST fields = curr.data_members;
+			List<String> names = curr.data_names;
+			int counter = 0;
+			while (fields.tail != null) {
+				if (names.get(counter) != null && names.get(counter).equals(fieldName)) {
+					return fields.head;
+				}
+				fields = fields.tail;
+				counter++;
+			}
+			if (names.get(counter) != null && names.get(counter).equals(fieldName)) {
 				return fields.head;
 			}
-			fields = fields.tail;
-			counter ++;
+			curr = curr.father;
 		}
 
 		System.out.format(">> ERROR [%d:%d] non existing field %s\n",2,2,fieldName);

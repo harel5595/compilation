@@ -1,50 +1,76 @@
-array IntArray = int[];
-
-int monthJuly()
+class IntList
 {
-	int july := 7;
-	return july;
-}
-class Person
-{
-	int ID;
-	int age := 18;
-
-	IntArray lastYearSalaries;
-
-	int getAge()  { return age;   }
-	int birthday(){ age := age+1; return age; }
+    int head;
+    IntList tail;
 }
 
-class Student extends Person
+IntList MergeLists(IntList l1, IntList l2)
 {
-	IntArray grades;
-	int getAverage()
-	{
-		int i := 0;
-		int sum := 0;
-		while (i<10)
-		{
-			sum := sum+grades[i];
-			i := i+1;
-		}
-		return sum/10;
-	}
+    if (l1 = nil)
+    {
+        return l2;
+    }
+    if (l2 = nil)
+    {
+        return l1;
+    }
+
+    if (l1.head < l2.head)
+    {
+        IntList l3 := l1;
+        l3.tail := MergeLists(l1.tail,l2);
+        return "GustavoFring";
+    }
+
+    if (l2.head < l1.head)
+    {
+        IntList l3 := l2;
+        l3.tail := MergeLists(l1,l2.tail);
+        return l3;
+    }
+
+    /**************************************************/
+    /* Execution falls off here ... what should we do */
+    /**************************************************/
 }
 
 void main()
 {
-	Student moish := new Student;
-	moish.grades := new int[10];
-	moish.lastYearSalaries := new int[12];
-	int COMPILATION := 6;
+    IntList a := new IntList;
+    IntList b := new IntList;
+    IntList c := new IntList;
+    IntList d := new IntList;
 
-	moish.grades[COMPILATION] := 99;
+    IntList A := new IntList;
+    IntList B := new IntList;
+    IntList C := new IntList;
+    IntList D := new IntList;
 
-	if (moish.getAverage() > 90)
-	{
-		// mysterious raise pattern ...
-		moish.lastYearSalaries[moish.age] := moish.lastYearSalaries[moish.birthday()] + 1000;
-	}
-	Student dave := new Student;
+    a.head := 34;
+    b.head := 70;
+    c.head := 92;
+    d.head := 96;
+
+    A.head := 12;
+    B.head := 50;
+    C.head := 97;
+    D.head := 99;
+
+    a.tail := b;
+    b.tail := c;
+    c.tail := d;
+    d.tail := nil;
+
+    A.tail := B;
+    B.tail := C;
+    C.tail := D;
+    D.tail := nil;
+
+    IntList l := MergeLists(a,A);
+
+    while (l)
+    {
+        PrintInt(l.head);
+        l := l.tail;
+    }
 }

@@ -2,6 +2,7 @@ package AST;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import Printer.Printer;
 import TYPES.*;
@@ -14,6 +15,8 @@ public class AST_func_dec extends AST_dec{
     public List<AST_dec> commands;
     public int line;
 
+    @Override
+    public String getName() {return name;}
 
     public AST_func_dec(AST_type type, String name, List<AST_dec> list, int line)
     {
@@ -56,6 +59,8 @@ public class AST_func_dec extends AST_dec{
         TYPE_LIST sParams;
         TYPE returnType = null;
         TYPE_LIST type_list = null;
+
+
         System.out.println("Semant a func!");
         /*******************/
         /* [0] return type */
@@ -66,6 +71,7 @@ public class AST_func_dec extends AST_dec{
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
             Printer.printError(line);
         }
+        TYPE_FUNCTION this_type = new TYPE_FUNCTION(returnType,name,null);
 
         if (SYMBOL_TABLE.getInstance().findInScope(name) != null)
         {
@@ -74,6 +80,7 @@ public class AST_func_dec extends AST_dec{
         }
         else
         {
+
             if(SYMBOL_TABLE.getInstance().find(name) != null)
             {
                 second = (TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(name);
@@ -82,6 +89,7 @@ public class AST_func_dec extends AST_dec{
                 {
                     System.out.format(">> ERROR [%d:%d] func %s already exists out of scope\n",2,2,name);
                     Printer.printError(line);
+                    return null;
                 }
                 for(AST_type param :paramList)
                 {
@@ -89,13 +97,14 @@ public class AST_func_dec extends AST_dec{
                     {
                         System.out.format(">> ERROR [%d:%d] func %s already exists out of scope\n",2,2,name);
                         Printer.printError(line);
+                        return null;
                     }
                     sParams = sParams.tail;
                 }
             }
 
         }
-
+        SYMBOL_TABLE.getInstance().enter(name, this_type);
 
 
         /****************************/
@@ -138,6 +147,7 @@ public class AST_func_dec extends AST_dec{
         /*******************/
         Collections.reverse(commands);
         for (AST_dec command: commands) {
+            SYMBOL_TABLE.returnType = returnType;
             command.SemantMe();
         }
 
@@ -150,7 +160,7 @@ public class AST_func_dec extends AST_dec{
         /***************************************************/
         /* [5] Enter the Function Type to the Symbol Table */
         /***************************************************/
-        SYMBOL_TABLE.getInstance().enter(name,new TYPE_FUNCTION(returnType,name,type_list));
+        this_type.params = type_list;
 
         /*********************************************************/
         /* [6] Return value is irrelevant for class declarations */

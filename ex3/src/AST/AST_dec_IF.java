@@ -1,5 +1,6 @@
 package AST;
 
+import java.util.Collections;
 import java.util.List;
 
 import Printer.Printer;
@@ -55,6 +56,7 @@ public class AST_dec_IF extends AST_dec
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
+		Collections.reverse(body);
 		for (AST_dec line: body)
 		{line.SemantMe();}
 

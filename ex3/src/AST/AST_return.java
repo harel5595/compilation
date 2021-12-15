@@ -5,6 +5,8 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_VOID;
 
+import java.util.Objects;
+
 public class AST_return extends AST_dec {
     public AST_EXP exp;
     public int line;
@@ -36,6 +38,14 @@ public class AST_return extends AST_dec {
         {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,exp.SemantMe().name);
             Printer.printError(line);
+            return null;
+        }
+
+        if(SYMBOL_TABLE.returnType == null|| !Objects.equals(SYMBOL_TABLE.returnType.name, t.name))
+        {
+            System.out.format("ERROR: wrong out (for bogin: return) type.");
+            Printer.printError(line);
+            return null;
         }
 
         return t;

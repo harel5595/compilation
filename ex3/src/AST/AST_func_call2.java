@@ -1,11 +1,11 @@
 package AST;
 
-import Printer.Printer;
-import SYMBOL_TABLE.SYMBOL_TABLE;
-
 import java.util.List;
 import java.util.Objects;
+
+import Printer.Printer;
 import TYPES.*;
+import SYMBOL_TABLE.SYMBOL_TABLE;
 
 public class AST_func_call2 extends AST_dec {
     public String name;
@@ -48,12 +48,13 @@ public class AST_func_call2 extends AST_dec {
                 SerialNumber,
                 String.format("Function\nName\n...->%s", name));
 
-        for (AST_EXP exp :
-                lexp) {
-            exp.PrintMe();
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
+        if(lexp != null)
+            for (AST_EXP exp :
+                    lexp) {
+                exp.PrintMe();
+                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
 
-        }
+            }
 
 
         /****************************************/
@@ -64,7 +65,33 @@ public class AST_func_call2 extends AST_dec {
 
     public TYPE SemantMe()
     {
-        TYPE_FUNCTION func_type = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(name);
+        TYPE_FUNCTION func_type = null;
+        boolean done = false;
+        if(var != null)
+        {
+            TYPE_CLASS curr = ((TYPE_CLASS)(var.SemantMe()));
+            while (curr != null && !done) {
+                TYPE_LIST fields = curr.data_members;
+                List<String> names = curr.data_names;
+                int counter = 0;
+                while (fields.tail != null && !done) {
+                    if (names.get(counter) != null && names.get(counter).equals(name)) {
+                        func_type = (TYPE_FUNCTION) fields.head;
+                        done = true;
+                    }
+                    fields = fields.tail;
+                    counter++;
+                }
+                if (names.get(counter) != null && names.get(counter).equals(name)) {
+                    func_type = (TYPE_FUNCTION) fields.head;
+                    done = true;
+                }
+                curr = curr.father;
+            }
+        }
+        else {
+            func_type = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(name);
+        }
         if(func_type == null)
         {
             System.out.format("ERROR: try to call undefined func %s", name);

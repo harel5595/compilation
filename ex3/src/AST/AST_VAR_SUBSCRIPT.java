@@ -70,8 +70,10 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
     public TYPE SemantMe() {
 
         TYPE t = null;
-
-        t = SYMBOL_TABLE.getInstance().find(var.getName());
+        if(var instanceof AST_VAR_FIELD)
+            t = var.SemantMe();
+        else
+            t = SYMBOL_TABLE.getInstance().find(var.getName());
 
         if (t == null || t instanceof TYPE_VOID) {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.SemantMe().name);
