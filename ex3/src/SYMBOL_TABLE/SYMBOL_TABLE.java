@@ -50,6 +50,17 @@ public class SYMBOL_TABLE
 		return counter;
 	}
 
+	public static SYMBOL_TABLE find_in_scopes(String name)
+	{
+		for(SYMBOL_TABLE tbl: usedScopes)
+		{
+			if(tbl.name.equals(name))
+				return tbl;
+		}
+		return null;
+	}
+
+
 	/****************************************************************************/
 	/* Enter a variable, function, class type or array type to the symbol table */
 	/****************************************************************************/

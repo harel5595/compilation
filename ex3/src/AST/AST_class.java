@@ -1,6 +1,5 @@
 package AST;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -101,6 +100,11 @@ public class AST_class extends AST_dec {
 
     public TYPE SemantMe()
     {
+        if(!SYMBOL_TABLE.getInstance().isScopeGlobal())
+        {
+            System.out.format(">> ERROR [%d:%d] class%s local scope\n",2,2,ID);
+            Printer.printError(line);
+        }
         if (SYMBOL_TABLE.getInstance().find(ID) != null)
         {
             System.out.format(">> ERROR [%d:%d] class %s already exists in scope\n",2,2,ID);
@@ -124,20 +128,27 @@ public class AST_class extends AST_dec {
                 return null;
             }
         }
-        TYPE_CLASS t = new TYPE_CLASS(father,ID,null, null);
+        TYPE_CLASS t = new TYPE_CLASS(father,ID,null,null);
         SYMBOL_TABLE.getInstance().enter(ID,t);
         /*****************/
         /* [3] End Scope */
         /*****************/
         SYMBOL_TABLE.getInstance().beginScope(ID);
         TYPE_LIST l = null;
-        for(AST_dec field : fields)
+        LinkedList<String> names = new LinkedList<String>();
+        for(AST_dec field : fields) {
+
             l = new TYPE_LIST(field.SemantMe(), l);
+            names.add(((AST_func_dec)field).name);
+        }
+        
         SYMBOL_TABLE.getInstance().endScope();
         t.data_members = l;
+        t.data_names = names;
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
+
 
 
         /*********************************************************/
