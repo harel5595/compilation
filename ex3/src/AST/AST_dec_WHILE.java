@@ -3,6 +3,7 @@ package AST;
 import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 
+import java.util.Collections;
 import java.util.List;
 import TYPES.*;
 
@@ -55,6 +56,7 @@ public class AST_dec_WHILE extends AST_dec
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
+		Collections.reverse(body);
 		for (AST_dec line: body)
 		{line.SemantMe();}
 

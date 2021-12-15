@@ -75,7 +75,8 @@ public class AST_arrayTypeDef extends AST_dec {
 		/***************************************************/
 		/* [3] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		SYMBOL_TABLE.getInstance().enter(arrayName,St);
+		TYPE_ARRAY ta = new TYPE_ARRAY(arrayName, St);
+		SYMBOL_TABLE.getInstance().enter(arrayName,ta);
 
 
 

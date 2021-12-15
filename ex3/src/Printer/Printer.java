@@ -7,7 +7,8 @@ public class Printer {
     {
         if(file_writer == null)
             System.out.println("fuck");
-        file_writer.format("ERROR(%d)", line);
+        file_writer.format("ERROR(%d)", line + 1);
+        file_writer.close();
         System.exit(0);
     }
 }

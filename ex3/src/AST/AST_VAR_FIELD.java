@@ -14,7 +14,11 @@ public class AST_VAR_FIELD extends AST_VAR
 	public AST_VAR var;
 	public String fieldName;
 	public int line;
-	
+
+	@Override
+	public String getName() {
+		return var.getName();
+	}
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/

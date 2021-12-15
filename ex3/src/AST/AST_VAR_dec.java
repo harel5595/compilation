@@ -11,7 +11,12 @@ public class AST_VAR_dec extends AST_dec{
     public String name;
     public AST_Node exp;
     public int line;
-    public AST_VAR_dec(AST_type type ,String name, int line)
+
+    public String getName() {
+        return name;
+    }
+
+    public AST_VAR_dec(AST_type type , String name, int line)
     {
         this.type = type;
         this.name = name;

@@ -12,7 +12,11 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/************************/
 	public String name;
 	public int line;
-	
+
+	@Override
+	public String getName() {
+		return name;
+	}
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
