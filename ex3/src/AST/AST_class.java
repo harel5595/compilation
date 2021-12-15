@@ -108,14 +108,12 @@ public class AST_class extends AST_dec {
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
-        SYMBOL_TABLE.getInstance().beginScope(ID);
+
 
         /***************************/
         /* [2] Semant Data Members */
         /***************************/
-        TYPE_LIST l = null;
-        for(AST_dec field : fields)
-            l = new TYPE_LIST(field.SemantMe(), l);
+
         TYPE_CLASS father = null;
         if(name2 != null) {
             father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(name2);
@@ -125,17 +123,21 @@ public class AST_class extends AST_dec {
                 return null;
             }
         }
-        TYPE_CLASS t = new TYPE_CLASS(father,ID,l);
-
+        TYPE_CLASS t = new TYPE_CLASS(father,ID,null);
+        SYMBOL_TABLE.getInstance().enter(ID,t);
         /*****************/
         /* [3] End Scope */
         /*****************/
+        SYMBOL_TABLE.getInstance().beginScope(ID);
+        TYPE_LIST l = null;
+        for(AST_dec field : fields)
+            l = new TYPE_LIST(field.SemantMe(), l);
         SYMBOL_TABLE.getInstance().endScope();
-
+        t.data_members = l;
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
-        SYMBOL_TABLE.getInstance().enter(ID,t);
+
 
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */

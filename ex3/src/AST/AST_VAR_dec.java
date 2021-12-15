@@ -71,6 +71,7 @@ public class AST_VAR_dec extends AST_dec{
         {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
             Printer.printError(line);
+            return null;
         }
 
         /**************************************/
@@ -96,11 +97,24 @@ public class AST_VAR_dec extends AST_dec{
         /****************************************/
         /* [2] Check If The EXP is the Same Type*/
         /****************************************/
-        if(exp != null) {
-            TYPE exp_type = exp.SemantMe();
-            if (!Objects.equals(exp_type.name, t.name)) {
-                System.out.format(">> ERROR [%d:%d] variable %s from type %s, have assaing with exp from type %s.\n", 2, 2, name, t.name, exp_type.name);
-                Printer.printError(line);
+        if(exp != null)
+        {
+            TYPE expType = exp.SemantMe();
+            if(expType instanceof TYPE_CLASS) {
+                while (!Objects.equals(t.name, expType.name) && ((TYPE_CLASS) expType).father != null) {
+                    expType = ((TYPE_CLASS) expType).father;
+                }
+            }
+            if(!Objects.equals(t.name, expType.name))
+            {
+                if(expType instanceof TYPE_ARRAY && t instanceof TYPE_ARRAY && Objects.equals(((TYPE_ARRAY) expType).elementsType.name, ((TYPE_ARRAY) t).elementsType.name) && Objects.equals(expType.name, "SUPER-DUPER"))
+                {
+
+                }
+                else {
+                    System.out.format(">> ERROR [%d:%d] mismatching assignment types. %s, %s\n", 2, 2, t.name, expType.name);
+                    Printer.printError(line);
+                }
             }
         }
         /***************************************************/

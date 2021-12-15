@@ -89,11 +89,12 @@ public class AST_EXP_BINOP extends AST_EXP
 			Printer.printError(line);
 		}
 
-		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
+		if ((t1 == TYPE_INT.getInstance() || t1 == TYPE_NIL.getInstance()) && (t2 == TYPE_INT.getInstance() || t1 == TYPE_NIL.getInstance()))
 		{
 			return TYPE_INT.getInstance();
 		}
 		//System.exit(0);
+		System.out.format("ERROR: wrong bin operator between %s, %s", t1.name, t2.name);
 		Printer.printError(line);
 		return null;
 	}

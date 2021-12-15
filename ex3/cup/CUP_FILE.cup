@@ -171,7 +171,7 @@ funcParams       ::=   COMMA type:t ID:name funcParams:l    {:l.add(new AST_type
                     |  /* empty */                          {:RESULT = new LinkedList<AST_type>();:}
                     ;
 
-var			::=		ID:name								{: RESULT = new AST_ VAR_SIMPLE(name, nameleft);       :}
+var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name, nameleft);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName, vleft); :}
 					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e, vleft);     :}
 					;
@@ -207,7 +207,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i, ileft);          :}
 					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4, e1left);:}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5, e1left);:}
 					| exp:e1 EQ exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 6, e1left);:}
-					| LBRACK exp:e1 RBRACK              {: RESULT = e1; :}
+					| LPAREN exp:e1 RPAREN              {: RESULT = e1; :}
 					| ID:name LPAREN RPAREN                            {: RESULT = new AST_func_call(name, nameleft);:}
                     | var:v DOT ID:name LPAREN RPAREN                  {:RESULT = new AST_func_call(name, v, vleft);:}
                     | var:v DOT ID:name LPAREN exp:e expList:l RPAREN  {:l.add(e); RESULT = new AST_func_call(name, v, l, vleft); :}
