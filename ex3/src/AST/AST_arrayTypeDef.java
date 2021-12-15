@@ -45,7 +45,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
+			/****************************************/
 		if (t  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.getSerialNumber());
 	}
 
