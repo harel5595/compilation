@@ -62,7 +62,7 @@ public class AST_VAR_dec extends AST_dec{
         if (t == null || t instanceof TYPE_VOID)
         {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
-            //System.exit(0);
+            System.exit(0);
         }
 
         /**************************************/

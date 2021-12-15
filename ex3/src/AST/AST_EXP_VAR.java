@@ -1,5 +1,10 @@
 package AST;
 
+import TYPES.TYPE;
+import TYPES.TYPE_INT;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.TYPE_VOID;
+
 public class AST_EXP_VAR extends AST_EXP
 {
 	public AST_VAR var;
@@ -53,5 +58,23 @@ public class AST_EXP_VAR extends AST_EXP
 		/****************************************/
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
 			
+	}
+
+	public TYPE SemantMe()
+	{
+		TYPE t;
+
+		/****************************/
+		/* [1] Check If Type exists */
+		/****************************/
+		t = SYMBOL_TABLE.getInstance().find(var.SemantMe().name);
+		if (t == null || t instanceof TYPE_VOID)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,var.SemantMe().name);
+			System.exit(0);
+		}
+
+
+		return t;
 	}
 }
