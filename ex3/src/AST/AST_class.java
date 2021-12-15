@@ -101,6 +101,11 @@ public class AST_class extends AST_dec {
 
     public TYPE SemantMe()
     {
+        if(!SYMBOL_TABLE.getInstance().isScopeGlobal())
+        {
+            System.out.format(">> ERROR [%d:%d] class%s local scope\n",2,2,ID);
+            Printer.printError(line);
+        }
         if (SYMBOL_TABLE.getInstance().find(ID) != null)
         {
             System.out.format(">> ERROR [%d:%d] class %s already exists in scope\n",2,2,ID);
