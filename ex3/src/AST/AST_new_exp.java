@@ -62,7 +62,7 @@ public class AST_new_exp extends  AST_EXP{
         /* AST NODE TYPE = AST INT EXP */
         /*******************************/
         if(exp != null)
-            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, exp.moish);
+            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, ((AST_EXP_INT)exp).value);
         else
             System.out.format("AST New_EXP( type:%s)\n",type.type);
         /*********************************/
@@ -86,12 +86,22 @@ public class AST_new_exp extends  AST_EXP{
             Printer.printError(line);
         }
 
+
+
         if(exp != null)
         {
             if(!Objects.equals(exp.SemantMe().name, "int")) {
                 System.out.format("ERROR: not int in array declerations.");
                 Printer.printError(line);
             }
+
+            if(exp instanceof AST_EXP_INT  && ((AST_EXP_INT) exp).value < 0)
+            {
+                System.out.format("negative assign to array");
+                Printer.printError(line);
+
+            }
+
             tempType = new TYPE_ARRAY("SUPER-DUPER", tempType);
         }
 
