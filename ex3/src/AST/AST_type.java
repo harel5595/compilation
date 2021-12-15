@@ -6,17 +6,20 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 public class AST_type extends AST_dec{
     public String type;
     public String name;
-    public AST_type(String type, String name)
+    public int line;
+    public AST_type(String type, String name, int line)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();
         this.type = type;
         this.name = name;
+        this.line = line;
     }
-    public AST_type(AST_type type, String name)
+    public AST_type(AST_type type, String name,int line)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();
         this.type = type.type;
         this.name = name;
+        this.line = line;
         if(type.name != null)
             throw new RuntimeException("called with type that have name.");
     }

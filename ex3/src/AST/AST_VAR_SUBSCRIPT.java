@@ -3,84 +3,82 @@ package AST;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
-public class AST_VAR_SUBSCRIPT extends AST_VAR
-{
-	public AST_VAR var;
-	public AST_EXP subscript;
-	
-	/******************/
-	/* CONSTRUCTOR(S) */
-	/******************/
-	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript)
-	{
-		/******************************/
-		/* SET A UNIQUE SERIAL NUMBER */
-		/******************************/
-		SerialNumber = AST_Node_Serial_Number.getFresh();
+public class AST_VAR_SUBSCRIPT extends AST_VAR {
+    public AST_VAR var;
+    public AST_EXP subscript;
+    public int line;
 
-		/***************************************/
-		/* PRINT CORRESPONDING DERIVATION RULE */
-		/***************************************/
-		System.out.print("====================== var -> var [ exp ]\n");
+    /******************/
+    /* CONSTRUCTOR(S) */
 
-		/*******************************/
-		/* COPY INPUT DATA NENBERS ... */
-		/*******************************/
-		this.var = var;
-		this.subscript = subscript;
-	}
+    /******************/
+    public AST_VAR_SUBSCRIPT(AST_VAR var, AST_EXP subscript, int line) {
+        /******************************/
+        /* SET A UNIQUE SERIAL NUMBER */
+        /******************************/
+        SerialNumber = AST_Node_Serial_Number.getFresh();
 
-	/*****************************************************/
-	/* The printing message for a subscript var AST node */
-	/*****************************************************/
-	public void PrintMe()
-	{
-		/*************************************/
-		/* AST NODE TYPE = AST SUBSCRIPT VAR */
-		/*************************************/
-		System.out.print("AST NODE SUBSCRIPT VAR\n");
+        /***************************************/
+        /* PRINT CORRESPONDING DERIVATION RULE */
+        /***************************************/
+        System.out.print("====================== var -> var [ exp ]\n");
 
-		/****************************************/
-		/* RECURSIVELY PRINT VAR + SUBSRIPT ... */
-		/****************************************/
-		if (var != null) var.PrintMe();
-		if (subscript != null) subscript.PrintMe();
-		
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-			SerialNumber,
-			"SUBSCRIPT\nVAR\n...[...]");
-		
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
-		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.getSerialNumber());
-	}
+        /*******************************/
+        /* COPY INPUT DATA NENBERS ... */
+        /*******************************/
+        this.var = var;
+        this.subscript = subscript;
+        this.line = line;
+    }
 
+    /*****************************************************/
+    /* The printing message for a subscript var AST node */
 
-	public TYPE SemantMe(){
+    /*****************************************************/
+    public void PrintMe() {
+        /*************************************/
+        /* AST NODE TYPE = AST SUBSCRIPT VAR */
+        /*************************************/
+        System.out.print("AST NODE SUBSCRIPT VAR\n");
 
-		TYPE t;
+        /****************************************/
+        /* RECURSIVELY PRINT VAR + SUBSRIPT ... */
+        /****************************************/
+        if (var != null) var.PrintMe();
+        if (subscript != null) subscript.PrintMe();
 
-		t = SYMBOL_TABLE.getInstance().find(var.SemantMe().name);
+        /***************************************/
+        /* PRINT Node to AST GRAPHVIZ DOT file */
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "SUBSCRIPT\nVAR\n...[...]");
 
-		if (t == null || t instanceof TYPE_VOID)
-		{
-			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,var.SemantMe().name);
-			System.exit(0);
-		}
-		if(!t.isArray())
-		{
-			System.out.format(">> ERROR [%d:%d] not an array %s\n",2,2,var.SemantMe().name);
-			System.exit(0);
-		}
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.getSerialNumber());
+        if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, subscript.getSerialNumber());
+    }
 
 
+    public TYPE SemantMe() {
 
-		return SYMBOL_TABLE.getInstance().find(t.name);
-	}
+        TYPE t;
+
+        t = SYMBOL_TABLE.getInstance().find(var.SemantMe().name);
+
+        if (t == null || t instanceof TYPE_VOID) {
+            System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.SemantMe().name);
+            System.exit(0);
+        }
+        if (!t.isArray()) {
+            System.out.format(">> ERROR [%d:%d] not an array %s\n", 2, 2, var.SemantMe().name);
+            System.exit(0);
+        }
+
+
+        return SYMBOL_TABLE.getInstance().find(t.name);
+    }
 
 }

@@ -10,18 +10,20 @@ public class AST_func_dec extends AST_dec{
     public AST_type type;
     public String name;
     public List<AST_dec> commands;
+    public int line;
 
 
-    public AST_func_dec(AST_type type, String name, List<AST_dec> list)
+    public AST_func_dec(AST_type type, String name, List<AST_dec> list, int line)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();
         this.type = type;
         this.name = name;
         this.commands = list;
+        this.line = line;
     }
-    public AST_func_dec(AST_type type, String name, List<AST_dec> list, List<AST_type> paramList)
+    public AST_func_dec(AST_type type, String name, List<AST_dec> list, List<AST_type> paramList, int line)
     {
-        this(type, name, list);
+        this(type, name, list,line);
         this.paramList = paramList;
     }
 

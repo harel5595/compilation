@@ -9,16 +9,18 @@ public class AST_VAR_dec extends AST_dec{
     public AST_type type;
     public String name;
     public AST_Node exp;
-    public AST_VAR_dec(AST_type type ,String name)
+    public int line;
+    public AST_VAR_dec(AST_type type ,String name, int line)
     {
         this.type = type;
         this.name = name;
+        this.line = line;
         SerialNumber  = AST_Node_Serial_Number.getFresh();
     }
 
-    public AST_VAR_dec(AST_type type ,String name, AST_Node exp)
+    public AST_VAR_dec(AST_type type ,String name, AST_Node exp, int line)
     {
-        this(type, name);
+        this(type, name, line);
         this.exp = exp;
     }
 

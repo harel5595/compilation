@@ -3,11 +3,12 @@ package AST;
 public class AST_new_exp extends  AST_EXP{
     public AST_EXP exp;
     public AST_type type;
+    public int line;
 
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_new_exp(AST_type type, AST_EXP exp)
+    public AST_new_exp(AST_type type, AST_EXP exp, int line)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -24,8 +25,9 @@ public class AST_new_exp extends  AST_EXP{
         /*******************************/
         this.exp = exp;
         this.type = type;
+        this.line = line;
     }
-    public AST_new_exp(AST_type type)
+    public AST_new_exp(AST_type type, int line)
     {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
@@ -41,6 +43,7 @@ public class AST_new_exp extends  AST_EXP{
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
         this.type = type;
+        this.line = line;
     }
 
     /************************************************/
