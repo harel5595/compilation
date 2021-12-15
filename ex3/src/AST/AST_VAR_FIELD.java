@@ -88,14 +88,14 @@ public class AST_VAR_FIELD extends AST_VAR
 		TYPE_LIST fields = ((TYPE_CLASS)(t)).data_members;
 		while(fields.tail != null)
 		{
-			if (fields.head.name.equals(fieldName))
+			if (fields.head != null && fields.head.name.equals(fieldName))
 			{
 				flag = true;
 				break;
 			}
 			fields = fields.tail;
 		}
-		if (fields.head.name.equals(fieldName))
+		if (fields.head != null && fields.head.name.equals(fieldName))
 		{
 			flag = true;
 		}
