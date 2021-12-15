@@ -75,10 +75,14 @@ public class AST_dec_ASSIGN extends AST_dec
 			System.out.format(">> ERROR [%d:%d] bad assignment type.\n",2,2);
 			Printer.printError(line);
 		}
+
 		if(exp != null)
 		{
-			if(!Objects.equals(var.SemantMe().name, exp.SemantMe().name))
+			TYPE expType = exp.SemantMe();
+			if(!Objects.equals(var.SemantMe().name, expType.name))
 			{
+
+
 				System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n",2,2);
 				Printer.printError(line);
 			}

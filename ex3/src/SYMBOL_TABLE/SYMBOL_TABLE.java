@@ -9,6 +9,7 @@ package SYMBOL_TABLE;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /*******************/
 /* PROJECT IMPORTS */
@@ -127,6 +128,11 @@ public class SYMBOL_TABLE
 		/* Print the symbol table after every change */
 		/*********************************************/
 		PrintMe();
+	}
+
+	public boolean isScopeGlobal()
+	{
+		return Objects.equals(name, "global");
 	}
 
 	public TYPE findInScope(String name)
