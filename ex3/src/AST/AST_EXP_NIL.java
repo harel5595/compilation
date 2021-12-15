@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_EXP_NIL extends AST_EXP {
 
 
@@ -39,6 +41,11 @@ public class AST_EXP_NIL extends AST_EXP {
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 "NIL");
+    }
+
+    public TYPE SemantMe()
+    {
+        return TYPE_NIL.getInstance();
     }
 
 
