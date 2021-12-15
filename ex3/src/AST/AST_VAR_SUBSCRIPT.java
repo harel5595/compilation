@@ -9,9 +9,13 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
     public AST_EXP subscript;
     public int line;
 
+    @Override
+    public String getName() {
+        return var.getName();
+    }
+
     /******************/
     /* CONSTRUCTOR(S) */
-
     /******************/
     public AST_VAR_SUBSCRIPT(AST_VAR var, AST_EXP subscript, int line) {
         /******************************/
@@ -73,11 +77,14 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.SemantMe().name);
             Printer.printError(line);
         }
+
         if (!t.isArray()) {
             System.out.format(">> ERROR [%d:%d] not an array %s\n", 2, 2, var.SemantMe().name);
             Printer.printError(line);
         }
 
+        if(var instanceof AST_VAR_SUBSCRIPT)
+            return ((TYPE_ARRAY)var.SemantMe()).elementsType;
 
         return ((TYPE_ARRAY)t).elementsType;
     }
