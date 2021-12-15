@@ -1,6 +1,6 @@
-void a := 5;
-void func(int b)
+array Values := int[];
+
+void main()
 {
-    PrintInt(b);
-    return b;
+    Values v := NEW int[3];
 }
