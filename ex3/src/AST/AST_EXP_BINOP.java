@@ -85,14 +85,30 @@ public class AST_EXP_BINOP extends AST_EXP
 
 		if(OP==3 && right != null && right instanceof AST_EXP_INT  && ((AST_EXP_INT) right).value == 0)
 		{
-			System.out.format(">> ERROR divide by zero %s\n",right.moish);
+			System.out.format(">> ERROR divide by zero %s\n",((AST_EXP_INT) right).value);
 			Printer.printError(line);
 		}
 
-		if ((t1 == TYPE_INT.getInstance() || t1 == TYPE_NIL.getInstance()) && (t2 == TYPE_INT.getInstance() || t1 == TYPE_NIL.getInstance()))
+		if (t1 == TYPE_INT.getInstance() && t2 == TYPE_INT.getInstance())
 		{
 			return TYPE_INT.getInstance();
 		}
+
+		if(OP == 6)
+		{
+			if(t1!= null && t2 != null && t1.name.equals(t2.name))
+			{
+				return TYPE_INT.getInstance();
+			}
+			if((t1 instanceof TYPE_NIL )|| (t2 instanceof TYPE_NIL))
+			{
+				return TYPE_INT.getInstance();
+			}
+
+
+
+		}
+
 		//System.exit(0);
 		System.out.format("ERROR: wrong bin operator between %s, %s", t1.name, t2.name);
 		Printer.printError(line);
