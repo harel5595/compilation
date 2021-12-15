@@ -62,10 +62,25 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 
 
 	public TYPE SemantMe(){
-		//TYPE t = var.SemantMe();
 
-		//subscript.SemantMe().name
-		return null;
+		TYPE t;
+
+		t = SYMBOL_TABLE.getInstance().find(var.SemantMe().name);
+
+		if (t == null || t instanceof TYPE_VOID)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,var.SemantMe().name);
+			System.exit(0);
+		}
+		if(!t.isArray())
+		{
+			System.out.format(">> ERROR [%d:%d] not an array %s\n",2,2,var.SemantMe().name);
+			System.exit(0);
+		}
+
+
+
+		return SYMBOL_TABLE.getInstance().find(t.name);
 	} // TODO: fix
 
 }

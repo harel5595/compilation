@@ -1,5 +1,13 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.TYPE;
+import TYPES.TYPE_CLASS;
+import TYPES.TYPE_LIST;
+import TYPES.TYPE_VOID;
+
+import java.util.Objects;
+
 public class AST_VAR_FIELD extends AST_VAR
 {
 	public AST_VAR var;
@@ -54,5 +62,48 @@ public class AST_VAR_FIELD extends AST_VAR
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
+	}
+
+	public TYPE SemantMe()
+	{
+		TYPE t;
+		boolean flag = false;
+
+		/****************************/
+		/* [1] Check If ClassType exists */
+		/****************************/
+		t = SYMBOL_TABLE.getInstance().find(var.SemantMe().name);
+		if (t == null || t instanceof TYPE_VOID)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,var.SemantMe().name);
+			System.exit(0);
+		}
+		TYPE_LIST fields = ((TYPE_CLASS)(t)).data_members;
+		while(fields.tail != null)
+		{
+			if (fields.head.name.equals(fieldName))
+			{
+				flag = true;
+				break;
+			}
+			fields = fields.tail;
+		}
+		if (fields.head.name.equals(fieldName))
+		{
+			flag = true;
+		}
+		if(!flag)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing field %s\n",2,2,fieldName);
+			System.exit(0);
+		}
+
+
+		/****************************************/
+		/* [2] return the head that we found*/
+		/****************************************/
+
+
+		return fields.head;
 	}
 }

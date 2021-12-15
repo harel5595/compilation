@@ -1,5 +1,9 @@
 package AST;
 
+import TYPES.TYPE;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.TYPE_VOID;
+
 public class AST_VAR_SIMPLE extends AST_VAR
 {
 	/************************/
@@ -45,4 +49,20 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			SerialNumber,
 			String.format("SIMPLE\nVAR\n(%s)",name));
 	}
+
+
+	public TYPE SemantMe() {
+
+		TYPE t;
+		t = SYMBOL_TABLE.getInstance().find(name);
+		if(t == null || t instanceof TYPE_VOID)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,name);
+			System.exit(0);
+		}
+		
+		return t;
+	}
+
+
 }
