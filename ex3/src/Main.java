@@ -4,9 +4,11 @@ import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
 import AST.*;
 import TYPES.*;
+import Printer.*;
 
 public class Main
 {
+
 	static public void main(String argv[])
 	{
 		Lexer l;
@@ -14,7 +16,6 @@ public class Main
 		Symbol s;
 		AST_Program AST;
 		FileReader file_reader;
-		PrintWriter file_writer = null;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
 		boolean error = false;
@@ -29,7 +30,7 @@ public class Main
 			/********************************/
 			/* [2] Initialize a file writer */
 			/********************************/
-			file_writer = new PrintWriter(outputFilename);
+			Printer.file_writer = new PrintWriter(outputFilename);
 			
 			/******************************/
 			/* [3] Initialize a new lexer */
@@ -56,12 +57,12 @@ public class Main
 			/**************************/
 			AST.SemantMe();
 
-			file_writer.print("OK");
+			Printer.file_writer.print("OK");
 
 			/*************************/
 			/* [8] Close output file */
 			/*************************/
-			file_writer.close();
+			Printer.file_writer.close();
 
 			/*************************************/
 			/* [9] Finalize AST GRAPHIZ DOT file */
@@ -79,14 +80,14 @@ public class Main
 		{
 			if(error)
 			{
-				if(file_writer != null)
-					file_writer.close();
-				file_writer = new PrintWriter(outputFilename);
+				if(Printer.file_writer != null)
+					Printer.file_writer.close();
+				Printer.file_writer = new PrintWriter(outputFilename);
 				if(p != null && p.error_line != -1)
-					file_writer.print(String.format("ERROR(%s)",p.error_line));
+					Printer.file_writer.print(String.format("ERROR(%s)",p.error_line));
 				else
-					file_writer.print("ERROR");
-				file_writer.close();
+					Printer.file_writer.print("ERROR");
+				Printer.file_writer.close();
 			}
 		}
 		catch (Error e)

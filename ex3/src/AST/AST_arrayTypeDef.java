@@ -1,8 +1,7 @@
 package AST;
-
+import Printer.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
-
 public class AST_arrayTypeDef extends AST_dec {
 	public String arrayName;
 	public AST_type t;
@@ -43,7 +42,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("ARRAYNAME(%s)",arrayName));
-		
+		Printer.printError(line);
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 			/****************************************/
@@ -69,6 +68,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		if (SYMBOL_TABLE.getInstance().find(arrayName) != null)
 		{
 			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,arrayName);
+
 		}
 
 		/***************************************************/
