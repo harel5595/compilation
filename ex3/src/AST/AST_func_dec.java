@@ -52,6 +52,8 @@ public class AST_func_dec extends AST_dec{
     public TYPE SemantMe()
     {
         TYPE t;
+        TYPE_FUNCTION second;
+        TYPE_LIST sParams;
         TYPE returnType = null;
         TYPE_LIST type_list = null;
         System.out.println("Semant a func!");
@@ -64,6 +66,37 @@ public class AST_func_dec extends AST_dec{
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
             Printer.printError(line);
         }
+
+        if (SYMBOL_TABLE.getInstance().findInScope(name) != null)
+        {
+            System.out.format(">> ERROR [%d:%d] func %s already exists in scope\n",2,2,name);
+            Printer.printError(line);
+        }
+        else
+        {
+            if(SYMBOL_TABLE.getInstance().find(name) != null)
+            {
+                second = (TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(name);
+                sParams = second.params;
+                if (!second.returnType.name.equals(type.type))
+                {
+                    System.out.format(">> ERROR [%d:%d] func %s already exists out of scope\n",2,2,name);
+                    Printer.printError(line);
+                }
+                for(AST_type param :paramList)
+                {
+                    if(!param.type.equals(sParams.head.name))
+                    {
+                        System.out.format(">> ERROR [%d:%d] func %s already exists out of scope\n",2,2,name);
+                        Printer.printError(line);
+                    }
+                    sParams = sParams.tail;
+                }
+            }
+
+        }
+
+
 
         /****************************/
         /* [1] Begin Function Scope */
