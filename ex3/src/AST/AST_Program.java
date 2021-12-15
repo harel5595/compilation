@@ -1,6 +1,8 @@
 package AST;
 
 import java.util.List;
+
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
 public class AST_Program extends AST_Node {
@@ -68,9 +70,11 @@ public class AST_Program extends AST_Node {
         /*************************************/
         /* RECURSIVELY PRINT HEAD + TAIL ... */
         /*************************************/
-
+        System.out.println("Start to SemantMe!!");
         for(AST_dec stmt: l)
             stmt.SemantMe();
+        SYMBOL_TABLE.getInstance().PrintMe();
+        System.out.println("Done to SemantMe!!");
         return null;
     }
 

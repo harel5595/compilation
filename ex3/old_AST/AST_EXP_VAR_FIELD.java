@@ -63,7 +63,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		if (t.isClass() == false)
 		{
 			System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
-			System.exit(0);
+			//System.exit(0);
 		}
 		else
 		{
@@ -85,7 +85,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/* [4] fieldName does not exist in class var */
 		/*********************************************/
 		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",6,6,fieldName);							
-		System.exit(0);
+		//System.exit(0);
 		return null;
 	}
 }

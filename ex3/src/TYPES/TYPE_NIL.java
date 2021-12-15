@@ -15,7 +15,7 @@ public class TYPE_NIL extends TYPE
     /******************************/
     /* GET SINGLETON INSTANCE ... */
     /******************************/
-    public static TYPE_INT getInstance()
+    public static TYPE_NIL getInstance()
     {
         if (instance == null)
         {

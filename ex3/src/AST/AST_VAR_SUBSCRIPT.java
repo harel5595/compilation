@@ -1,5 +1,6 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR
@@ -60,6 +61,11 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 	}
 
 
-	public TYPE SemantMe(){ return null; } // TODO: fix
+	public TYPE SemantMe(){
+		//TYPE t = var.SemantMe();
+
+		//subscript.SemantMe().name
+		return null;
+	} // TODO: fix
 
 }
