@@ -81,6 +81,6 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 
 
 		return SYMBOL_TABLE.getInstance().find(t.name);
-	} // TODO: fix
+	}
 
 }
