@@ -49,11 +49,11 @@ public class AST_func_dec extends AST_dec{
         TYPE t;
         TYPE returnType = null;
         TYPE_LIST type_list = null;
-
+        System.out.println("Semant a func!");
         /*******************/
         /* [0] return type */
         /*******************/
-        returnType = SYMBOL_TABLE.getInstance().find(paramList.get(0).type);
+        returnType = SYMBOL_TABLE.getInstance().find(type.type);
         if (returnType == null)
         {
             System.out.format(">> ERROR [%d:%d] non existing return type %s\n",6,6,returnType);
@@ -67,22 +67,19 @@ public class AST_func_dec extends AST_dec{
         /***************************/
         /* [2] Semant Input Params */
         /***************************/
-        AST_type curr = null;
-        for(int i = 1; i < paramList.size(); i++)
-        {
-            curr = paramList.get(i);
-            t = SYMBOL_TABLE.getInstance().find(curr.type);
-            if (t == null)
-            {
-                System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,curr.type);
-            }
-            else
-            {
-                type_list = new TYPE_LIST(t,type_list);
-                SYMBOL_TABLE.getInstance().enter(curr.name,t);
+        if(paramList != null) {
+            AST_type curr = null;
+            for (int i = 0; i < paramList.size(); i++) {
+                curr = paramList.get(i);
+                t = SYMBOL_TABLE.getInstance().find(curr.type);
+                if (t == null) {
+                    System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, curr.type);
+                } else {
+                    type_list = new TYPE_LIST(t, type_list);
+                    SYMBOL_TABLE.getInstance().enter(curr.name, t);
+                }
             }
         }
-
 //        for (List<AST_type> it = paramList; it  != null; it = it.tail)
 //        {
 //            t = SYMBOL_TABLE.getInstance().find(it.head.type);
