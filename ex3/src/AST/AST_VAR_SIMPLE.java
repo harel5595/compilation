@@ -1,5 +1,6 @@
 package AST;
 
+import Printer.*;
 import TYPES.TYPE;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE_VOID;
@@ -60,7 +61,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		if(t == null || t instanceof TYPE_VOID)
 		{
 			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,name);
-			System.exit(0);
+			Printer.printError(line);
 		}
 		
 		return t;

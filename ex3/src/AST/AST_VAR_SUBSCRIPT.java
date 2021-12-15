@@ -1,5 +1,6 @@
 package AST;
 
+import Printer.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
@@ -70,11 +71,11 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
 
         if (t == null || t instanceof TYPE_VOID) {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.SemantMe().name);
-            System.exit(0);
+            Printer.printError(line);
         }
         if (!t.isArray()) {
             System.out.format(">> ERROR [%d:%d] not an array %s\n", 2, 2, var.SemantMe().name);
-            System.exit(0);
+            Printer.printError(line);
         }
 
 

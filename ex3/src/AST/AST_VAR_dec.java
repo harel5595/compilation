@@ -1,5 +1,6 @@
 package AST;
 
+import Printer.*;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 
@@ -64,7 +65,7 @@ public class AST_VAR_dec extends AST_dec{
         if (t == null || t instanceof TYPE_VOID)
         {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
-            System.exit(0);
+            Printer.printError(line);
         }
 
         /**************************************/
@@ -73,6 +74,7 @@ public class AST_VAR_dec extends AST_dec{
         if (SYMBOL_TABLE.getInstance().find(name) != null)
         {
             System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+            Printer.printError(line);
         }
 
         /****************************************/
@@ -83,6 +85,7 @@ public class AST_VAR_dec extends AST_dec{
         if(!Objects.equals(exp_type.name, t.name))
         {
             System.out.format(">> ERROR [%d:%d] variable %s from type %s, have assaing with exp from type %s.\n",2,2,name, t.name, exp_type.name);
+            Printer.printError(line);
         }
 
         /***************************************************/
