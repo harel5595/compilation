@@ -96,14 +96,13 @@ public class AST_VAR_dec extends AST_dec{
         /****************************************/
         /* [2] Check If The EXP is the Same Type*/
         /****************************************/
-
-        TYPE exp_type = exp.SemantMe();
-        if(!Objects.equals(exp_type.name, t.name))
-        {
-            System.out.format(">> ERROR [%d:%d] variable %s from type %s, have assaing with exp from type %s.\n",2,2,name, t.name, exp_type.name);
-            Printer.printError(line);
+        if(exp != null) {
+            TYPE exp_type = exp.SemantMe();
+            if (!Objects.equals(exp_type.name, t.name)) {
+                System.out.format(">> ERROR [%d:%d] variable %s from type %s, have assaing with exp from type %s.\n", 2, 2, name, t.name, exp_type.name);
+                Printer.printError(line);
+            }
         }
-
         /***************************************************/
         /* [3] Enter the Function Type to the Symbol Table */
         /***************************************************/

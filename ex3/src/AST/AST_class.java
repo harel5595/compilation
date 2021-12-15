@@ -116,15 +116,15 @@ public class AST_class extends AST_dec {
         TYPE_LIST l = null;
         for(AST_dec field : fields)
             l = new TYPE_LIST(field.SemantMe(), l);
-
-        TYPE_CLASS father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(name2);
-        if(father == null)
-        {
-            System.out.format("ERROR: the father %s of the class %s don't exist.", name2, ID);
-            Printer.printError(line);
-            return null;
+        TYPE_CLASS father = null;
+        if(name2 != null) {
+            father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(name2);
+            if (father == null) {
+                System.out.format("ERROR: the father %s of the class %s don't exist.", name2, ID);
+                Printer.printError(line);
+                return null;
+            }
         }
-
         TYPE_CLASS t = new TYPE_CLASS(father,ID,l);
 
         /*****************/

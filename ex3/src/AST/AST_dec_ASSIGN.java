@@ -74,22 +74,31 @@ public class AST_dec_ASSIGN extends AST_dec
 		{
 			System.out.format(">> ERROR [%d:%d] bad assignment type.\n",2,2);
 			Printer.printError(line);
+			return null;
 		}
 
 		if(exp != null)
 		{
 			TYPE expType = exp.SemantMe();
-			if(!Objects.equals(var.SemantMe().name, expType.name))
+			if(expType instanceof TYPE_CLASS) {
+				while (!Objects.equals(t.name, expType.name) && ((TYPE_CLASS) expType).father != null) {
+					expType = ((TYPE_CLASS) expType).father;
+				}
+			}
+			if(!Objects.equals(t.name, expType.name))
 			{
+				if(expType instanceof TYPE_ARRAY && t instanceof TYPE_ARRAY && Objects.equals(((TYPE_ARRAY) expType).elementsType.name, ((TYPE_ARRAY) t).elementsType.name) && Objects.equals(expType.name, "SUPER-DUPER"))
+				{
 
-
-				System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n",2,2);
-				Printer.printError(line);
+				}
+				else {
+					System.out.format(">> ERROR [%d:%d] mismatching assignment types.\n", 2, 2);
+					Printer.printError(line);
+				}
 			}
 		}
 		//System.out.println("got here.......");
 		//SYMBOL_TABLE.getInstance().enter(, t);
-
 		return null;
 	}
 }
