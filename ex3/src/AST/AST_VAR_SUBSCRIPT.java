@@ -60,6 +60,6 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 	}
 
 
-	public TYPE SemantMe(){} // TODO: fix
+	public TYPE SemantMe(){ return null; } // TODO: fix
 
 }

@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_arrayTypeDef extends AST_dec {
 	public String arrayName;
 	public AST_type t;
@@ -46,5 +48,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		/****************************************/
 		if (t  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.getSerialNumber());
 	}
+
+	public TYPE SemantMe() { return null; } // TODO: finish this func!!
 }
 

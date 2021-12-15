@@ -6,6 +6,6 @@ public abstract class AST_EXP extends AST_Node
 {
 	public int moish;
 
-	public TYPE SemantMe(){}; //TODO: maybe fix? idk
+	public TYPE SemantMe(){ return null;}; //TODO: maybe fix? idk
 
 }

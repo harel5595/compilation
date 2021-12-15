@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public abstract class AST_Node
 {
 	/*******************************************/
@@ -18,6 +20,5 @@ public abstract class AST_Node
 	}
 	public int getSerialNumber() {return SerialNumber;}
 
-    //public void SemantMe() { }
-	// this isn't defined in their code, so i don't know, this will give error when undefined i think.
+    public TYPE SemantMe() { return null; }
 }

@@ -1,6 +1,9 @@
 package AST;
 
+import java.util.LinkedList;
 import java.util.List;
+import SYMBOL_TABLE.SYMBOL_TABLE;
+import TYPES.*;
 
 public class AST_class extends AST_dec {
     /***************/
@@ -90,5 +93,44 @@ public class AST_class extends AST_dec {
             /****************************************/
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, field.getSerialNumber());
         }
+    }
+
+    public TYPE SemantMe()
+    {
+        /*************************/
+        /* [1] Begin Class Scope */
+        /*************************/
+        SYMBOL_TABLE.getInstance().beginScope();
+
+        /***************************/
+        /* [2] Semant Data Members */
+        /***************************/
+        TYPE_LIST l = null;
+        for(AST_dec field : fields)
+            l = new TYPE_LIST(field.SemantMe(), l);
+
+        TYPE_CLASS father = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(name2);
+        if(father == null)
+        {
+            System.out.format("ERROR: the father %s of the class %s don't exist.", name2, ID);
+            return null;
+        }
+
+        TYPE_CLASS t = new TYPE_CLASS(father,ID,l);
+
+        /*****************/
+        /* [3] End Scope */
+        /*****************/
+        SYMBOL_TABLE.getInstance().endScope();
+
+        /************************************************/
+        /* [4] Enter the Class Type to the Symbol Table */
+        /************************************************/
+        SYMBOL_TABLE.getInstance().enter(ID,t);
+
+        /*********************************************************/
+        /* [5] Return value is irrelevant for class declarations */
+        /*********************************************************/
+        return null;
     }
 }
