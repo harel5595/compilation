@@ -87,7 +87,11 @@ public class AST_dec_ASSIGN extends AST_dec
 			}
 			if(!Objects.equals(t.name, expType.name))
 			{
-				if(expType instanceof TYPE_ARRAY && t instanceof TYPE_ARRAY && Objects.equals(((TYPE_ARRAY) expType).elementsType.name, ((TYPE_ARRAY) t).elementsType.name) && Objects.equals(expType.name, "SUPER-DUPER"))
+				if(!(t instanceof TYPE_INT) && !(t instanceof TYPE_STRING) && expType instanceof TYPE_NIL)
+				{
+
+				}
+				else if(expType instanceof TYPE_ARRAY && t instanceof TYPE_ARRAY && Objects.equals(((TYPE_ARRAY) expType).elementsType.name, ((TYPE_ARRAY) t).elementsType.name) && Objects.equals(expType.name, "SUPER-DUPER"))
 				{
 
 				}
