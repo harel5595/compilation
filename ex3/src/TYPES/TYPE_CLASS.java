@@ -1,5 +1,8 @@
 package TYPES;
 
+import java.util.LinkedList;
+
+
 public class TYPE_CLASS extends TYPE
 {
 	/*********************************************************************/
@@ -13,14 +16,16 @@ public class TYPE_CLASS extends TYPE
 	/* packed together with the class methods         */
 	/**************************************************/
 	public TYPE_LIST data_members;
-	
+	public LinkedList<String> data_names;
+
 	/****************/
 	/* CTROR(S) ... */
 	/****************/
-	public TYPE_CLASS(TYPE_CLASS father,String name,TYPE_LIST data_members)
+	public TYPE_CLASS(TYPE_CLASS father,String name,TYPE_LIST data_members, LinkedList<String> data_names)
 	{
 		this.name = name;
 		this.father = father;
 		this.data_members = data_members;
+		this.data_names = data_names;
 	}
 }
