@@ -11,17 +11,19 @@ public class AST_Program extends AST_Node {
     /* DATA MEMBERS */
     /****************/
     public List<AST_dec> l;
+    public int line;
     /******************/
     /* CONSTRUCTOR(S) */
 
     /******************/
 
-    public AST_Program(List<AST_dec> l) {
+    public AST_Program(List<AST_dec> l, int line) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
         this.l = l;
+        this.line = line;
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/

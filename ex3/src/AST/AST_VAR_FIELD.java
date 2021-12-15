@@ -12,11 +12,12 @@ public class AST_VAR_FIELD extends AST_VAR
 {
 	public AST_VAR var;
 	public String fieldName;
+	public int line;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_FIELD(AST_VAR var,String fieldName)
+	public AST_VAR_FIELD(AST_VAR var,String fieldName, int line)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -33,6 +34,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		/*******************************/
 		this.var = var;
 		this.fieldName = fieldName;
+		this.line = line;
 	}
 
 	/*************************************************/

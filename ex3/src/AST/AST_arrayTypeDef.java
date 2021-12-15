@@ -1,5 +1,6 @@
 package AST;
 
+import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
 public class AST_arrayTypeDef extends AST_dec {
@@ -49,6 +50,34 @@ public class AST_arrayTypeDef extends AST_dec {
 		if (t  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.getSerialNumber());
 	}
 
-	public TYPE SemantMe() { return null; } // TODO: finish this func!!
+	public TYPE SemantMe() {
+		TYPE St;
+
+		/****************************/
+		/* [1] Check If Type exists */
+		/****************************/
+		St = SYMBOL_TABLE.getInstance().find(t.type);
+		if (St == null || St instanceof TYPE_VOID)
+		{
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,t.type);
+			System.exit(0);
+		}
+
+		/**************************************/
+		/* [2] Check That Name does NOT exist */
+		/**************************************/
+		if (SYMBOL_TABLE.getInstance().find(arrayName) != null)
+		{
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,arrayName);
+		}
+
+		/***************************************************/
+		/* [3] Enter the Function Type to the Symbol Table */
+		/***************************************************/
+		SYMBOL_TABLE.getInstance().enter(arrayName,St);
+
+
+
+		return null; }
 }
 
