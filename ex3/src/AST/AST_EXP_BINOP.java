@@ -105,7 +105,18 @@ public class AST_EXP_BINOP extends AST_EXP
 				return TYPE_INT.getInstance();
 			}
 
+		}
 
+		if(OP == 0)
+		{
+			if(t1!= null && t2 != null && t1.name.equals(t2.name))
+			{
+				return TYPE_STRING.getInstance();
+			}
+			if((t1 instanceof TYPE_NIL )|| (t2 instanceof TYPE_NIL))
+			{
+				return TYPE_STRING.getInstance();
+			}
 
 		}
 

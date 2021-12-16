@@ -80,10 +80,9 @@ public class AST_func_dec extends AST_dec{
         }
         else
         {
-
-            if(SYMBOL_TABLE.getInstance().find(name) != null)
+            second = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find_in_class(name, null);
+            if(second != null)
             {
-                second = (TYPE_FUNCTION)SYMBOL_TABLE.getInstance().find(name);
                 sParams = second.params;
                 if (!second.returnType.name.equals(type.type))
                 {
@@ -91,15 +90,21 @@ public class AST_func_dec extends AST_dec{
                     Printer.printError(line);
                     return null;
                 }
-                for(AST_type param :paramList)
-                {
-                    if(!param.type.equals(sParams.head.name))
-                    {
-                        System.out.format(">> ERROR [%d:%d] func %s already exists out of scope\n",2,2,name);
-                        Printer.printError(line);
-                        return null;
+                if(paramList != null && sParams != null) {
+                    for (AST_type param : paramList) {
+                        if (!param.type.equals(sParams.head.name)) {
+                            System.out.format(">> ERROR [%d:%d] func %s already exists out of scope\n", 2, 2, name);
+                            Printer.printError(line);
+                            return null;
+                        }
+                        sParams = sParams.tail;
                     }
-                    sParams = sParams.tail;
+                }
+                if(paramList != null || sParams != null)
+                {
+                    System.out.format(">> ERROR [%d:%d] the len of the params list are diffrent.\n", 2, 2, name);
+                    Printer.printError(line);
+                    return null;
                 }
             }
 

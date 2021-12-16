@@ -62,7 +62,7 @@ public class AST_new_exp extends  AST_EXP{
         /* AST NODE TYPE = AST INT EXP */
         /*******************************/
         if(exp != null)
-            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, ((AST_EXP_INT)exp).value);
+            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, (exp));
         else
             System.out.format("AST New_EXP( type:%s)\n",type.type);
         /*********************************/

@@ -127,6 +127,10 @@ public class SYMBOL_TABLE
 	public TYPE find_in_class(String name, String myfather)
 	{
 		SYMBOL_TABLE_ENTRY e;
+		if(name == null)
+			return null;
+		if(myfather == null && ((TYPE_CLASS)find(instance.name)) != null && ((TYPE_CLASS)find(instance.name)).father != null)
+			myfather = ((TYPE_CLASS)find(instance.name)).father.name;
 
 		for (e = table[hash(name)]; e != null; e = e.next)
 		{
@@ -137,14 +141,14 @@ public class SYMBOL_TABLE
 		}
 		if(myfather != null)
 		{
-			if (SYMBOL_TABLE.find_in_scopes(myfather) != null && SYMBOL_TABLE.find_in_scopes(myfather).find(name) != null)
+			if (SYMBOL_TABLE.find_in_scopes(myfather) != null && SYMBOL_TABLE.find_in_scopes(myfather).findInScope(name) != null)
 			{
-				return SYMBOL_TABLE.find_in_scopes(myfather).find(name);
+				return SYMBOL_TABLE.find_in_scopes(myfather).findInScope(name);
 			}
 		}
 		if(father == null)
 			return null;
-		return father.find(name);
+		return find_in_class(myfather, null);
 	}
 
 
@@ -228,7 +232,7 @@ public class SYMBOL_TABLE
 	{
 		int i=0;
 		int j=0;
-		String dirname="../output/";
+		String dirname="./output/";
 		String filename=String.format("SYMBOL_TABLE_%d_IN_GRAPHVIZ_DOT_FORMAT.txt",n++);
 
 		try

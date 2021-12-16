@@ -87,7 +87,7 @@ public class AST_dec_ASSIGN extends AST_dec
 			}
 			if(!Objects.equals(t.name, expType.name))
 			{
-				if(!(t instanceof TYPE_INT) && !(t instanceof TYPE_STRING) && expType instanceof TYPE_NIL)
+				if(!(t instanceof TYPE_INT) && !(t instanceof TYPE_STRING) && expType == TYPE_NIL.getInstance())
 				{
 
 				}

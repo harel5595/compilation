@@ -84,14 +84,14 @@ public class AST_VAR_dec extends AST_dec{
         }
         else
         {
-            if(SYMBOL_TABLE.getInstance().find(name)!=null)
-            {
-                if(SYMBOL_TABLE.getInstance().find(name) != t)
-                {
-                    System.out.format(">> ERROR [%d:%d] %s is defined with a different type elsewhere\n",2,2,name);
-                    Printer.printError(line);
-                }
-            }
+            //if(SYMBOL_TABLE.getInstance().find(name)!=null)
+            //{
+                //if(SYMBOL_TABLE.getInstance().find(name) != t)
+               // {
+                //    System.out.format(">> ERROR [%d:%d] %s is defined with a different type elsewhere\n",2,2,name);
+                //    Printer.printError(line);
+              //  }
+            //}
         }
 
         /****************************************/
@@ -107,7 +107,11 @@ public class AST_VAR_dec extends AST_dec{
             }
             if(!Objects.equals(t.name, expType.name))
             {
-                if(expType instanceof TYPE_ARRAY && t instanceof TYPE_ARRAY && Objects.equals(((TYPE_ARRAY) expType).elementsType.name, ((TYPE_ARRAY) t).elementsType.name) && Objects.equals(expType.name, "SUPER-DUPER"))
+                if(!(t instanceof TYPE_INT) && !(t instanceof TYPE_STRING) && expType == TYPE_NIL.getInstance())
+                {
+
+                }
+                else if(expType instanceof TYPE_ARRAY && t instanceof TYPE_ARRAY && Objects.equals(((TYPE_ARRAY) expType).elementsType.name, ((TYPE_ARRAY) t).elementsType.name) && Objects.equals(expType.name, "SUPER-DUPER"))
                 {
 
                 }
