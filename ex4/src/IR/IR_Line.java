@@ -1,23 +1,7 @@
 package IR;
 
-enum IR_Types{
-    LABEL,
-    ASSINGNMENT,
-    PLUS,
-    MINUS,
-    BRANCH,
-    CALL,
-    MUL,
-    RETURN,
-    ARRAY_SET,
-    FIELD_SET,
-    VIRTUAL_CALL
-
-
-}
-
 public class IR_Line {
-    public int type = 0;
+    public IR_Types type = null;
     public String label = null;
     public String assign_to = null;
     public String op = null;
