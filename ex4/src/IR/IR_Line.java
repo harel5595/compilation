@@ -19,7 +19,7 @@ enum IR_Types{
 public class IR_Line {
     public int type = 0;
     public String label = null;
-    public String assignment = null;
+    public String assign_to = null;
     public String op = null;
     public String left = null;
     public String right = null;

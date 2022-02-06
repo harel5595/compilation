@@ -18,7 +18,7 @@ public class AST_EXP_BINOP extends AST_EXP
 	{
 		String sOP="";
 		IR_Line line = new IR_Line();
-		line.assignment =
+		line.assign_to =
 		/*********************************/
 		/* CONVERT OP to a printable sOP */
 		/*********************************/
