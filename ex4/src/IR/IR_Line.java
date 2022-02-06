@@ -1,9 +1,18 @@
 package IR;
 
 enum IR_Types{
-    LABLE,
+    LABEL,
+    ASSINGNMENT,
     PLUS,
-    MINUS
+    MINUS,
+    BRANCH,
+    CALL,
+    MUL,
+    RETURN,
+    ARRAY_SET,
+    FIELD_SET,
+    VIRTUAL_CALL
+
 
 }
 
