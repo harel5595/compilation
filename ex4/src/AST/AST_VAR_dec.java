@@ -24,6 +24,13 @@ public class AST_VAR_dec extends AST_dec{
         /********************************************/
         System.out.print("AST NODE ASSIGN STMT\n");
 
+        IR_Code code = new IR_Code();
+        IR_Line line = new IR_Line();
+        line.assign_to = IR_Code.getNewRegisterName();
+        line.left = exp.getName();
+        code.addLine(line);
+
+
         /***********************************/
         /* RECURSIVELY PRINT VAR + EXP ... */
         /***********************************/
@@ -44,7 +51,7 @@ public class AST_VAR_dec extends AST_dec{
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.getSerialNumber());
         if(exp != null)
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
-        return null;
+        return code;
     }
 
 
