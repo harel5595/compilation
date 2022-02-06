@@ -17,6 +17,36 @@ public class AST_dec_ASSIGN extends AST_dec
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
+
+	@Override
+	public IR_Line PrintCode()
+	{
+		/********************************************/
+		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
+		/********************************************/
+		System.out.print("AST NODE ASSIGN STMT\n");
+
+		/***********************************/
+		/* RECURSIVELY PRINT VAR + EXP ... */
+		/***********************************/
+		if (var != null) var.PrintMe();
+		if (exp != null) exp.PrintMe();
+
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+				SerialNumber,
+				"ASSIGN\nleft := right\n");
+
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
+		return null;
+	}
+
 	public AST_dec_ASSIGN(AST_VAR var, AST_EXP exp, int line)
 	{
 		/******************************/

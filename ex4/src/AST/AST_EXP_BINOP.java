@@ -13,6 +13,47 @@ public class AST_EXP_BINOP extends AST_EXP
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
+
+	public void PrintMe()
+	{
+		String sOP="";
+
+		/*********************************/
+		/* CONVERT OP to a printable sOP */
+		/*********************************/
+		if (OP == 0) {sOP = "+";}
+		if (OP == 1) {sOP = "-";}
+		if (OP == 2) {sOP = "*";}
+		if (OP == 3) {sOP = "/";}
+		if (OP == 4) {sOP = "<";}
+		if (OP == 5) {sOP = ">";}
+		if (OP == 6) {sOP = "=";}
+
+		/*************************************/
+		/* AST NODE TYPE = AST BINOP EXP */
+		/*************************************/
+		System.out.print("AST NODE BINOP EXP\n");
+
+		/**************************************/
+		/* RECURSIVELY PRINT left + right ... */
+		/**************************************/
+		if (left != null) left.PrintMe();
+		if (right != null) right.PrintMe();
+
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+				SerialNumber,
+				String.format("BINOP(%s)",sOP));
+
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.getSerialNumber());
+		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.getSerialNumber());
+	}
+
 	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP, int line)
 	{
 		/******************************/

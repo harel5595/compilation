@@ -13,6 +13,11 @@ public class AST_dec_Node extends AST_dec{
         this.line = line;
         this.head = head;
     }
+    @Override
+    public IR_Line PrintCode() {
+        head.PrintMe();
+        return null;
+    }
 
     @Override
     public String getName() {return head.getName();}
