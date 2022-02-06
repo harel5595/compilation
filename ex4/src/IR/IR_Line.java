@@ -2,7 +2,8 @@ package IR;
 
 enum IR_Types{
     LABLE,
-    ASSIGNMENT
+    PLUS,
+    MINUS
 
 }
 
