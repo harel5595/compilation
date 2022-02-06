@@ -19,7 +19,8 @@ public class AST_EXP_BINOP extends AST_EXP
 		String sOP="";
 		IR_Line line = new IR_Line();
 		line.assign_to = IR_Code.getNewRegisterName();
-		line.type = IR.IR_Types.
+		line.type = IR_Types.ASSINGNMENT;
+
 		/*********************************/
 		/* CONVERT OP to a printable sOP */
 		/*********************************/
