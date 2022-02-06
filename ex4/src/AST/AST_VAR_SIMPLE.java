@@ -4,6 +4,7 @@ import Printer.*;
 import TYPES.TYPE;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE_VOID;
+import IR.*;
 
 public class AST_VAR_SIMPLE extends AST_VAR
 {

@@ -4,6 +4,7 @@ import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
+import IR.*;
 
 import java.util.Objects;
 

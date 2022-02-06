@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.*;
+import IR.*;
 
 public class AST_dec_Node extends AST_dec{
     public AST_dec head;

@@ -5,7 +5,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
 import java.util.Objects;
-
+import IR.*;
 public class AST_dec_ASSIGN extends AST_dec
 {
 	/***************/

@@ -1,6 +1,7 @@
 package AST;
 
 import java.io.PrintWriter;
+import IR.*;
 
 public class AST_GRAPHVIZ
 {

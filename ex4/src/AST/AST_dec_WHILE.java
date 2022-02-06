@@ -6,6 +6,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import java.util.Collections;
 import java.util.List;
 import TYPES.*;
+import IR.*;
 
 public class AST_dec_WHILE extends AST_dec
 {

@@ -6,6 +6,7 @@ import java.util.List;
 import Printer.Printer;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import IR.*;
 
 public class AST_func_dec extends AST_dec{
     public List<AST_type> paramList;

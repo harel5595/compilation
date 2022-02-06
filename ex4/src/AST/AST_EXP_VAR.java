@@ -5,6 +5,7 @@ import TYPES.TYPE;
 import TYPES.TYPE_INT;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE_VOID;
+import IR.*;
 
 public class AST_EXP_VAR extends AST_EXP
 {

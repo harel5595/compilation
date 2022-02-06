@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.*;
+import IR.*;
 
 public class AST_EXP_NIL extends AST_EXP {
 
