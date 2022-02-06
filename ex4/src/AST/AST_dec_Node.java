@@ -14,7 +14,7 @@ public class AST_dec_Node extends AST_dec{
         this.head = head;
     }
     @Override
-    public IR_Line PrintCode() {
+    public IR_Code PrintCode() {
         head.PrintMe();
         return null;
     }

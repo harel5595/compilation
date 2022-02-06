@@ -23,7 +23,7 @@ public class AST_class extends AST_dec {
 
     /*******/
 
-    public IR_Line PrintCode() {
+    public IR_Code PrintCode() {
         /***********/
         /* AST NODE TYPE = AST FIELD VAR */
         /***********/

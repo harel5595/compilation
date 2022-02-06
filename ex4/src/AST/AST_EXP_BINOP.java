@@ -14,7 +14,7 @@ public class AST_EXP_BINOP extends AST_EXP
 	/* CONSTRUCTOR(S) */
 	/******************/
 
-	public void PrintMe()
+	public IR_Code PrintCode()
 	{
 		String sOP="";
 
@@ -52,6 +52,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		/****************************************/
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.getSerialNumber());
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.getSerialNumber());
+		return null;
 	}
 
 	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP, int line)

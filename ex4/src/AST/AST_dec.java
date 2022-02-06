@@ -8,7 +8,7 @@ public abstract class AST_dec extends AST_Node
 	/*********************************************************/
 	/* The default message for an unknown AST statement node */
 	/*********************************************************/
-	public IR_Line PrintCode()
+	public IR_Code PrintCode()
 	{
 		System.out.print("UNKNOWN AST STATEMENT NODE\n");return null;
 	}

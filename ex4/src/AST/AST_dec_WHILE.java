@@ -18,7 +18,7 @@ public class AST_dec_WHILE extends AST_dec
 	/*******************/
 
 	@Override
-	public IR_Line PrintCode() {
+	public IR_Code PrintCode() {
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
 				"While\nCond, commands");
 		cond.PrintMe();

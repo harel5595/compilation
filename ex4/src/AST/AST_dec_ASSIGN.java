@@ -19,7 +19,7 @@ public class AST_dec_ASSIGN extends AST_dec
 	/*******************/
 
 	@Override
-	public IR_Line PrintCode()
+	public IR_Code PrintCode()
 	{
 		/********************************************/
 		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
