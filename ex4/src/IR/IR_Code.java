@@ -25,4 +25,10 @@ public class IR_Code {
         return "t" + curr++;
     }
 
+    public IR_Code addLine(IR_Line line)
+    {
+        code.add(line);
+        return this;
+    }
+
 }
