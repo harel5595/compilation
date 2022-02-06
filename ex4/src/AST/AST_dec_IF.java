@@ -5,7 +5,7 @@ import java.util.List;
 import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
-
+import IR.*;
 
 public class AST_dec_IF extends AST_dec
 {

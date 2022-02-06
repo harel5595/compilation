@@ -2,10 +2,39 @@ package AST;
 import Printer.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
+
+import IR.*;
+
 public class AST_arrayTypeDef extends AST_dec {
 	public String arrayName;
 	public AST_type t;
-	
+
+
+	public IR_Line PrintCode()
+	{
+
+		System.out.print("AST NODE ARRAY TYPE DEF\n");
+
+		/**************************************/
+		/* RECURSIVELY PRINT type ... */
+		/**************************************/
+		if (t != null) t.PrintMe();
+
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+				SerialNumber,
+				String.format("ARRAYNAME(%s)",arrayName));
+
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		if (t  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.getSerialNumber());
+		return null;
+	}
+
+
 	
 	public AST_arrayTypeDef(String arrayName, AST_type t, int line) {
 		

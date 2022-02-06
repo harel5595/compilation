@@ -6,6 +6,7 @@ import TYPES.TYPE;
 import TYPES.TYPE_CLASS;
 import TYPES.TYPE_LIST;
 import TYPES.TYPE_VOID;
+import IR.*;
 
 import java.util.List;
 import java.util.Objects;

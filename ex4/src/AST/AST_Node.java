@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.*;
+import IR.*;
 
 public abstract class AST_Node
 {

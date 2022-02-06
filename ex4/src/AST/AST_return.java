@@ -4,6 +4,7 @@ import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE;
 import TYPES.TYPE_VOID;
+import IR.*;
 
 public class AST_return extends AST_dec {
     public AST_EXP exp;

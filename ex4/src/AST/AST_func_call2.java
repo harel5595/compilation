@@ -6,6 +6,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import java.util.List;
 import java.util.Objects;
 import TYPES.*;
+import IR.*;
 
 public class AST_func_call2 extends AST_dec {
     public String name;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
+import IR.*;
 
 public class AST_Program extends AST_Node {
     /****************/

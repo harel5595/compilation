@@ -3,6 +3,7 @@ package AST;
 import Printer.*;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import IR.*;
 
 import java.util.Objects;
 

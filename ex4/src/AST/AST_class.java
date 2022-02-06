@@ -8,6 +8,8 @@ import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
+import IR.*;
+
 public class AST_class extends AST_dec {
     /*****/
     /*  var := exp */

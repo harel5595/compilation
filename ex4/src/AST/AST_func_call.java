@@ -6,6 +6,7 @@ import java.util.Objects;
 import Printer.Printer;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import IR.*;
 
 public class AST_func_call extends AST_EXP {
     public String name;

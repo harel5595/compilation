@@ -3,6 +3,7 @@ package AST;
 import TYPES.TYPE;
 import TYPES.TYPE_NIL;
 import TYPES.TYPE_STRING;
+import IR.*;
 
 public class AST_EXP_STR extends AST_EXP{
     public String content;

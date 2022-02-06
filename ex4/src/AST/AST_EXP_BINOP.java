@@ -2,6 +2,7 @@ package AST;
 
 import Printer.Printer;
 import TYPES.*;
+import IR.*;
 
 public class AST_EXP_BINOP extends AST_EXP
 {
