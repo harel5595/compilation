@@ -16,6 +16,27 @@ public class AST_func_dec extends AST_dec{
     public int line;
 
 
+    @Override
+    public IR_Code PrintCode(){
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
+                String.format("func(%s)\nReturn, Params, Commands", this.name));
+        type.PrintMe();
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, type.getSerialNumber());
+        if(paramList != null)
+            for (AST_type param : paramList) {
+                param.PrintMe();
+                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, param.getSerialNumber());
+            }
+        if(commands != null)
+            for (AST_dec command :
+                    commands) {
+                command.PrintMe();
+                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.getSerialNumber());
+            }
+        return null;
+    }
+
+
     public AST_func_dec(AST_type type, String name, List<AST_dec> list, int line)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();

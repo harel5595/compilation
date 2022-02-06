@@ -9,6 +9,23 @@ public class AST_EXP_NIL extends AST_EXP {
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
+
+    public IR_Code PrintCode()
+    {
+        /*******************************/
+        /* AST NODE TYPE = AST INT EXP */
+        /*******************************/
+        System.out.format("AST NODE NIL\n");
+
+        /*********************************/
+        /* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "NIL");
+        return null;
+    }
+
     public AST_EXP_NIL(int line)
     {
         /******************************/

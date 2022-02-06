@@ -14,6 +14,18 @@ public class AST_return extends AST_dec {
         SerialNumber = AST_Node_Serial_Number.getFresh();
         this.line = line;
     }
+
+    @Override
+    public IR_Code PrintCode() {
+        AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
+                "Return\nValue");
+        exp.PrintMe();
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
+        return null;
+    }
+
+
+
     public AST_return(AST_EXP exp, int line)
     {
         this(line);

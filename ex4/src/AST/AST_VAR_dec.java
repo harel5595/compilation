@@ -17,6 +17,37 @@ public class AST_VAR_dec extends AST_dec{
         return name;
     }
 
+    public IR_Code PrintCode()
+    {
+        /********************************************/
+        /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
+        /********************************************/
+        System.out.print("AST NODE ASSIGN STMT\n");
+
+        /***********************************/
+        /* RECURSIVELY PRINT VAR + EXP ... */
+        /***********************************/
+        if (type != null) type.PrintMe();
+        if (exp != null) exp.PrintMe();
+
+        /***************************************/
+        /* PRINT Node to AST GRAPHVIZ DOT file */
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "ASSIGN\nleft := right\n");
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        if(type != null)
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.getSerialNumber());
+        if(exp != null)
+            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
+        return null;
+    }
+
+
     public AST_VAR_dec(AST_type type , String name, int line)
     {
         this.type = type;
