@@ -17,7 +17,8 @@ public class AST_EXP_BINOP extends AST_EXP
 	public IR_Code PrintCode()
 	{
 		String sOP="";
-
+		IR_Line line = new IR_Line();
+		line.assignment =
 		/*********************************/
 		/* CONVERT OP to a printable sOP */
 		/*********************************/

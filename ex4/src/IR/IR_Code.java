@@ -19,4 +19,10 @@ public class IR_Code {
         return this;
     }
 
+    static private int curr = 0;
+    static public String getNewRegisterName()
+    {
+        return "t" + curr++;
+    }
+
 }
