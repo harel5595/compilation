@@ -7,6 +7,20 @@ public class AST_type extends AST_dec{
     public String type;
     public String name;
     public int line;
+
+    @Override
+    public IR_Code PrintCode() {
+        if(name != null)
+            AST_GRAPHVIZ.getInstance().logNode(
+                    this.SerialNumber,
+                    String.format("Type\n...->%s , %s", type, name));
+        else
+            AST_GRAPHVIZ.getInstance().logNode(
+                    this.SerialNumber,
+                    String.format("Type\n...->%s", type));
+        return null;
+    }
+
     public AST_type(String type, String name, int line)
     {
         SerialNumber = AST_Node_Serial_Number.getFresh();

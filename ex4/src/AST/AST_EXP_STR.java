@@ -7,6 +7,24 @@ import IR.*;
 
 public class AST_EXP_STR extends AST_EXP{
     public String content;
+
+    public IR_Code PrintCode()
+    {
+        /*******************************/
+        /* AST NODE TYPE = AST INT EXP */
+        /*******************************/
+        System.out.format("AST string : %s \n", content);
+
+        /*********************************/
+        /* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("String %s", content));
+        return null;
+    }
+
+
     public AST_EXP_STR(String content, int line)
     {
         this.line = line;

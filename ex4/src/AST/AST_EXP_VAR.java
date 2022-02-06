@@ -14,6 +14,36 @@ public class AST_EXP_VAR extends AST_EXP
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
+
+	@Override
+	public IR_Code PrintCode()
+	{
+		/************************************/
+		/* AST NODE TYPE = EXP VAR AST NODE */
+		/************************************/
+		System.out.print("AST NODE EXP VAR\n");
+
+		/*****************************/
+		/* RECURSIVELY PRINT var ... */
+		/*****************************/
+		if (var != null) var.PrintMe();
+
+		/*********************************/
+		/* Print to AST GRAPHIZ DOT file */
+		/*********************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+				SerialNumber,
+				"EXP\nVAR");
+
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
+		return null;
+	}
+
+
+
 	public AST_EXP_VAR(AST_VAR var, int line)
 	{
 		/******************************/

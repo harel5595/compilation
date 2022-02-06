@@ -16,6 +16,31 @@ public class AST_new_exp extends  AST_EXP{
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
+
+    public IR_Code PrintCode()
+    {
+        /*******************************/
+        /* AST NODE TYPE = AST INT EXP */
+        /*******************************/
+        if(exp != null)
+            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, ((AST_EXP_INT)exp).value);
+        else
+            System.out.format("AST New_EXP( type:%s)\n",type.type);
+        /*********************************/
+        /* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        if(type.name != null)
+            AST_GRAPHVIZ.getInstance().logNode(
+                    SerialNumber,
+                    String.format("NEW %s(%s)",type.type, type.name));
+        else
+            AST_GRAPHVIZ.getInstance().logNode(
+                    SerialNumber,
+                    String.format("NEW %s",type.type));
+        return null;
+    }
+
+
     public AST_new_exp(AST_type type, AST_EXP exp, int line)
     {
         /******************************/

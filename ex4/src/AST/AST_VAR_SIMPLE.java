@@ -21,6 +21,24 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
+
+	public IR_Code PrintCode()
+	{
+		/**********************************/
+		/* AST NODE TYPE = AST SIMPLE VAR */
+		/**********************************/
+		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
+
+		/*********************************/
+		/* Print to AST GRAPHIZ DOT file */
+		/*********************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+				SerialNumber,
+				String.format("SIMPLE\nVAR\n(%s)",name));
+		return null;
+	}
+
+
 	public AST_VAR_SIMPLE(String name, int line)
 	{
 		/******************************/
