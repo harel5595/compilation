@@ -26,8 +26,12 @@ public class AST_VAR_dec extends AST_dec{
 
         IR_Code code = new IR_Code();
         IR_Line line = new IR_Line();
+        line.type = IR_Types.ASSINGNMENT;
         line.assign_to = IR_Code.getNewRegisterName();
-        line.left = exp.getName();
+        if(exp != null) {
+            code = exp.PrintCode();
+            line.left = exp.getName();
+        }
         code.addLine(line);
 
 
