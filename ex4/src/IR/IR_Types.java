@@ -11,7 +11,11 @@ public enum IR_Types {
     RETURN,
     ARRAY_SET,
     FIELD_SET,
-    VIRTUAL_CALL
+    VIRTUAL_CALL,
+    DIVIDE,
+    GRATER_THEN,
+    LESS_THEN,
+    EQUAL_THEN
 
 
 }

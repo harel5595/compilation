@@ -16,46 +16,49 @@ public class AST_EXP_BINOP extends AST_EXP
 
 	public IR_Code PrintCode()
 	{
-		String sOP="";
+		IR_Code left_code = left.PrintCode(), right_code = right.PrintCode();
 		IR_Line line = new IR_Line();
 		line.assign_to = IR_Code.getNewRegisterName();
-		line.type = IR_Types.ASSINGNMENT;
 
+		line.left = left_code.getCode().get(left_code.getCode().size() - 1).assign_to; // assuming here that the last line will be assingment of the result
+		line.right = right_code.getCode().get(right_code.getCode().size() - 1).assign_to;
 		/*********************************/
 		/* CONVERT OP to a printable sOP */
 		/*********************************/
-		if (OP == 0) {sOP = "+";}
-		if (OP == 1) {sOP = "-";}
-		if (OP == 2) {sOP = "*";}
-		if (OP == 3) {sOP = "/";}
-		if (OP == 4) {sOP = "<";}
-		if (OP == 5) {sOP = ">";}
-		if (OP == 6) {sOP = "=";}
+		if (OP == 0) {
+			line.type = IR_Types.PLUS;
+			line.op = "add";
+		}
+		if (OP == 1) {
+			line.type = IR_Types.MINUS;
+			line.op = "sub";
+		}
+		if (OP == 2) {
+			line.type = IR_Types.MUL;
+			line.op = "mul";
+		}
+		if (OP == 3) {
+			line.type = IR_Types.DIVIDE;
+			line.op = "div";
+		}
+		if (OP == 4) {
+			line.type = IR_Types.GRATER_THEN;
+			line.op = "bg";
+		}
+		if (OP == 5) {
+			line.type = IR_Types.LESS_THEN;
+			line.op = "lt";
+		}
+		if (OP == 6) {
+			line.type = IR_Types.EQUAL_THEN;
+			line.op = "eq";
+		}
 
-		/*************************************/
-		/* AST NODE TYPE = AST BINOP EXP */
-		/*************************************/
-		System.out.print("AST NODE BINOP EXP\n");
-
-		/**************************************/
-		/* RECURSIVELY PRINT left + right ... */
-		/**************************************/
-		if (left != null) left.PrintMe();
-		if (right != null) right.PrintMe();
-
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-				SerialNumber,
-				String.format("BINOP(%s)",sOP));
-
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.getSerialNumber());
-		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.getSerialNumber());
-		return null;
+		IR_Code my_code = new IR_Code();
+		my_code.addCode(left_code);
+		my_code.addCode(right_code);
+		my_code.addLine(line);
+		return my_code;
 	}
 
 	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP, int line)
