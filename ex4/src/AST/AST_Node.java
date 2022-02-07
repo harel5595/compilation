@@ -1,5 +1,6 @@
 package AST;
 
+import TEMP.TEMP;
 import TYPES.*;
 import IR.*;
 
@@ -18,7 +19,7 @@ public abstract class AST_Node
 	/***********************************************/
 	/* The default message for an unknown AST node */
 	/***********************************************/
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
 		System.out.print("AST NODE UNKNOWN\n");
 		return null;

@@ -2,6 +2,7 @@ package AST;
 
 import TYPES.*;
 import IR.*;
+import TEMP.*;
 
 public class AST_dec_Node extends AST_dec{
     public AST_dec head;
@@ -14,7 +15,7 @@ public class AST_dec_Node extends AST_dec{
         this.head = head;
     }
     @Override
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
         head.PrintMe();
         return null;
     }

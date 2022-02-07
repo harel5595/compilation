@@ -19,7 +19,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
     /* CONSTRUCTOR(S) */
     /******************/
 
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
         /*************************************/
         /* AST NODE TYPE = AST SUBSCRIPT VAR */
         /*************************************/

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import TYPES.*;
 import IR.*;
+import TEMP.*;
 
 public class AST_dec_WHILE extends AST_dec
 {
@@ -18,7 +19,7 @@ public class AST_dec_WHILE extends AST_dec
 	/*******************/
 
 	@Override
-	public IR_Code PrintCode() {
+	public TEMP PrintCode() {
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
 				"While\nCond, commands");
 		cond.PrintMe();

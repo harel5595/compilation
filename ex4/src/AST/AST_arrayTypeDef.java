@@ -10,7 +10,7 @@ public class AST_arrayTypeDef extends AST_dec {
 	public AST_type t;
 
 
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
 
 		System.out.print("AST NODE ARRAY TYPE DEF\n");

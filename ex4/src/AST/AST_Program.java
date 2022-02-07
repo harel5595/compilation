@@ -17,7 +17,7 @@ public class AST_Program extends AST_Node {
     /* CONSTRUCTOR(S) */
     /******************/
 
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
         /**************************************/
         /* AST NODE TYPE = AST STATEMENT LIST */
         /**************************************/

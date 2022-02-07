@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import Printer.Printer;
+import TEMP.TEMP;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
@@ -17,7 +18,7 @@ public class AST_func_dec extends AST_dec{
 
 
     @Override
-    public IR_Code PrintCode(){
+    public TEMP PrintCode(){
         AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
                 String.format("func(%s)\nReturn, Params, Commands", this.name));
         type.PrintMe();

@@ -7,13 +7,14 @@ import Printer.Printer;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
+import TEMP.*;
 
 public class AST_func_call extends AST_EXP {
     public String name;
     public AST_VAR var;
     public List<AST_EXP> lexp;
 
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
 
         /*********************************/
         /* AST NODE TYPE = AST FIELD VAR */

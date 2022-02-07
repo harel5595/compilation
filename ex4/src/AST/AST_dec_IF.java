@@ -6,6 +6,7 @@ import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 import IR.*;
+import TEMP.*;
 
 public class AST_dec_IF extends AST_dec
 {
@@ -17,7 +18,7 @@ public class AST_dec_IF extends AST_dec
 	/*******************/
 
 	@Override
-	public IR_Code PrintCode() {
+	public TEMP PrintCode() {
 		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
 				"If\nCond, commands");
 		cond.PrintMe();

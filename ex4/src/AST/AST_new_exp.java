@@ -2,6 +2,7 @@ package AST;
 
 import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
+import TEMP.TEMP;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import IR.*;
@@ -17,7 +18,7 @@ public class AST_new_exp extends  AST_EXP{
     /* CONSTRUCTOR(S) */
     /******************/
 
-    public IR_Code PrintCode()
+    public TEMP PrintCode()
     {
         /*******************************/
         /* AST NODE TYPE = AST INT EXP */

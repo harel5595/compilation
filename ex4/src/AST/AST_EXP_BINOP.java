@@ -1,6 +1,7 @@
 package AST;
 
 import Printer.Printer;
+import TEMP.*;
 import TYPES.*;
 import IR.*;
 
@@ -14,51 +15,49 @@ public class AST_EXP_BINOP extends AST_EXP
 	/* CONSTRUCTOR(S) */
 	/******************/
 
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
-		IR_Code left_code = left.PrintCode(), right_code = right.PrintCode();
-		IR_Line line = new IR_Line();
-		line.assign_to = IR_Code.getNewRegisterName();
+		TEMP t1 = null;
+		TEMP t2 = null;
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
-		line.left = left_code.getCode().get(left_code.getCode().size() - 1).assign_to; // assuming here that the last line will be assingment of the result
-		line.right = right_code.getCode().get(right_code.getCode().size() - 1).assign_to;
-		/*********************************/
-		/* CONVERT OP to a printable sOP */
-		/*********************************/
-		if (OP == 0) {
-			line.type = IR_Types.PLUS;
-			line.op = "add";
+		if (left  != null) t1 = left.PrintCode();
+		if (right != null) t2 = right.PrintCode();
+
+		if (OP == 0)
+		{
+			IR_Code.
+					addLine(new IRcommand_Binop_Add_Integers(dst,t1,t2));
 		}
-		if (OP == 1) {
-			line.type = IR_Types.MINUS;
-			line.op = "sub";
+		if (OP == 1)
+		{
+			IR_Code.
+					addLine(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
 		}
-		if (OP == 2) {
-			line.type = IR_Types.MUL;
-			line.op = "mul";
+		if (OP == 2)
+		{
+			IR_Code.
+					addLine(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
 		}
-		if (OP == 3) {
-			line.type = IR_Types.DIVIDE;
-			line.op = "div";
+		if (OP == 3)
+		{
+			IR_Code.
+					addLine(new IRcommand_Binop_Div_Integers(dst,t1,t2));
 		}
-		if (OP == 4) {
-			line.type = IR_Types.GRATER_THEN;
-			line.op = "bg";
+		if (OP == 4)
+		{
+			IR_Code.
+					addLine(new IRcommand_Binop_LT_Integers(dst,t1,t2));
 		}
 		if (OP == 5) {
-			line.type = IR_Types.LESS_THEN;
-			line.op = "lt";
+			IR_Code.
+					addLine(new IRcommand_Binop_LT_Integers(dst,t2,t1));
 		}
 		if (OP == 6) {
-			line.type = IR_Types.EQUAL_THEN;
-			line.op = "eq";
+			IR_Code.
+					addLine(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
 		}
-
-		IR_Code my_code = new IR_Code();
-		my_code.addCode(left_code);
-		my_code.addCode(right_code);
-		my_code.addLine(line);
-		return my_code;
+		return dst;
 	}
 
 	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP, int line)

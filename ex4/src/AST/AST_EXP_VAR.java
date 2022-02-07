@@ -1,6 +1,7 @@
 package AST;
 
 import Printer.Printer;
+import TEMP.TEMP;
 import TYPES.TYPE;
 import TYPES.TYPE_INT;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -16,7 +17,7 @@ public class AST_EXP_VAR extends AST_EXP
 	/******************/
 
 	@Override
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
 		/************************************/
 		/* AST NODE TYPE = EXP VAR AST NODE */

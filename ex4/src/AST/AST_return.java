@@ -16,7 +16,7 @@ public class AST_return extends AST_dec {
     }
 
     @Override
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
         AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
                 "Return\nValue");
         exp.PrintMe();

@@ -25,7 +25,7 @@ public class AST_VAR_FIELD extends AST_VAR
 	/* CONSTRUCTOR(S) */
 	/******************/
 
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
 		/*********************************/
 		/* AST NODE TYPE = AST FIELD VAR */

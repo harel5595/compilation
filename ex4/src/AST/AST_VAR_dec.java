@@ -1,6 +1,7 @@
 package AST;
 
 import Printer.*;
+import TEMP.TEMP;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
@@ -17,7 +18,7 @@ public class AST_VAR_dec extends AST_dec{
         return name;
     }
 
-    public IR_Code PrintCode()
+    public TEMP PrintCode()
     {
         /********************************************/
         /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
@@ -32,7 +33,7 @@ public class AST_VAR_dec extends AST_dec{
             code = exp.PrintCode();
             line.left = exp.getName();
         }
-        code.addLine(line);
+        //code.addLine(line);
 
 
         /***********************************/

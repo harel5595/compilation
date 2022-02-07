@@ -6,6 +6,8 @@ import TYPES.*;
 
 import java.util.Objects;
 import IR.*;
+import TEMP.*;
+
 public class AST_dec_ASSIGN extends AST_dec
 {
 	/***************/
@@ -19,7 +21,7 @@ public class AST_dec_ASSIGN extends AST_dec
 	/*******************/
 
 	@Override
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
 		/********************************************/
 		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */

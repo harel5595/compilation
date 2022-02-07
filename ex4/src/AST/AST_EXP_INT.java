@@ -11,7 +11,7 @@ public class AST_EXP_INT extends AST_EXP
 	/* CONSTRUCTOR(S) */
 	/******************/
 
-	public IR_Code PrintCode()
+	public TEMP PrintCode()
 	{
 		/*******************************/
 		/* AST NODE TYPE = AST INT EXP */

@@ -8,7 +8,7 @@ import IR.*;
 public class AST_EXP_STR extends AST_EXP{
     public String content;
 
-    public IR_Code PrintCode()
+    public TEMP PrintCode()
     {
         /*******************************/
         /* AST NODE TYPE = AST INT EXP */

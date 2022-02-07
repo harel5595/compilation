@@ -5,6 +5,8 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 
 import java.util.List;
 import java.util.Objects;
+
+import TEMP.*;
 import TYPES.*;
 import IR.*;
 
@@ -13,7 +15,7 @@ public class AST_func_call2 extends AST_dec {
     public AST_VAR var;
     public List<AST_EXP> lexp;
 
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
 
         /*********************************/
         /* AST NODE TYPE = AST FIELD VAR */

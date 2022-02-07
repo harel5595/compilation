@@ -9,7 +9,7 @@ public class AST_type extends AST_dec{
     public int line;
 
     @Override
-    public IR_Code PrintCode() {
+    public TEMP PrintCode() {
         if(name != null)
             AST_GRAPHVIZ.getInstance().logNode(
                     this.SerialNumber,
