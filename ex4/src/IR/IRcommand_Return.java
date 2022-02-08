@@ -21,6 +21,6 @@ public class IRcommand_Return extends IRcommand
 	public void MIPSme()
 	{
 		// TODO: jump to ra.
-		//MIPSGenerator.getInstance().jump();
+		MIPSGenerator.getInstance().jump("this doesnt have any effect", true);
 	}
 }

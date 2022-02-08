@@ -28,6 +28,6 @@ public class IRcommand_Jump_Label extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().jump(label_name);
+		MIPSGenerator.getInstance().jump(label_name, false);
 	}
 }

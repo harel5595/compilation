@@ -55,7 +55,7 @@ public class IRcommand_Binop_EQ_Integers extends IRcommand
 		/************************/
 		MIPSGenerator.getInstance().label(label_AssignOne);
 		MIPSGenerator.getInstance().li(dst,1);
-		MIPSGenerator.getInstance().jump(label_end);
+		MIPSGenerator.getInstance().jump(label_end, false);
 
 		/*************************/
 		/* [4] label_AssignZero: */
@@ -66,7 +66,7 @@ public class IRcommand_Binop_EQ_Integers extends IRcommand
 		/*************************/
 		MIPSGenerator.getInstance().label(label_AssignZero);
 		MIPSGenerator.getInstance().li(dst,0);
-		MIPSGenerator.getInstance().jump(label_end);
+		MIPSGenerator.getInstance().jump(label_end, false);
 
 		/******************/
 		/* [5] label_end: */
