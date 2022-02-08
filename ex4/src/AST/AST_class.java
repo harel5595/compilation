@@ -24,38 +24,6 @@ public class AST_class extends AST_dec {
     /*******/
 
     public TEMP PrintCode() {
-        /***********/
-        /* AST NODE TYPE = AST FIELD VAR */
-        /***********/
-        System.out.printf("AST NODE Class ID(%s)\n", ID);
-
-        /*************/
-        /* PRINT Node to AST GRAPHVIZ DOT file */
-        /*************/
-        if(name2 == null)
-            AST_GRAPHVIZ.getInstance().logNode(
-                    SerialNumber,
-                    String.format("class\nID\n...->%s", ID));
-        else
-            AST_GRAPHVIZ.getInstance().logNode(
-                    SerialNumber,
-                    String.format("class\nID\nextends\n%s...->%s", name2, ID));
-
-        /****************/
-        /* RECURSIVELY PRINT VAR, then FIELD NAME ... */
-        /****************/
-        for (AST_dec field :
-                fields) {
-            System.out.print("AST NODE FIELD \n");
-            field.PrintMe();
-
-
-
-            /**************/
-            /* PRINT Edges to AST GRAPHVIZ DOT file */
-            /**************/
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, field.getSerialNumber());
-        }
         return null;
     }
 

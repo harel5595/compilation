@@ -19,8 +19,7 @@ public class AST_EXP_VAR extends AST_EXP
 	@Override
 	public TEMP PrintCode()
 	{
-
-		return null;
+		return var.PrintCode();
 	}
 
 

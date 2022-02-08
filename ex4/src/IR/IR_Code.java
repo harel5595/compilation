@@ -84,16 +84,12 @@ public class IR_Code {
         toUse.push(func);
     }
 
-    static private int curr = 0;
-    static public String getNewRegisterName()
-    {
-        return "t" + curr++;
-    }
     static public IR_Code getInstance()
     {
         IR_Code code;
         if (instances.empty())
         {
+            defineGlobalFuncs();
             code = new IR_Code();
             instances.push(code);
             return code;
@@ -107,6 +103,13 @@ public class IR_Code {
     public void addLine(IRcommand line)
     {
         code.add(line);
+    }
+
+    static void defineGlobalFuncs()
+    {
+        toUse.push(new UseableFunc("PrintInt", "lol", TEMP_FACTORY.getInstance().getFreshTEMP()));
+
+        // TODO: this.
     }
 
 }

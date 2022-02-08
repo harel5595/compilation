@@ -18,6 +18,7 @@ public class AST_Program extends AST_Node {
     /******************/
 
     public TEMP PrintCode() {
+        IR_Code.getInstance(); // to create the global env
         for (AST_dec a: l) {
             a.PrintCode();
         }

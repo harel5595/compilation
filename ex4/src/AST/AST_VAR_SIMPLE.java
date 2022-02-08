@@ -25,6 +25,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public TEMP PrintCode()
 	{
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR_Code.getInstance().addLine(new IRcommand_Load(dst, name));
 		return dst;
 	}
 
