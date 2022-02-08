@@ -20,14 +20,27 @@ public class AST_dec_WHILE extends AST_dec
 
 	@Override
 	public TEMP PrintCode() {
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
-				"While\nCond, commands");
-		cond.PrintMe();
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cond.getSerialNumber());
-		for(AST_dec command: body)
+		TEMP condT = null;
+		TEMP bodyT = null;
+
+		if(cond != null)
 		{
-			command.PrintMe();
-			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.getSerialNumber());
+			String Slabel = IRcommand.getFreshLabel("start_of_while");
+			IR_Code.getInstance().addLine(new IRcommand_Label(Slabel));
+			condT = cond.PrintCode();
+			if(body != null)
+			{
+				String Elabel = IRcommand.getFreshLabel("end_of_while");
+				IR_Code.getInstance().addLine(new IRcommand_Jump_If_Eq_To_Zero(condT,Elabel));
+				IR_Code.startScope();
+				for (AST_dec line :
+						body) {
+					line.PrintCode();
+				}
+				IR_Code.endScope();
+				IR_Code.getInstance().addLine(new IRcommand_Jump_Label(Slabel));
+				IR_Code.getInstance().addLine(new IRcommand_Label(Elabel));
+			}
 		}
 		return null;
 	}
