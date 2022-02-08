@@ -19,6 +19,7 @@ public class AST_return extends AST_dec {
     public TEMP PrintCode() {
         TEMP t = exp.PrintCode();
         IR_Code.getInstance().addLine(new IRcommand_Assign_TEMPs(IR_Code.currentReturnRegister, t));
+        IR_Code.getInstance().addLine(new IRcommand_Return());
         return null;
     }
 
