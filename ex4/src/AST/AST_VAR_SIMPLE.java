@@ -24,18 +24,8 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TEMP PrintCode()
 	{
-		/**********************************/
-		/* AST NODE TYPE = AST SIMPLE VAR */
-		/**********************************/
-		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
-
-		/*********************************/
-		/* Print to AST GRAPHIZ DOT file */
-		/*********************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-				SerialNumber,
-				String.format("SIMPLE\nVAR\n(%s)",name));
-		return null;
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		return dst;
 	}
 
 
