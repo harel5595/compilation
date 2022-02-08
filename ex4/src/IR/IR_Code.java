@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
+import TEMP.*;
 
 public class IR_Code {
     public static Stack<Useable> toUse = new Stack<Useable>();
+    public static TEMP currentReturnRegister;
     static Stack<IR_Code> instances = new Stack<>();
     public List<IRcommand> code = new LinkedList<>();
     static public List<IR_Code> funcsCode = new LinkedList<>(); // the code of all the functions

@@ -4,10 +4,11 @@ import java.util.Collections;
 import java.util.List;
 
 import Printer.Printer;
-import TEMP.TEMP;
+import TEMP.*;
 import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
+import Useable.UseableFunc;
 
 public class AST_func_dec extends AST_dec{
     public List<AST_type> paramList;
@@ -20,10 +21,14 @@ public class AST_func_dec extends AST_dec{
     @Override
     public TEMP PrintCode(){
        IR_Code.startFunc();
+       String label = IRcommand.getFreshLabel(name);
+       IR_Code.getInstance().addLine(new IRcommand_Label(label));
        for(AST_dec command: commands)
            command.PrintCode();
-       IR_Code.endFunc();
-        paramList
+       IR_Code funcCode = IR_Code.endFunc();
+       UseableFunc func = new UseableFunc(name, label);
+       IR_Code.addFunc(funcCode, func);
+       return null;
     }
 
 
