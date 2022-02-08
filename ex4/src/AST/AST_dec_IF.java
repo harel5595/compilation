@@ -19,15 +19,23 @@ public class AST_dec_IF extends AST_dec
 
 	@Override
 	public TEMP PrintCode() {
-		AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
-				"If\nCond, commands");
-		cond.PrintMe();
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, cond.getSerialNumber());
-		for(AST_dec command: body)
+
+	TEMP condT = null;
+	TEMP bodyT = null;
+
+	if(cond != null)
+	{
+		condT = cond.PrintCode();
+		if(body != null)
 		{
-			command.PrintMe();
-			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, command.getSerialNumber());
+			String label = IRcommand.getFreshLabel("end_of_if");
+			IR_Code.getInstance().addLine(new IRcommand_Jump_If_Eq_To_Zero(condT,label));
+			IR_Code.startScope();
+			bodyT = cond.PrintCode();
+			IR_Code.endScope();
+			IR_Code.getInstance().addLine(new IRcommand_Label(label));
 		}
+	}
 		return null;
 	}
 
