@@ -3,6 +3,7 @@ package AST;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
@@ -10,6 +11,8 @@ import TYPES.*;
 
 import IR.*;
 import TEMP.*;
+import Useable.*;
+
 public class AST_class extends AST_dec {
     /*****/
     /*  var := exp */
@@ -17,6 +20,7 @@ public class AST_class extends AST_dec {
     public String ID;
     public List<AST_dec> fields;
     public String name2;
+    TYPE_CLASS thisClass;
 
     /*******/
     /*  CONSTRUCTOR(S) */
@@ -24,6 +28,39 @@ public class AST_class extends AST_dec {
     /*******/
 
     public TEMP PrintCode() {
+        IR_Code.startFunc();
+        IR_Code.getInstance().addLine(new IRcommand_Label("allocate_"+ID));
+
+        UseableClass my_class;
+        List<Useable> inner_fields = new LinkedList<Useable>();
+        for(AST_dec field : fields)
+        {
+            if(((AST_dec_Node)field).head instanceof AST_func_dec)
+            {
+
+                UseableFunc func = ((AST_func_dec)((AST_dec_Node)field).head).PrintCode(true);
+                inner_fields.add(func);
+                //IR_Code.toUse.push(new UseableFunc(ID, "allocate_"+ ID, TEMP_FACTORY.getInstance().getFreshTEMP()));
+            }
+            else if(((AST_dec_Node)field).head instanceof AST_VAR_dec)
+            {
+                field.PrintCode(); // allocate the place for the field.
+                inner_fields.add(new UseableVar(field.getName())); // TODO: maybe add more params for the var
+            }
+            else
+            {
+                throw new Error("wasn't ready for that type in class");
+            }
+
+        }
+        IR_Code constractor = IR_Code.endFunc();
+
+        my_class = new UseableClass(ID,inner_fields, constractor);
+        IR_Code.classes.add(my_class);
+        IR_Code.addFunc(constractor, new UseableFunc("constractor_"+ID,"allocate_"+ID,TEMP_FACTORY.getInstance().getFreshTEMP(), constractor));
+        //new UseableClass(ID, )
+
+
         return null;
     }
 
@@ -137,6 +174,7 @@ public class AST_class extends AST_dec {
             }
         }
         TYPE_CLASS t = new TYPE_CLASS(father,ID,null,null);
+        thisClass = t;
         SYMBOL_TABLE.getInstance().enter(ID,t);
         /*******/
         /* [3] End Scope */

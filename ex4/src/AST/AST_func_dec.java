@@ -28,9 +28,21 @@ public class AST_func_dec extends AST_dec{
        for(AST_dec command: commands)
            command.PrintCode();
        IR_Code funcCode = IR_Code.endFunc();
-       UseableFunc func = new UseableFunc(name, label, ret);
+       UseableFunc func = new UseableFunc(name, label, ret, funcCode);
        IR_Code.addFunc(funcCode, func);
        return null;
+    }
+
+    public UseableFunc PrintCode(boolean in_class){
+        IR_Code.startFunc();
+        TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR_Code.currentReturnRegister = ret;
+        String label = IRcommand.getFreshLabel(name);
+        IR_Code.getInstance().addLine(new IRcommand_Label(label));
+        for(AST_dec command: commands)
+            command.PrintCode();
+        IR_Code funcCode = IR_Code.endFunc();
+        return new UseableFunc(name, label, ret, funcCode);
     }
 
 

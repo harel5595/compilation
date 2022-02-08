@@ -25,6 +25,8 @@ public class AST_VAR_FIELD extends AST_VAR
 	/* CONSTRUCTOR(S) */
 	/******************/
 
+	//public
+
 	public TEMP PrintCode()
 	{
 		/*********************************/

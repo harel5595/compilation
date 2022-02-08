@@ -10,6 +10,7 @@ import TEMP.*;
 
 public class IR_Code {
     public static Stack<Useable> toUse = new Stack<Useable>();
+    public static List<UseableClass> classes = new LinkedList<UseableClass>();
     public static TEMP currentReturnRegister;
     static Stack<IR_Code> instances = new Stack<>();
     public List<IRcommand> code;
@@ -107,7 +108,7 @@ public class IR_Code {
 
     static void defineGlobalFuncs()
     {
-        toUse.push(new UseableFunc("PrintInt", "lol", TEMP_FACTORY.getInstance().getFreshTEMP()));
+        toUse.push(new UseableFunc("PrintInt", "lol", TEMP_FACTORY.getInstance().getFreshTEMP(), null));
 
         // TODO: this.
     }
