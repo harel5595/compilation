@@ -1,50 +1,37 @@
-array IntArray = int[];
-
-int monthJuly()
+int IsPrime(int p)
 {
-	int july := 7;
-	return july;
+    int i := 2;
+    int j := 2;
+    
+    while (i<p)
+    {
+        while (j<p)
+        {
+            if (i*j = p)
+            {
+                 return 1;
+            }
+            j := j+1;
+        }
+        i := i+1;
+    }
+    return 0;
 }
-class Person
+
+void PrintPrimes(int start, int end)
 {
-	int ID;
-	int age := 18;
-
-	IntArray lastYearSalaries;
-
-	int getAge()  { return age;   }
-	int birthday(){ age := age+1; return age; }
-}
-
-class Student extends Person
-{
-	IntArray grades;
-	int getAverage()
-	{
-		int i := 0;
-		int sum := 0;
-		while (i<10)
-		{
-			sum := sum+grades[i];
-			i := i+1;
-		}
-		return sum/10;
-	}
+    int p := start;
+    
+    while (p < end+1)
+    {
+        if (IsPrime(p))
+        {
+            PrintInt(p);
+        }
+    }
 }
 
 void main()
 {
-	Student moish := new Student;
-	moish.grades := new int[10];
-	moish.lastYearSalaries := new int[12];
-	int COMPILATION := 6;
-
-	moish.grades[COMPILATION] := 99;
-
-	if (moish.getAverage() > 90)
-	{
-		// mysterious raise pattern ...
-		moish.lastYearSalaries[moish.age] := moish.lastYearSalaries[moish.birthday()] + 1000;
-	}
-	Student dave := new Student;
+    PrintPrimes(2,100);
 }

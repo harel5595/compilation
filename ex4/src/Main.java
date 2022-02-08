@@ -50,12 +50,14 @@ public class Main
 			/*************************/
 			/* [6] Print the AST ... */
 			/*************************/
-			AST.PrintMe();
+			//AST.PrintMe();
 
 			/**************************/
 			/* [7] Semant the AST ... */
 			/**************************/
 			AST.SemantMe();
+
+			AST.PrintCode();
 
 			Printer.file_writer.print("OK");
 

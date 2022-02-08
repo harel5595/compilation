@@ -18,31 +18,8 @@ public class AST_Program extends AST_Node {
     /******************/
 
     public TEMP PrintCode() {
-        /**************************************/
-        /* AST NODE TYPE = AST STATEMENT LIST */
-        /**************************************/
-        System.out.print("AST NODE Program\n");
-
-        /*************************************/
-        /* RECURSIVELY PRINT HEAD + TAIL ... */
-        /*************************************/
-
-        /**********************************/
-        /* PRINT to AST GRAPHVIZ DOT file */
-        /**********************************/
-        AST_GRAPHVIZ.getInstance().logNode(
-                SerialNumber,
-                "Program\n");
-
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        if (l != null) {
-            for (AST_dec menachem : l) {
-                menachem.PrintMe();
-                AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, menachem.getSerialNumber());
-
-            }
+        for (AST_dec a: l) {
+            a.PrintCode();
         }
         return null;
     }

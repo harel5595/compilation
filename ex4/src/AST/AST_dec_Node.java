@@ -16,7 +16,7 @@ public class AST_dec_Node extends AST_dec{
     }
     @Override
     public TEMP PrintCode() {
-        head.PrintMe();
+        head.PrintCode();
         return null;
     }
 

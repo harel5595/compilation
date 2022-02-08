@@ -9,7 +9,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 
 import IR.*;
-
+import TEMP.*;
 public class AST_class extends AST_dec {
     /*****/
     /*  var := exp */

@@ -12,11 +12,11 @@ public class IR_Code {
     public static Stack<Useable> toUse = new Stack<Useable>();
     public static TEMP currentReturnRegister;
     static Stack<IR_Code> instances = new Stack<>();
-    public List<IRcommand> code = new LinkedList<>();
+    public List<IRcommand> code;
     static public List<IR_Code> funcsCode = new LinkedList<>(); // the code of all the functions
     public IR_Code()
     {
-     code = null;
+     code = new LinkedList<>();
     }
     public List<IRcommand> getCode() {
         return code;
@@ -68,10 +68,11 @@ public class IR_Code {
         }
 
         res = a;
-        while (a != null)
+        toUse.push(a);
+        while (!tempS.empty())
         {
-            toUse.push(a);
             a = tempS.pop();
+            toUse.push(a);
         }
 
         return res;

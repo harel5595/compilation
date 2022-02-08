@@ -23,29 +23,8 @@ public class AST_dec_ASSIGN extends AST_dec
 	@Override
 	public TEMP PrintCode()
 	{
-		/********************************************/
-		/* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
-		/********************************************/
-		System.out.print("AST NODE ASSIGN STMT\n");
-
-		/***********************************/
-		/* RECURSIVELY PRINT VAR + EXP ... */
-		/***********************************/
-		if (var != null) var.PrintMe();
-		if (exp != null) exp.PrintMe();
-
-		/***************************************/
-		/* PRINT Node to AST GRAPHVIZ DOT file */
-		/***************************************/
-		AST_GRAPHVIZ.getInstance().logNode(
-				SerialNumber,
-				"ASSIGN\nleft := right\n");
-
-		/****************************************/
-		/* PRINT Edges to AST GRAPHVIZ DOT file */
-		/****************************************/
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.getSerialNumber());
-		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
+		TEMP t = exp.PrintCode();
+		IR_Code.getInstance().addLine(new IRcommand_Store(var.getName(), t));
 		return null;
 	}
 

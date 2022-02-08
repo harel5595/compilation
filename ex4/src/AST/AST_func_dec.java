@@ -21,12 +21,14 @@ public class AST_func_dec extends AST_dec{
     @Override
     public TEMP PrintCode(){
        IR_Code.startFunc();
+       TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
+       IR_Code.currentReturnRegister = ret;
        String label = IRcommand.getFreshLabel(name);
        IR_Code.getInstance().addLine(new IRcommand_Label(label));
        for(AST_dec command: commands)
            command.PrintCode();
        IR_Code funcCode = IR_Code.endFunc();
-       UseableFunc func = new UseableFunc(name, label);
+       UseableFunc func = new UseableFunc(name, label, ret);
        IR_Code.addFunc(funcCode, func);
        return null;
     }
