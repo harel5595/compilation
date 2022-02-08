@@ -4,24 +4,15 @@ import TYPES.TYPE;
 import TYPES.TYPE_NIL;
 import TYPES.TYPE_STRING;
 import IR.*;
-
+import TEMP.*;
 public class AST_EXP_STR extends AST_EXP{
     public String content;
 
     public TEMP PrintCode()
     {
-        /*******************************/
-        /* AST NODE TYPE = AST INT EXP */
-        /*******************************/
-        System.out.format("AST string : %s \n", content);
-
-        /*********************************/
-        /* Print to AST GRAPHIZ DOT file */
-        /*********************************/
-        AST_GRAPHVIZ.getInstance().logNode(
-                SerialNumber,
-                String.format("String %s", content));
-        return null;
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR_Code.getInstance().addLine(new IRcommandConstString(t, content));
+        return t;
     }
 
 
