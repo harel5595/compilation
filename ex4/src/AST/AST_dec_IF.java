@@ -31,7 +31,10 @@ public class AST_dec_IF extends AST_dec
 			String label = IRcommand.getFreshLabel("end_of_if");
 			IR_Code.getInstance().addLine(new IRcommand_Jump_If_Eq_To_Zero(condT,label));
 			IR_Code.startScope();
-			bodyT = cond.PrintCode();
+			for (AST_dec line :
+					body) {
+				line.PrintCode();
+			}
 			IR_Code.endScope();
 			IR_Code.getInstance().addLine(new IRcommand_Label(label));
 		}
