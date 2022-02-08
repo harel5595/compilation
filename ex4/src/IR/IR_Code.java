@@ -40,6 +40,18 @@ public class IR_Code {
         return instances.pop();
     }
 
+    static public void startScope() // so we know when to stop drop things from the stack
+    {
+        toUse.push(new Useable("__not_a_name__"));
+    }
+
+    static public void endScope() // drop things from the stack
+    {
+        while (!Objects.equals(toUse.pop().name, "__not_a_name__")) {}
+    }
+
+
+
     static public void addVar(UseableVar var)
     {
         toUse.push(var);
