@@ -3,12 +3,14 @@ package AST;
 import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 import TEMP.*;
 import TYPES.*;
 import IR.*;
+import Useable.UseableFunc;
 
 public class AST_func_call2 extends AST_dec {
     public String name;
@@ -16,38 +18,13 @@ public class AST_func_call2 extends AST_dec {
     public List<AST_EXP> lexp;
 
     public TEMP PrintCode() {
-
-        /*********************************/
-        /* AST NODE TYPE = AST FIELD VAR */
-        /*********************************/
-        System.out.print("function_call\n");
-
-        /**********************************************/
-        /* RECURSIVELY PRINT VAR, then FIELD NAME ... */
-        /**********************************************/
-        if (var != null) var.PrintMe();
-        System.out.format("Function Name( %s )\n", name);
-
-        /***************************************/
-        /* PRINT Node to AST GRAPHVIZ DOT file */
-        /***************************************/
-        AST_GRAPHVIZ.getInstance().logNode(
-                SerialNumber,
-                String.format("Function\nName\n...->%s", name));
-
-        for (AST_EXP exp :
-                lexp) {
-            exp.PrintMe();
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
-
-        }
-
-
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.getSerialNumber());
-        return null;
+        UseableFunc func = (UseableFunc) IR_Code.searchForUse(name);
+        List<TEMP> params = new LinkedList<TEMP>();
+        for(AST_EXP a: lexp)
+            params.add(a.PrintCode());
+        TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR_Code.getInstance().addLine(new IRcommand_CallFunc(params, func, ret));
+        return ret;
     }
 
 

@@ -1,5 +1,6 @@
 package AST;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,6 +9,7 @@ import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
 import TEMP.*;
+import Useable.*;
 
 public class AST_func_call extends AST_EXP {
     public String name;
@@ -16,8 +18,13 @@ public class AST_func_call extends AST_EXP {
 
     public TEMP PrintCode() {
 
-        IR
-        return null;
+        UseableFunc func = (UseableFunc) IR_Code.searchForUse(name);
+        List<TEMP> params = new LinkedList<TEMP>();
+        for(AST_EXP a: lexp)
+            params.add(a.PrintCode());
+        TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR_Code.getInstance().addLine(new IRcommand_CallFunc(params, func, ret));
+        return ret;
     }
 
 
