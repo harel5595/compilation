@@ -17,10 +17,9 @@ public class AST_return extends AST_dec {
 
     @Override
     public TEMP PrintCode() {
-        AST_GRAPHVIZ.getInstance().logNode(SerialNumber,
-                "Return\nValue");
-        exp.PrintMe();
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, exp.getSerialNumber());
+        TEMP t = exp.PrintCode();
+        IR_Code.getInstance().addLine(new IRcommand_Assign_TEMPs(IR_Code.currentReturnRegister, t));
+        IR_Code.getInstance().addLine(new IRcommand_Return());
         return null;
     }
 
@@ -30,7 +29,6 @@ public class AST_return extends AST_dec {
     {
         this(line);
         this.exp = exp;
-
     }
 
     @Override

@@ -1,9 +1,11 @@
 package Useable;
 
 public class UseableFunc extends Useable{
-    // TODO: add info about th func so we could call it
-    public UseableFunc(String name)
+    public String startLabel;
+    // TODO: add info about the func so we could call it
+    public UseableFunc(String name, String startLabel)
     {
         super(name);
+        this.startLabel = startLabel;
     }
 }
