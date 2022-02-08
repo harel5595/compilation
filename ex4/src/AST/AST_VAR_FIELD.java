@@ -10,7 +10,7 @@ import IR.*;
 
 import java.util.List;
 import java.util.Objects;
-
+import TEMP.*;
 public class AST_VAR_FIELD extends AST_VAR
 {
 	public AST_VAR var;

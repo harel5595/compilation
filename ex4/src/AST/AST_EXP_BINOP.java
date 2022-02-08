@@ -27,34 +27,41 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (OP == 0)
 		{
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_Add_Integers(dst,t1,t2));
 		}
 		if (OP == 1)
 		{
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
 		}
 		if (OP == 2)
 		{
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
 		}
 		if (OP == 3)
 		{
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_Div_Integers(dst,t1,t2));
 		}
 		if (OP == 4)
 		{
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_LT_Integers(dst,t1,t2));
 		}
 		if (OP == 5) {
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_LT_Integers(dst,t2,t1));
 		}
 		if (OP == 6) {
 			IR_Code.
+					getInstance().
 					addLine(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
 		}
 		return dst;

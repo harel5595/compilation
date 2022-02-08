@@ -7,7 +7,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
 
 import java.util.Objects;
-
+import TEMP.*;
 public class AST_VAR_dec extends AST_dec{
     public AST_type type;
     public String name;
@@ -20,43 +20,14 @@ public class AST_VAR_dec extends AST_dec{
 
     public TEMP PrintCode()
     {
-        /********************************************/
-        /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
-        /********************************************/
-        System.out.print("AST NODE ASSIGN STMT\n");
 
-        IR_Code code = new IR_Code();
-        IR_Line line = new IR_Line();
-        line.type = IR_Types.ASSINGNMENT;
-        line.assign_to = IR_Code.getNewRegisterName();
-        if(exp != null) {
-            code = exp.PrintCode();
-            line.left = exp.getName();
+        IR_Code.getInstance().addLine(new IRcommand_Allocate(name)); // TODO: change the func to allocate by the type
+
+        if (exp != null)
+        {
+            IR_Code.getInstance().addLine(new IRcommand_Store(name,exp.PrintCode()));
         }
-        //code.addLine(line);
-
-
-        /***********************************/
-        /* RECURSIVELY PRINT VAR + EXP ... */
-        /***********************************/
-        if (type != null) type.PrintMe();
-        if (exp != null) exp.PrintMe();
-
-        /***************************************/
-        /* PRINT Node to AST GRAPHVIZ DOT file */
-        /***************************************/
-        AST_GRAPHVIZ.getInstance().logNode(
-                SerialNumber,
-                "ASSIGN\nleft := right\n");
-
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        if(type != null)
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.getSerialNumber());
-        if(exp != null)
-            AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.getSerialNumber());
-        return code;
+        return null;
     }
 
 

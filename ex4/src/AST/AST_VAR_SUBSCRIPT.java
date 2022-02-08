@@ -4,7 +4,7 @@ import Printer.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 import IR.*;
-
+import TEMP.*;
 public class AST_VAR_SUBSCRIPT extends AST_VAR {
     public AST_VAR var;
     public AST_EXP subscript;

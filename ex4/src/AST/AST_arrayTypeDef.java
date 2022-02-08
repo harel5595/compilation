@@ -2,7 +2,7 @@ package AST;
 import Printer.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
-
+import TEMP.*;
 import IR.*;
 
 public class AST_arrayTypeDef extends AST_dec {
@@ -31,7 +31,7 @@ public class AST_arrayTypeDef extends AST_dec {
 		/* PRINT Edges to AST GRAPHVIZ DOT file */
 		/****************************************/
 		if (t  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.getSerialNumber());
-		return new IR_Code();
+		return null;
 	}
 
 
