@@ -41,6 +41,6 @@ public class IRcommand_CallFunc extends IRcommand
 			MIPSGenerator.getInstance().stack_push(temp);
 		MIPSGenerator.getInstance().call_func_label(func.startLabel);
 		MIPSGenerator.getInstance().move(ret, func.retRegister);
-		MIPSGenerator.getInstance().func_epilogue_stack();
+		//MIPSGenerator.getInstance().func_epilogue_stack();
 	}
 }
