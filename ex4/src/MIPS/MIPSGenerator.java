@@ -10,7 +10,11 @@ package MIPS;
 import TEMP.*;
 
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
+
+import java.util.List;
+
 
 public class MIPSGenerator
 {
@@ -35,6 +39,12 @@ public class MIPSGenerator
 		fileWriter.format("\tjal %s\n", t);
 		original.add(String.format("\tjal %s\n", t));
 	}
+
+	public void call_func_label(String t)
+	{
+		fileWriter.format("\tjal %s\n", t);
+	}
+
 	public void print_int(TEMP t)
 	{
 		int idx=t.getSerialNumber();
@@ -73,6 +83,14 @@ public class MIPSGenerator
 		original.add(String.format("\tsubu $sp,$sp,4\n"));
 		original.add(String.format("\tsw TEMP_%d,0($sp)\n",idxdst));
 	}
+
+	public void stack_push(TEMP t)
+	{
+		int idxdst=t.getSerialNumber();
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
+	}
+
 	public void func_prologue_stack()
 	{
 		fileWriter.format("\tsubu $sp,$sp,4\n");
@@ -109,15 +127,40 @@ public class MIPSGenerator
 
 		original.add(String.format(".data\n"));
 		original.add(String.format("\tglobal_%s: .space 4\n",var_name));
+
+		fileWriter.format(".text\n");
+		original.add(String.format(".text\n"));
+
 	}
 	public void big_alloc(String var_name, int len)
 	{
 		fileWriter.format(".data\n");
 		fileWriter.format("\tallocated_%s: .space %d\n",var_name, len);
 
+
 		original.add(String.format(".data\n"));
 		original.add(String.format("\tallocated_%s: .space %d\n",var_name, len));
+
+		fileWriter.format(".text\n");
+		original.add(String.format(".text\n"));
+
 	}
+
+	public void my_big_alloc(String var_name, List<Integer> values)
+	{
+		fileWriter.format(".data\n");
+		String res = "\t" + var_name + ": .word ";
+		for(int i = 0; i < values.size(); i++)
+		{
+			res = res + values.get(i).toString();
+			if(i + 1 < values.size())
+				res = res + ',';
+		}
+		res = res + '\n';
+		fileWriter.format(res);
+		fileWriter.format(".text\n");
+	}
+
 	public void load(TEMP dst,String var_name)
 	{
 		int idxdst=dst.getSerialNumber();
@@ -132,9 +175,14 @@ public class MIPSGenerator
 		fileWriter.format("\tstr_%d:  .asciiz \"%s\"",idxdst,value);
 		fileWriter.format("\tla Temp_%d,str_%d",idxdst,idxdst);
 
+
 		original.add(String.format(".data\n"));
 		original.add(String.format("\tstr_%d:  .asciiz \"%s\"",idxdst,value));
 		original.add(String.format("\tla Temp_%d,str_%d",idxdst,idxdst));
+
+		fileWriter.format(".text\n");
+		original.add(String.format(".text\n"));
+
 	}
 	public void store(String var_name,TEMP src)
 	{
@@ -322,6 +370,7 @@ public class MIPSGenerator
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
 			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
+			instance.fileWriter.format(".text\n");
 		}
 		CleanCode();
 		return instance;

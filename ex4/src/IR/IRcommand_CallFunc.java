@@ -37,7 +37,9 @@ public class IRcommand_CallFunc extends IRcommand
 	//TODO: need to pass params, we still dont do that.
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().call_func(t.get(0));
+		for(TEMP temp : t)
+			MIPSGenerator.getInstance().stack_push(temp);
+		MIPSGenerator.getInstance().call_func_label(func.startLabel);
 		MIPSGenerator.getInstance().func_epilogue_stack();
 	}
 }
