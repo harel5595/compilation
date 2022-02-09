@@ -2,6 +2,7 @@ package AST;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import Printer.Printer;
 import TEMP.*;
@@ -23,7 +24,15 @@ public class AST_func_dec extends AST_dec{
        IR_Code.startFunc();
        TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
        IR_Code.currentReturnRegister = ret;
-       String label = IRcommand.getFreshLabel(name);
+        String label;
+       if (Objects.equals(name, "main"))
+       {
+           label = "user_main";
+       }
+       else
+       {
+           label = IRcommand.getFreshLabel(name);
+       }
        IR_Code.getInstance().addLine(new IRcommand_Label(label));
        for(AST_dec command: commands)
            command.PrintCode();

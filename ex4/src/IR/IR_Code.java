@@ -10,6 +10,7 @@ public class IR_Code {
     public static Stack<Useable> toUse = new Stack<Useable>();
     public static List<UseableClass> classes = new LinkedList<UseableClass>();
     public static IR_Code mainCode;
+    private boolean compiled = false;
     public static TEMP currentReturnRegister;
     static Stack<IR_Code> instances = new Stack<>();
     public List<IRcommand> code;
@@ -121,8 +122,11 @@ public class IR_Code {
     }
     public void MIPSmeAsFunc()
     {
+        if (compiled)
+            return;
         for(IRcommand ir : code)
             ir.MIPSme();
+        compiled = true;
     }
 
     public void MIPSme() { // TODO: convert all the IR commands into mips.
@@ -135,6 +139,10 @@ public class IR_Code {
         for(Useable u : toUse)
             u.compile();
         (new IRcommand_Label("main")).MIPSme();
+
+        //for(IRcommand ir : mainCode.code)
+          //  ir.MIPSme();
+
         mainCode.MIPSmeAsFunc();
     }
 }
