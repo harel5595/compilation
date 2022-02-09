@@ -133,6 +133,11 @@ public class MIPSGenerator
 		original.add(String.format("\taddu $sp,$sp,8\n"));
 	}
 
+	public void move(TEMP dst,TEMP src)
+	{
+		fileWriter.format("\tmov Temp_%d,Temp_%d\n",dst.getSerialNumber(), src.getSerialNumber());
+	}
+
 
 	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
 	{
