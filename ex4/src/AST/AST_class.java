@@ -45,7 +45,9 @@ public class AST_class extends AST_dec {
             else if(((AST_dec_Node)field).head instanceof AST_VAR_dec)
             {
                 field.PrintCode(); // allocate the place for the field.
-                inner_fields.add(new UseableVar(field.getName())); // TODO: maybe add more params for the var
+                for(UseableClass c : IR_Code.classes)
+                    if(Objects.equals(c.name, thisClass.name))
+                        inner_fields.add(new UseableVar(field.getName(), c)); // TODO: maybe add more params for the var
             }
             else
             {

@@ -11,6 +11,7 @@ import TEMP.*;
 public class IR_Code {
     public static Stack<Useable> toUse = new Stack<Useable>();
     public static List<UseableClass> classes = new LinkedList<UseableClass>();
+    public static List<UseableArray> arrays = new LinkedList<UseableArray>();
     public static TEMP currentReturnRegister;
     static Stack<IR_Code> instances = new Stack<>();
     public List<IRcommand> code;

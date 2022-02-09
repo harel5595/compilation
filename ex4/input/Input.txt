@@ -2,5 +2,13 @@ class Person
 {
 	int ID;
     void func() {PrintInt(5);}
+    void dec() {PrintInt(ID);}
 }
 
+array PersonArr = Person[];
+
+void main()
+{
+    Person a;
+    a.ID := 5;
+}

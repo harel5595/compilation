@@ -15,4 +15,9 @@ public class UseableArray extends Useable {
         this.type = type;
         this.constaractor = constartor;
     }
+
+    public UseableArray(String name, UseableClass type)
+    {
+        this(name, type, new IR_Code()); // TODO: write the constractor code as loop over the class constactor.
+    }
 }

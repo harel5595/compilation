@@ -4,6 +4,9 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.*;
 import TEMP.*;
 import IR.*;
+import Useable.*;
+
+import java.util.Objects;
 
 public class AST_arrayTypeDef extends AST_dec {
 	public String arrayName;
@@ -12,8 +15,24 @@ public class AST_arrayTypeDef extends AST_dec {
 
 	public TEMP PrintCode()
 	{
+		UseableArray arr;
+		UseableClass type = null;
+		for(UseableClass c : IR_Code.classes)
+		{
+			if(Objects.equals(c.name, t.type))
+			{
+				type = c;
+				break;
+			}
+		}
 
+		if(type == null)
+			throw new Error("unkown type of class in array define");
 
+		arr = new UseableArray(arrayName, type);
+		IR_Code.toUse.push(arr);
+		IR_Code.arrays.add(arr);
+		return null;
 	}
 
 

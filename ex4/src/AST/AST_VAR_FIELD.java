@@ -11,6 +11,8 @@ import IR.*;
 import java.util.List;
 import java.util.Objects;
 import TEMP.*;
+import Useable.*;
+
 public class AST_VAR_FIELD extends AST_VAR
 {
 	public AST_VAR var;
@@ -29,10 +31,17 @@ public class AST_VAR_FIELD extends AST_VAR
 
 	public TEMP PrintCode()
 	{
-		// TODO: handle this
-		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
-		IR_Code.getInstance().addLine(new IRcommand_Load(dst, fieldName));
-		return dst;
+		// TODO: handle this (I think it is working)
+		if(var instanceof AST_VAR_SIMPLE) {
+			TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+			UseableVar the_val = (UseableVar) IR_Code.searchForUse(var.getName());
+			IR_Code.getInstance().addLine(new IRcommand_LoadField(dst, var.getName(), fieldName, the_val.type));
+			return dst;
+		}
+		else
+		{
+			throw new Error("don't know what to do.");
+		}
 	}
 
 
@@ -102,7 +111,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		TYPE_LIST fields = ((TYPE_CLASS)(t)).data_members;
 		List<String> names = ((TYPE_CLASS)(t)).data_names;
 		int counter = 0;
-		while(fields.tail != null)
+		while(fields != null)
 		{
 			if (names.get(counter) != null && names.get(counter).equals(fieldName))
 			{

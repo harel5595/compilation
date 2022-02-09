@@ -22,7 +22,7 @@ public class AST_VAR_dec extends AST_dec{
     {
 
         IR_Code.getInstance().addLine(new IRcommand_Allocate(name)); // TODO: change the func to allocate by the type
-
+        // TODO: search for type in classes and arrays.
         if (exp != null)
         {
             IR_Code.getInstance().addLine(new IRcommand_Store(name,exp.PrintCode()));
