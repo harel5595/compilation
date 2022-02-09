@@ -1,5 +1,6 @@
 package IR;
 
+import MIPS.MIPSGenerator;
 import Useable.*;
 
 import java.util.*;
@@ -124,9 +125,12 @@ public class IR_Code {
     {
         if (compiled)
             return;
+        MIPSGenerator.getInstance().label(String.format("function_%s",this.toString()));
+        MIPSGenerator.getInstance().func_prologue_stack();
         for(IRcommand ir : code)
             ir.MIPSme();
         compiled = true;
+        MIPSGenerator.getInstance().func_epilogue_stack();
     }
 
     public void MIPSme() { // TODO: convert all the IR commands into mips.

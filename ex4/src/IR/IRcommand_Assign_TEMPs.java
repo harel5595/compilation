@@ -29,7 +29,7 @@ public class IRcommand_Assign_TEMPs extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		// TODO: translate into the right commands
+
 		MIPSGenerator.getInstance().move(dst,src);
 	}
 }
