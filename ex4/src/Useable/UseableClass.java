@@ -1,8 +1,10 @@
 package Useable;
 
 import IR.IR_Code;
+import IR.IRcommand_GetAddressFromLabel;
 import IR.IRcommand_Store;
 import MIPS.MIPSGenerator;
+import TEMP.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -66,16 +68,17 @@ public class UseableClass extends Useable {
 
     public void CreateVirtualTable()
     {
-        if(compiled)
+        if(compiled || name == "int" || name == "String") // TODO: also handle int and string good.
             return;
         compiled = true;
         calcOffestForVT();
-        MIPSGenerator.getInstance().big_alloc(name + "_VT", offset_for_vt.size());
+        MIPSGenerator.getInstance().big_alloc(name + "_VT", offset_for_vt.size() * 4);
         List<Integer> l = new LinkedList<>();
         for(Pair<UseableFunc, Integer> pair : offset_for_vt)
         {
-            IR_Code.getInstance().addLine(new IRcommand_());
-            IR_Code.getInstance().addLine(new IRcommand_Store());
+            TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+            IR_Code.getInstance().addLine(new IRcommand_GetAddressFromLabel(t, pair.left.startLabel));
+            IR_Code.getInstance().addLine(new IRcommand_Store(name + "_VT", t, pair.right));
             pair.left.compile();
         }
         //MIPSGenerator.getInstance().my_big_alloc("Class_" + name + "_VT", );

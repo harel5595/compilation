@@ -1,5 +1,10 @@
-int a := 5;
+int func()
+{
+    return 5;
+}
+
 int main()
 {
-    PrintInt(a);
+    int a;
+    a := func();
 }

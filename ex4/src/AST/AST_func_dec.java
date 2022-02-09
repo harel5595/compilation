@@ -1,5 +1,6 @@
 package AST;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import IR.*;
 import Useable.UseableFunc;
 
 public class AST_func_dec extends AST_dec{
-    public List<AST_type> paramList;
+    public List<AST_type> paramList = new ArrayList<>();
     public AST_type type;
     public String name;
     public List<AST_dec> commands;

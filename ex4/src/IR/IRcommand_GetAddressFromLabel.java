@@ -30,7 +30,7 @@ public class IRcommand_GetAddressFromLabel extends IRcommand
 	public void MIPSme()
 	{
 		// TODO: translate into the right commands
-		MIPSGenerator.getInstance().
+		MIPSGenerator.getInstance().label_into_address(label, dst);
 		//MIPSGenerator.getInstance().add(dst,t1,t2);
 	}
 }

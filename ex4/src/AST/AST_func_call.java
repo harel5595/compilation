@@ -14,7 +14,7 @@ import Useable.*;
 public class AST_func_call extends AST_EXP {
     public String name;
     public AST_VAR var;
-    public List<AST_EXP> lexp;
+    public List<AST_EXP> lexp = new LinkedList<>();
 
     public TEMP PrintCode() {
 

@@ -23,7 +23,7 @@ public class MIPSGenerator
 	/* The file writer ... */
 	/***********************/
 	private PrintWriter fileWriter;
-	public ArrayList<String> original;
+	public ArrayList<String> original = new ArrayList<>();
 
 	/***********************/
 	/* The file writer ... */
@@ -47,7 +47,8 @@ public class MIPSGenerator
 
 	public void label_into_address(String label, TEMP t)
 	{
-		fileWriter.format("\tla %s, %s\n", t, label);
+		int idx=t.getSerialNumber();
+		fileWriter.format("\tla Temp_%d, %s\n", idx, label);
 	}
 
 
@@ -81,27 +82,27 @@ public class MIPSGenerator
 	public void stack_push_const_int(TEMP t,int value)
 	{
 		int idxdst=t.getSerialNumber();
-		fileWriter.format("\tli TEMP_%d,%d\n",idxdst, value);
+		fileWriter.format("\tli Temp_%d,%d\n",idxdst, value);
 		fileWriter.format("\tsubu $sp,$sp,4\n");
-		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
+		fileWriter.format("\tsw Temp_%d,0($sp)\n",idxdst);
 
-		original.add(String.format("\tli TEMP_%d,%d\n",idxdst, value));
+		original.add(String.format("\tli Temp_%d,%d\n",idxdst, value));
 		original.add(String.format("\tsubu $sp,$sp,4\n"));
-		original.add(String.format("\tsw TEMP_%d,0($sp)\n",idxdst));
+		original.add(String.format("\tsw Temp_%d,0($sp)\n",idxdst));
 	}
 
 	public void stack_push(TEMP t)
 	{
 		int idxdst=t.getSerialNumber();
 		fileWriter.format("\tsubu $sp,$sp,4\n");
-		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
+		fileWriter.format("\tsw Temp_%d,0($sp)\n",idxdst);
 	}
 
 	public void load_param_from_stack(int place_from_end, TEMP dst)
 	{
 		int idxdst=dst.getSerialNumber();
 		int real_place = place_from_end * -4;
-		fileWriter.format("\tlw TEMP_%d,%d($sp)\n",idxdst, real_place);
+		fileWriter.format("\tlw Temp_%d,%d($sp)\n",idxdst, real_place);
 	}
 
 
@@ -199,6 +200,15 @@ public class MIPSGenerator
 
 		original.add(String.format("\tlw Temp_%d,global_%s\n",idxdst,var_name));
 	}
+
+	public void load_with_offset(TEMP dst,String var_name, int offset)
+	{
+		int idxdst=dst.getSerialNumber();
+		fileWriter.format("\tlw Temp_%d,%d(global_%s)\n",idxdst,offset,var_name);
+
+		original.add(String.format("\tlw Temp_%d,%d(global_%s)\n",idxdst,offset,var_name));
+	}
+
 	public void load_string(TEMP dst,String value)
 	{
 		int idxdst=dst.getSerialNumber();
@@ -222,6 +232,15 @@ public class MIPSGenerator
 
 		original.add(String.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name));
 	}
+
+	public void store_with_offset(String var_name,TEMP src, int offset)
+	{
+		int idxsrc=src.getSerialNumber();
+		fileWriter.format("\tsw Temp_%d,%d(global_%s)\n",idxsrc,offset,var_name);
+
+		original.add(String.format("\tsw Temp_%d,%d(global_%s)\n",idxsrc,offset,var_name));
+	}
+
 	public void li(TEMP t,int value)
 	{
 		int idx=t.getSerialNumber();
