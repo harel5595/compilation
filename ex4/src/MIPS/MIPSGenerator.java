@@ -79,7 +79,7 @@ public class MIPSGenerator
 	//	
 	//	return t;
 	//}
-	public void stack_push_const_int(TEMP t,int value)
+	public void stack_push(TEMP t,int value)
 	{
 		int idxdst=t.getSerialNumber();
 		fileWriter.format("\tli Temp_%d,%d\n",idxdst, value);
