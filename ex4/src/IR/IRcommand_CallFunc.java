@@ -33,9 +33,11 @@ public class IRcommand_CallFunc extends IRcommand
 	/***************/
 	/* MIPS me !!! */
 	/***************/
-	// TODO: call func in a good way...
+	// TODO: don't know why its alist, this might not work properly
+	//TODO: need to pass params, we still dont do that.
 	public void MIPSme()
 	{
-		//MIPSGenerator.getInstance().print_int(t);
+		MIPSGenerator.getInstance().call_func(t.get(0));
+		MIPSGenerator.getInstance().func_epilogue_stack();
 	}
 }

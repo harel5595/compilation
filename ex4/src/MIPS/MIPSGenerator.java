@@ -52,6 +52,30 @@ public class MIPSGenerator
 	//	
 	//	return t;
 	//}
+	public void stack_push_const_int(TEMP t,int value)
+	{
+		int idxdst=t.getSerialNumber();
+		fileWriter.format("\tli TEMP_%d,%d\n",idxdst, value);
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
+	}
+	public void func_prologue_stack()
+	{
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw $ra,0($sp)\n");
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw $fp,0($sp)\n");
+		fileWriter.format("\tmove $fp,$sp\n");
+	}
+	public void func_epilogue_stack()
+	{
+		fileWriter.format("\tmove $sp,$fp\n");
+		fileWriter.format("\tlw $fp,0($sp)\n");
+		fileWriter.format("\tlw $fp,4($sp)\n");
+		fileWriter.format("\taddu $sp,$sp,8\n");
+	}
+
+
 	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
 	{
 		fileWriter.format(".data\n");
@@ -72,7 +96,7 @@ public class MIPSGenerator
 		int idxdst=dst.getSerialNumber();
 		fileWriter.format(".data\n");
 		fileWriter.format("\tstr_%d:  .asciiz \"%s\"",idxdst,value);
-		fileWriter.format("\tla Temp_%d str_%d",idxdst,idxdst);
+		fileWriter.format("\tla Temp_%d,str_%d",idxdst,idxdst);
 	}
 	public void store(String var_name,TEMP src)
 	{
