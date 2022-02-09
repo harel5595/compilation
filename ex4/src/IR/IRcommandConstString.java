@@ -28,9 +28,8 @@ public class IRcommandConstString extends IRcommand
 	/***************/
 	/* MIPS me !!! */
 	/***************/
-	// TODO: change this so we will keep this in normal way.
 	public void MIPSme()
 	{
-		//MIPSGenerator.getInstance().li(t,value);
+		MIPSGenerator.getInstance().load_string(t,value);
 	}
 }

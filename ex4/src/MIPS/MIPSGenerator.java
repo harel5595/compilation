@@ -28,6 +28,10 @@ public class MIPSGenerator
 		fileWriter.print("\tsyscall\n");
 		fileWriter.close();
 	}
+	public void call_func(TEMP t)
+	{
+		fileWriter.format("\tjal %s\n", t);
+	}
 	public void print_int(TEMP t)
 	{
 		int idx=t.getSerialNumber();
@@ -62,6 +66,13 @@ public class MIPSGenerator
 	{
 		int idxdst=dst.getSerialNumber();
 		fileWriter.format("\tlw Temp_%d,global_%s\n",idxdst,var_name);
+	}
+	public void load_string(TEMP dst,String value)
+	{
+		int idxdst=dst.getSerialNumber();
+		fileWriter.format(".data\n");
+		fileWriter.format("\tstr_%d:  .asciiz \"%s\"",idxdst,value);
+		fileWriter.format("\tla Temp_%d str_%d",idxdst,idxdst);
 	}
 	public void store(String var_name,TEMP src)
 	{
