@@ -31,7 +31,7 @@ public class AST_arrayTypeDef extends AST_dec {
 
 		arr = new UseableArray(arrayName, type);
 		IR_Code.toUse.push(arr);
-		IR_Code.arrays.add(arr);
+		IR_Code.classes.add(arr);
 		return null;
 	}
 

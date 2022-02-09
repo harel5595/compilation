@@ -4,16 +4,14 @@ import IR.IR_Code;
 
 import java.util.List;
 
-public class UseableArray extends Useable {
+public class UseableArray extends UseableClass { // this is type of class, all the difference is in constractor, and acsses.
 
     UseableClass type;
-    IR_Code constaractor;
 
     public UseableArray(String name, UseableClass type, IR_Code constartor)
     {
-        super(name);
+        super(name, null, constartor);
         this.type = type;
-        this.constaractor = constartor;
     }
 
     public UseableArray(String name, UseableClass type)

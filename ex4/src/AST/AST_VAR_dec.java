@@ -8,6 +8,9 @@ import IR.*;
 
 import java.util.Objects;
 import TEMP.*;
+import Useable.UseableClass;
+import Useable.UseableVar;
+
 public class AST_VAR_dec extends AST_dec{
     public AST_type type;
     public String name;
@@ -23,6 +26,19 @@ public class AST_VAR_dec extends AST_dec{
 
         IR_Code.getInstance().addLine(new IRcommand_Allocate(name)); // TODO: change the func to allocate by the type
         // TODO: search for type in classes and arrays.
+        UseableVar thisVar = null;
+        for(UseableClass c : IR_Code.classes)
+            if(Objects.equals(c.name, type.type))
+            {
+                thisVar = new UseableVar(name, c);
+                break;
+            }
+
+        if(thisVar == null)
+            throw new Error("dont know this type.");
+
+        IR_Code.toUse.push(thisVar);
+
         if (exp != null)
         {
             IR_Code.getInstance().addLine(new IRcommand_Store(name,exp.PrintCode()));
