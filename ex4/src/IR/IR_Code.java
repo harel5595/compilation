@@ -2,10 +2,8 @@ package IR;
 
 import Useable.*;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
+
 import TEMP.*;
 
 public class IR_Code {
@@ -109,11 +107,22 @@ public class IR_Code {
 
     static void defineGlobalFuncs()
     {
-        toUse.push(new UseableFunc("PrintInt", "lol", TEMP_FACTORY.getInstance().getFreshTEMP(), null));
-        classes.add(new UseableClass("int", null, null));
-        classes.add(new UseableClass("String", null, null));
+        IR_Code code = new IR_Code();
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        String label = IRcommand.getFreshLabel("PrintInt");
+        code.addLine(new IRcommand_Label(label));
+        code.addLine(new IRcommand_LoadParam(t, 1));
+        code.addLine(new IRcommand_PrintInt(t));
+        toUse.push(new UseableFunc("PrintInt", label, TEMP_FACTORY.getInstance().getFreshTEMP(), code));
+        classes.add(new UseableClass("int", new ArrayList<>(), null));
+        classes.add(new UseableClass("String", new ArrayList<>(), null));
 
         // TODO: this.
+    }
+    public void MIPSmeAsFunc()
+    {
+        for(IRcommand ir : code)
+            ir.MIPSme();
     }
 
     public void MIPSme() { // TODO: convert all the IR commands into mips.
@@ -121,6 +130,11 @@ public class IR_Code {
         {
             c.CreateVirtualTable();
         }
-        int i = 5;
+        for(IR_Code f : funcsCode)
+            f.MIPSmeAsFunc();
+        for(Useable u : toUse)
+            u.compile();
+        (new IRcommand_Label("main")).MIPSme();
+        mainCode.MIPSmeAsFunc();
     }
 }

@@ -10,7 +10,7 @@ import java.util.Objects;
 public class UseableClass extends Useable {
     UseableClass father;
     boolean compiled;
-    List<Useable> fields;
+    List<Useable> fields = new LinkedList<Useable>();
     IR_Code constaractor;
     List<Pair<UseableFunc, Integer>>  offset_for_vt = null;
 
@@ -58,6 +58,7 @@ public class UseableClass extends Useable {
                 }
             }
         }
+        offset_for_vt = already_in_place;
         return already_in_place;
     }
 
@@ -68,6 +69,11 @@ public class UseableClass extends Useable {
             return;
         compiled = true;
         calcOffestForVT();
-        MIPSGenerator.getInstance().my_big_alloc("Class_" + name + "_VT");
+        List<Integer> l = new LinkedList<>();
+        for(Pair<UseableFunc, Integer> pair : offset_for_vt)
+        {
+            pair.left.compile();
+        }
+        //MIPSGenerator.getInstance().my_big_alloc("Class_" + name + "_VT", );
     }
 }

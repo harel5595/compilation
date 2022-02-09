@@ -33,6 +33,12 @@ public class MIPSGenerator
 	{
 		fileWriter.format("\tjal %s\n", t);
 	}
+
+	public void call_func_label(String t)
+	{
+		fileWriter.format("\tjal %s\n", t);
+	}
+
 	public void print_int(TEMP t)
 	{
 		int idx=t.getSerialNumber();
@@ -60,6 +66,14 @@ public class MIPSGenerator
 		fileWriter.format("\tsubu $sp,$sp,4\n");
 		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
 	}
+
+	public void stack_push(TEMP t)
+	{
+		int idxdst=t.getSerialNumber();
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
+	}
+
 	public void func_prologue_stack()
 	{
 		fileWriter.format("\tsubu $sp,$sp,4\n");
@@ -81,11 +95,13 @@ public class MIPSGenerator
 	{
 		fileWriter.format(".data\n");
 		fileWriter.format("\tglobal_%s: .space 4\n",var_name);
+		fileWriter.format(".text\n");
 	}
 	public void big_alloc(String var_name, int len)
 	{
 		fileWriter.format(".data\n");
 		fileWriter.format("\tallocated_%s: .space %d\n",var_name, len);
+		fileWriter.format(".text\n");
 	}
 
 	public void my_big_alloc(String var_name, List<Integer> values)
@@ -100,6 +116,7 @@ public class MIPSGenerator
 		}
 		res = res + '\n';
 		fileWriter.format(res);
+		fileWriter.format(".text\n");
 	}
 
 	public void load(TEMP dst,String var_name)
@@ -113,6 +130,7 @@ public class MIPSGenerator
 		fileWriter.format(".data\n");
 		fileWriter.format("\tstr_%d:  .asciiz \"%s\"",idxdst,value);
 		fileWriter.format("\tla Temp_%d,str_%d",idxdst,idxdst);
+		fileWriter.format(".text\n");
 	}
 	public void store(String var_name,TEMP src)
 	{
@@ -261,6 +279,7 @@ public class MIPSGenerator
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
 			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
+			instance.fileWriter.format(".text\n");
 		}
 		return instance;
 	}
