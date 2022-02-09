@@ -48,10 +48,15 @@ public class MIPSGenerator
 	//	
 	//	return t;
 	//}
-	public void allocate(String var_name)
+	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
 	{
 		fileWriter.format(".data\n");
-		fileWriter.format("\tglobal_%s: .word 721\n",var_name);
+		fileWriter.format("\tglobal_%s: .space 4\n",var_name);
+	}
+	public void big_alloc(String var_name, int len)
+	{
+		fileWriter.format(".data\n");
+		fileWriter.format("\tallocated_%s: .space %d\n",var_name, len);
 	}
 	public void load(TEMP dst,String var_name)
 	{
@@ -76,6 +81,14 @@ public class MIPSGenerator
 
 		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 	}
+	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+
+		fileWriter.format("\tsub Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+	}
 	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
 		int i1 =oprnd1.getSerialNumber();
@@ -83,6 +96,14 @@ public class MIPSGenerator
 		int dstidx=dst.getSerialNumber();
 
 		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+	}
+	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+
+		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 	}
 	public void label(String inlabel)
 	{
@@ -96,9 +117,16 @@ public class MIPSGenerator
 			fileWriter.format("%s:\n",inlabel);
 		}
 	}	
-	public void jump(String inlabel)
+	public void jump(String inlabel, boolean isra)
 	{
-		fileWriter.format("\tj %s\n",inlabel);
+		if(isra)
+		{
+			fileWriter.format("\tjr $ra\n");
+		}
+		else
+		{
+			fileWriter.format("\tj %s\n",inlabel);
+		}
 	}	
 	public void blt(TEMP oprnd1,TEMP oprnd2,String label)
 	{

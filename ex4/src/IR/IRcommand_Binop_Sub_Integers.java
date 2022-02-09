@@ -29,9 +29,8 @@ public class IRcommand_Binop_Sub_Integers extends IRcommand
 	/***************/
 	/* MIPS me !!! */
 	/***************/
-	// TODO: change this
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().add(dst,t1,t2);
+		MIPSGenerator.getInstance().sub(dst,t1,t2);
 	}
 }
