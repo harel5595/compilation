@@ -1,6 +1,9 @@
    
 import java.io.*;
 import java.io.PrintWriter;
+
+import IR.IR_Code;
+import MIPS.MIPSGenerator;
 import java_cup.runtime.Symbol;
 import AST.*;
 import TYPES.*;
@@ -59,8 +62,13 @@ public class Main
 
 			AST.PrintCode();
 
-			Printer.file_writer.print("OK");
+			/***********************/
+			/* [9] MIPS the IR ... */
+			/***********************/
+			IR_Code.getInstance().MIPSme();
 
+			//Printer.file_writer.print("OK");
+			MIPSGenerator.getInstance().finalizeFile();
 			/*************************/
 			/* [8] Close output file */
 			/*************************/

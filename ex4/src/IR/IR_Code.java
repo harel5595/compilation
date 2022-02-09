@@ -11,6 +11,7 @@ import TEMP.*;
 public class IR_Code {
     public static Stack<Useable> toUse = new Stack<Useable>();
     public static List<UseableClass> classes = new LinkedList<UseableClass>();
+    public static IR_Code mainCode;
     public static TEMP currentReturnRegister;
     static Stack<IR_Code> instances = new Stack<>();
     public List<IRcommand> code;
@@ -115,4 +116,11 @@ public class IR_Code {
         // TODO: this.
     }
 
+    public void MIPSme() { // TODO: convert all the IR commands into mips.
+        for (UseableClass c : classes)
+        {
+            c.CreateVirtualTable();
+        }
+        int i = 5;
+    }
 }

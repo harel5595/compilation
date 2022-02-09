@@ -12,10 +12,12 @@ package IR;
 /*******************/
 
 import MIPS.MIPSGenerator;
+import Useable.UseableClass;
 
 public class IRcommand_AllocateClass extends IRcommand
 {
 	String var_name;
+	UseableClass theClass;
 
 	public IRcommand_AllocateClass(String var_name)
 	{

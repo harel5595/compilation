@@ -10,6 +10,7 @@ package MIPS;
 import TEMP.*;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 public class MIPSGenerator
 {
@@ -86,6 +87,21 @@ public class MIPSGenerator
 		fileWriter.format(".data\n");
 		fileWriter.format("\tallocated_%s: .space %d\n",var_name, len);
 	}
+
+	public void my_big_alloc(String var_name, List<Integer> values)
+	{
+		fileWriter.format(".data\n");
+		String res = "\t" + var_name + ": .word ";
+		for(int i = 0; i < values.size(); i++)
+		{
+			res = res + values.get(i).toString();
+			if(i + 1 < values.size())
+				res = res + ',';
+		}
+		res = res + '\n';
+		fileWriter.format(res);
+	}
+
 	public void load(TEMP dst,String var_name)
 	{
 		int idxdst=dst.getSerialNumber();
