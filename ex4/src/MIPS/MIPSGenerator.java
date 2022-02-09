@@ -45,6 +45,12 @@ public class MIPSGenerator
 		fileWriter.format("\tjal %s\n", t);
 	}
 
+	public void label_into_address(String label, TEMP t)
+	{
+		fileWriter.format("\tla %s, %s\n", t, label);
+	}
+
+
 	public void print_int(TEMP t)
 	{
 		int idx=t.getSerialNumber();

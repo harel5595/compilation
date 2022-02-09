@@ -37,7 +37,7 @@ public class AST_func_dec extends AST_dec{
        for(AST_dec command: commands)
            command.PrintCode();
        IR_Code funcCode = IR_Code.endFunc();
-       UseableFunc func = new UseableFunc(name, label, ret, funcCode);
+       UseableFunc func = new UseableFunc(name, label, ret, funcCode, paramList.size());
        IR_Code.addFunc(funcCode, func);
        return null;
     }
@@ -51,7 +51,7 @@ public class AST_func_dec extends AST_dec{
         for(AST_dec command: commands)
             command.PrintCode();
         IR_Code funcCode = IR_Code.endFunc();
-        return new UseableFunc(name, label, ret, funcCode);
+        return new UseableFunc(name, label, ret, funcCode, paramList.size());
     }
 
 

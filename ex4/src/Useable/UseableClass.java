@@ -1,6 +1,7 @@
 package Useable;
 
 import IR.IR_Code;
+import IR.IRcommand_Store;
 import MIPS.MIPSGenerator;
 
 import java.util.LinkedList;
@@ -73,6 +74,8 @@ public class UseableClass extends Useable {
         List<Integer> l = new LinkedList<>();
         for(Pair<UseableFunc, Integer> pair : offset_for_vt)
         {
+            IR_Code.getInstance().addLine(new IRcommand_());
+            IR_Code.getInstance().addLine(new IRcommand_Store());
             pair.left.compile();
         }
         //MIPSGenerator.getInstance().my_big_alloc("Class_" + name + "_VT", );
