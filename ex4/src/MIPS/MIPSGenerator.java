@@ -120,6 +120,18 @@ public class MIPSGenerator
 		original.add(String.format("\tmove $fp,$sp\n"));
 
 	}
+
+	public void load_params(int num)
+	{
+		int counter = 8;
+		for(int i = 0; i < num; i ++ )
+		{
+			fileWriter.format("\tlw $TEMP_%d,%d($fp),4\n", i, counter);
+			original.add(String.format("\tlw $TEMP_%d,%d($fp),4\n", i, counter));
+			counter +=4;
+		}
+	}
+
 	public void func_epilogue_stack()
 	{
 		fileWriter.format("\tmove $sp,$fp\n");

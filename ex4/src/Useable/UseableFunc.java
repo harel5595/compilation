@@ -26,6 +26,6 @@ public class UseableFunc extends Useable{
     {
         if(compiled)
             return;
-        func_code.MIPSmeAsFunc();
+        func_code.MIPSmeAsFunc(params_count);
     }
 }

@@ -121,12 +121,13 @@ public class IR_Code {
 
         // TODO: this.
     }
-    public void MIPSmeAsFunc()
+    public void MIPSmeAsFunc(int amountOfParams)
     {
         if (compiled)
             return;
         MIPSGenerator.getInstance().label(String.format("function_%s",this.toString()));
         MIPSGenerator.getInstance().func_prologue_stack();
+        MIPSGenerator.getInstance().load_params(amountOfParams);
         for(IRcommand ir : code)
             ir.MIPSme();
         compiled = true;
@@ -139,7 +140,7 @@ public class IR_Code {
             c.CreateVirtualTable();
         }
         for(IR_Code f : funcsCode)
-            f.MIPSmeAsFunc();
+            f.MIPSmeAsFunc(0);
         for(Useable u : toUse)
             u.compile();
         (new IRcommand_Label("main")).MIPSme();
@@ -147,6 +148,6 @@ public class IR_Code {
         //for(IRcommand ir : mainCode.code)
           //  ir.MIPSme();
 
-        mainCode.MIPSmeAsFunc();
+        mainCode.MIPSmeAsFunc(0);
     }
 }
