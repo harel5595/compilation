@@ -1,5 +1,6 @@
 package IR;
 
+import MIPS.MIPSGenerator;
 import TEMP.TEMP;
 import Useable.UseableClass;
 
@@ -19,7 +20,6 @@ public class IRcommand_LoadParam extends IRcommand {
         public void MIPSme()
         {
             //TODO: this.
-
-            //MIPSGenerator.getInstance().load(dst,var_name);
+            MIPSGenerator.getInstance().load_param_from_stack(paran_number_from_end, dst);
         }
 }

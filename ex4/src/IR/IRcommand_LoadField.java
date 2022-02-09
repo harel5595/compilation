@@ -36,6 +36,7 @@ public class IRcommand_LoadField extends IRcommand
 	public void MIPSme()
 	{
 		//TODO: this.
+
 		//MIPSGenerator.getInstance().load(dst,var_name);
 	}
 }

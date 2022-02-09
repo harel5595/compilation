@@ -74,6 +74,14 @@ public class MIPSGenerator
 		fileWriter.format("\tsw TEMP_%d,0($sp)\n",idxdst);
 	}
 
+	public void load_param_from_stack(int place_from_end, TEMP dst)
+	{
+		int idxdst=dst.getSerialNumber();
+		int real_place = place_from_end * -4;
+		fileWriter.format("\tlw TEMP_%d,%d($sp)\n",idxdst, real_place);
+	}
+
+
 	public void func_prologue_stack()
 	{
 		fileWriter.format("\tsubu $sp,$sp,4\n");

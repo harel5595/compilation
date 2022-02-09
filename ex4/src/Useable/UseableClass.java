@@ -69,6 +69,7 @@ public class UseableClass extends Useable {
             return;
         compiled = true;
         calcOffestForVT();
+        MIPSGenerator.getInstance().big_alloc(name + "_VT", offset_for_vt.size());
         List<Integer> l = new LinkedList<>();
         for(Pair<UseableFunc, Integer> pair : offset_for_vt)
         {
