@@ -115,6 +115,7 @@ public class IR_Code {
         code.addLine(new IRcommand_Label(label));
         code.addLine(new IRcommand_LoadParam(t, 1));
         code.addLine(new IRcommand_PrintInt(t));
+        code.addLine(new IRcommand_Return());
         toUse.push(new UseableFunc("PrintInt", label, TEMP_FACTORY.getInstance().getFreshTEMP(), code));
         classes.add(new UseableClass("int", new ArrayList<>(), null));
         classes.add(new UseableClass("String", new ArrayList<>(), null));
@@ -139,13 +140,18 @@ public class IR_Code {
         {
             c.CreateVirtualTable();
         }
+        mainCode.addLine(new IRcommand_Label("main"));
         for(IR_Code f : funcsCode)
             f.MIPSmeAsFunc(0);
         for(Useable u : toUse)
+        {
             u.compile();
-        (new IRcommand_Label("main")).MIPSme();
+            if(Objects.equals(u.name, "main"))
+                IR_Code.mainCode.addLine(new IRcommand_CallFunc(new LinkedList<TEMP>(), (UseableFunc) u, TEMP_FACTORY.getInstance().getFreshTEMP()));
+        }
 
-        //for(IRcommand ir : mainCode.code)
+
+                //for(IRcommand ir : mainCode.code)
           //  ir.MIPSme();
 
         mainCode.MIPSmeAsFunc(0);

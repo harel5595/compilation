@@ -1,10 +1,4 @@
-int func()
-{
-    return 5;
-}
-
-int main()
+class Person
 {
     int a;
-    a := func();
 }

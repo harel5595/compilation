@@ -151,9 +151,14 @@ public class MIPSGenerator
 		fileWriter.format("\tmov Temp_%d,Temp_%d\n",dst.getSerialNumber(), src.getSerialNumber());
 	}
 
+	public void malloc(TEMP dst, int size)
+	{
+
+	}
+
 
 	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
-	{
+	{ // TODO: this is not allocate !! only work for global !!! need to save locals on the stack !!!
 		fileWriter.format(".data\n");
 		fileWriter.format("\tglobal_%s: .space 4\n",var_name);
 

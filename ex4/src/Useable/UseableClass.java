@@ -2,6 +2,7 @@ package Useable;
 
 import IR.IR_Code;
 import IR.IRcommand_GetAddressFromLabel;
+import IR.IRcommand_Label;
 import IR.IRcommand_Store;
 import MIPS.MIPSGenerator;
 import TEMP.*;
@@ -14,19 +15,18 @@ public class UseableClass extends Useable {
     UseableClass father;
     boolean compiled;
     List<Useable> fields = new LinkedList<Useable>();
-    IR_Code constaractor;
+    UseableFunc constructor;
     List<Pair<UseableFunc, Integer>>  offset_for_vt = null;
 
-    public UseableClass(String name, List<Useable> fields, IR_Code constartor)
+    public UseableClass(String name, List<Useable> fields)
     {
         super(name);
         compiled = false;
         this.fields = fields;
-        this.constaractor = constartor;
     }
-    public UseableClass(String name, List<Useable> fields, IR_Code constartor, UseableClass father)
+    public UseableClass(String name, List<Useable> fields, UseableClass father)
     {
-        this(name, fields, constartor);
+        this(name, fields);
         this.father = father;
     }
 
@@ -63,6 +63,18 @@ public class UseableClass extends Useable {
         }
         offset_for_vt = already_in_place;
         return already_in_place;
+    }
+
+    public void CreateConstructor()
+    {
+        IR_Code construct = new IR_Code();
+        construct.addLine(new IRcommand_Label("allocate_" + name));
+        construct.addLine();
+    }
+
+    public IR_Code CreateInnerConstructor() // for values inside others
+    {
+
     }
 
 
