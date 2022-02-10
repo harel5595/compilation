@@ -11,14 +11,22 @@ import IR.*;
 import TEMP.*;
 import Useable.*;
 
+import javax.swing.*;
+
 public class AST_func_call extends AST_EXP {
     public String name;
     public AST_VAR var;
     public List<AST_EXP> lexp = new LinkedList<>();
 
     public TEMP PrintCode() {
-
-        UseableFunc func = (UseableFunc) IR_Code.searchForUse(name);
+        UseableFunc func;
+        if(var == null)
+            func = (UseableFunc) IR_Code.searchForUse(name);
+        else
+        {
+            UseableClass from = ((UseableVar) IR_Code.searchForUse(var.getName())).type;
+            func = (UseableFunc) from.findField(name);
+        }
         List<TEMP> params = new LinkedList<TEMP>();
         for(AST_EXP a: lexp)
             params.add(a.PrintCode());
@@ -81,7 +89,14 @@ public class AST_func_call extends AST_EXP {
 
     public TYPE SemantMe()
     {
-        TYPE_FUNCTION func_type = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(name);
+        TYPE_FUNCTION func_type;
+        if(var == null)
+            func_type = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(name);
+        else
+        {
+            func_type = ((TYPE_CLASS) var.SemantMe()).findFunc(name);
+        }
+
         if(func_type == null)
         {
             System.out.format("ERROR: try to call undefined func %s", name);

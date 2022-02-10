@@ -12,16 +12,20 @@ package IR;
 /*******************/
 
 import MIPS.MIPSGenerator;
+import TEMP.*;
 import Useable.UseableClass;
+
+import java.util.LinkedList;
 
 public class IRcommand_AllocateClass extends IRcommand
 {
-	String var_name;
 	UseableClass theClass;
+	TEMP ret;
 
-	public IRcommand_AllocateClass(String var_name)
+	public IRcommand_AllocateClass(UseableClass type, TEMP ret)
 	{
-		this.var_name = var_name;
+		this.theClass = type;
+		this.ret = ret;
 	}
 	
 	/***************/
@@ -29,6 +33,8 @@ public class IRcommand_AllocateClass extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().allocate(var_name);
+		// call to the constractor as func, and return the address that he is creating.
+		(new IRcommand_CallFunc(new LinkedList<TEMP>(), theClass.getConstructor(), ret)).MIPSme();
+
 	}
 }

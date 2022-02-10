@@ -22,7 +22,7 @@ public class AST_Program extends AST_Node {
         for (AST_dec a: l) {
             a.PrintCode();
         }
-        IR_Code.getInstance().addLine(new IRcommand_Return());
+        //IR_Code.getInstance().addLine(new IRcommand_Return());
         IR_Code.mainCode = IR_Code.getInstance();
         return null;
     }

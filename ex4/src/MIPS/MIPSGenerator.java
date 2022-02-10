@@ -59,6 +59,7 @@ public class MIPSGenerator
 				alive.get(entry[0]).remove(entry[1]);
 			}
 			prev = entry[0];
+
 		}
 		
 
@@ -226,9 +227,18 @@ public class MIPSGenerator
 		lineNum++;
 	}
 
+	public void malloc(TEMP dst, int size)
+	{
+		int idxdst = dst.getSerialNumber();
+		fileWriter.format("\tli $a0, %d\n", size);
+		fileWriter.format("\tli $v0, 9\n");
+		fileWriter.format("\tsyscall\n");
+		fileWriter.format("\tadd Temp_%d, $v0, 0\n", idxdst);
+	}
+
 
 	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
-	{
+	{ // TODO: this is not allocate !! only work for global !!! need to save locals on the stack !!!
 		fileWriter.format(".data\n");
 		fileWriter.format("\tglobal_%s: .space 4\n",var_name);
 
@@ -322,13 +332,14 @@ public class MIPSGenerator
 		lineNum++;
 
 	}
-	public void store(String var_name,TEMP src)
+	public void store(String var_name,TEMP src, int offset)
 	{
 		int idxsrc=src.getSerialNumber();
-		fileWriter.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name);
-
-		original.add(String.format("%d\tsw Temp_%d,global_%s\n",lineNum,idxsrc,var_name));
+		fileWriter.format("\tsw Temp_%d,%d(global_%s)\n",idxsrc,offset,var_name);
+		
+		original.add(String.format("%d\tsw Temp_%d,%d(global_%s)\n",lineNum,idxsrc,offset,var_name));
 		isBorn.add(new int[] {lineNum,src.getSerialNumber(),1});
+
 		lineNum++;
 	}
 
@@ -559,5 +570,13 @@ public class MIPSGenerator
 			instance.fileWriter.format(".text\n");
 		}
 		return instance;
+	}
+
+	public void store_by_address(TEMP address, TEMP val, int offset) {
+		int idxaddress=address.getSerialNumber(), idxval = val.getSerialNumber();
+		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
+
+		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		lineNum++;
 	}
 }

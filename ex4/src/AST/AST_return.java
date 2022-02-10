@@ -17,6 +17,12 @@ public class AST_return extends AST_dec {
 
     @Override
     public TEMP PrintCode() {
+        if(exp == null)
+        {
+            IR_Code.getInstance().addLine(new IRcommand_Return());
+            return null;
+        }
+
         TEMP t = exp.PrintCode();
         IR_Code.getInstance().addLine(new IRcommand_Assign_TEMPs(IR_Code.currentReturnRegister, t));
         IR_Code.getInstance().addLine(new IRcommand_Return());
@@ -42,8 +48,11 @@ public class AST_return extends AST_dec {
     public TYPE SemantMe() {
 
         TYPE t;
-        t = SYMBOL_TABLE.getInstance().find(exp.SemantMe().name);
-        if(t == null || t instanceof TYPE_VOID)
+        if(exp != null)
+            t = SYMBOL_TABLE.getInstance().find(exp.SemantMe().name);
+        else
+            t = new TYPE_VOID();
+        if(t == null)
         {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,exp.SemantMe().name);
             Printer.printError(line);

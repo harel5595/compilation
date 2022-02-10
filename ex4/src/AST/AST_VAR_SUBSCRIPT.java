@@ -100,7 +100,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
 
         TYPE t = null;
 
-        t = SYMBOL_TABLE.getInstance().find(var.getName());
+        t = var.SemantMe();
+                //SYMBOL_TABLE.getInstance().find(var.getName());
 
         if (t == null || t instanceof TYPE_VOID) {
             System.out.format(">> ERROR [%d:%d] non existing type %s\n", 2, 2, var.SemantMe().name);

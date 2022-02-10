@@ -46,8 +46,10 @@ public class AST_class extends AST_dec {
             {
                 field.PrintCode(); // allocate the place for the field.
                 for(UseableClass c : IR_Code.classes)
-                    if(Objects.equals(c.name, thisClass.name))
+                    if(Objects.equals(c.name, ((AST_VAR_dec) ((AST_dec_Node)field).head).type.type)) {
                         inner_fields.add(new UseableVar(field.getName(), c)); // TODO: maybe add more params for the var
+                        break;
+                    }
             }
             else
             {
@@ -57,9 +59,17 @@ public class AST_class extends AST_dec {
         }
         IR_Code constractor = IR_Code.endFunc();
 
-        my_class = new UseableClass(ID,inner_fields, constractor);
+
+        if(thisClass.father != null)
+        {
+            my_class = new UseableClass(ID,inner_fields, IR_Code.findUseableClass(thisClass.father.name));
+        }
+        else
+        {
+            my_class = new UseableClass(ID,inner_fields);
+        }
         IR_Code.classes.add(my_class);
-        IR_Code.addFunc(constractor, new UseableFunc("constractor_"+ID,"allocate_"+ID,TEMP_FACTORY.getInstance().getFreshTEMP(), constractor));
+        //IR_Code.addFunc(constractor, new UseableFunc("constractor_"+ID,"allocate_"+ID,TEMP_FACTORY.getInstance().getFreshTEMP(), constractor));
         //new UseableClass(ID, )
 
 

@@ -59,6 +59,7 @@ public class IR_Code {
         toUse.push(var);
     }
 
+
     static public Useable searchForUse(String name)
     {
         Stack<Useable> tempS = new Stack<>();
@@ -93,6 +94,7 @@ public class IR_Code {
         {
             defineGlobalFuncs();
             code = new IR_Code();
+            code.addLine(new IRcommand_Label("main"));
             instances.push(code);
             return code;
         }
@@ -102,6 +104,16 @@ public class IR_Code {
             return code;
         }
     }
+
+    static public UseableClass findUseableClass(String name)
+    {
+        for(UseableClass c : classes)
+            if(Objects.equals(c.name, name))
+                return c;
+        return null;
+    }
+
+
     public void addLine(IRcommand line)
     {
         code.add(line);
@@ -115,6 +127,7 @@ public class IR_Code {
         code.addLine(new IRcommand_Label(label));
         code.addLine(new IRcommand_LoadParam(t, 1));
         code.addLine(new IRcommand_PrintInt(t));
+        code.addLine(new IRcommand_Return());
         toUse.push(new UseableFunc("PrintInt", label, TEMP_FACTORY.getInstance().getFreshTEMP(), code));
         classes.add(new UseableClass("int", new ArrayList<>(), null));
         classes.add(new UseableClass("String", new ArrayList<>(), null));
@@ -142,10 +155,14 @@ public class IR_Code {
         for(IR_Code f : funcsCode)
             f.MIPSmeAsFunc(0);
         for(Useable u : toUse)
+        {
             u.compile();
-        (new IRcommand_Label("main")).MIPSme();
+            if(Objects.equals(u.name, "main"))
+                IR_Code.mainCode.addLine(new IRcommand_CallFunc(new LinkedList<TEMP>(), (UseableFunc) u, TEMP_FACTORY.getInstance().getFreshTEMP()));
+        }
 
-        //for(IRcommand ir : mainCode.code)
+
+                //for(IRcommand ir : mainCode.code)
           //  ir.MIPSme();
 
         mainCode.MIPSmeAsFunc(0);
