@@ -1,9 +1,8 @@
-
+array IntArray = int[];
+array Matrix = IntArray[];
 
 void main()
 {
-	Student moish := new Student;
-	moish.grades := 5;
-	moish.getAverage();
+	Matrix k := new IntArray[10];
 	return;
 }

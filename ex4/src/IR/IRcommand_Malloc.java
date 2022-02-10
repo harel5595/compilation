@@ -18,12 +18,19 @@ public class IRcommand_Malloc extends IRcommand
 {
 
 	TEMP address;
-	int size;
+	int size = 0;
+	TEMP size2;
 
 
 	public IRcommand_Malloc(TEMP address, int size)
 	{
 		this.size = size;
+		this.address = address;
+	}
+
+	public IRcommand_Malloc(TEMP address, TEMP size)
+	{
+		this.size2 = size;
 		this.address = address;
 	}
 	
@@ -32,6 +39,9 @@ public class IRcommand_Malloc extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().malloc(address, size);
+		if(size != 0)
+			MIPSGenerator.getInstance().malloc(address, size);
+		else
+			MIPSGenerator.getInstance().malloc_from_temp(address, size2);
 	}
 }

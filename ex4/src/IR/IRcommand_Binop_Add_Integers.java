@@ -26,6 +26,9 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 		this.t1 = t1;
 		this.t2 = t2;
 	}
+
+
+
 	/***************/
 	/* MIPS me !!! */
 	/***************/

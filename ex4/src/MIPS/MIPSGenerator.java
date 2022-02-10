@@ -8,7 +8,6 @@ package MIPS;
 /*******************/
 
 import TEMP.*;
-import javafx.util.Pair;
 
 import java.io.PrintWriter;
 
@@ -231,6 +230,15 @@ public class MIPSGenerator
 	{
 		int idxdst = dst.getSerialNumber();
 		fileWriter.format("\tli $a0, %d\n", size);
+		fileWriter.format("\tli $v0, 9\n");
+		fileWriter.format("\tsyscall\n");
+		fileWriter.format("\tadd Temp_%d, $v0, 0\n", idxdst);
+	}
+
+	public void malloc_from_temp(TEMP dst, TEMP size)
+	{
+		int idxdst = dst.getSerialNumber();
+		fileWriter.format("\tadd $a0, Temp_%d, 0\n", size.getSerialNumber());
 		fileWriter.format("\tli $v0, 9\n");
 		fileWriter.format("\tsyscall\n");
 		fileWriter.format("\tadd Temp_%d, $v0, 0\n", idxdst);

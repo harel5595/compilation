@@ -6,6 +6,7 @@ import TEMP.*;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import IR.*;
+import Useable.UseableArray;
 import Useable.UseableClass;
 
 import java.util.Objects;
@@ -21,12 +22,19 @@ public class AST_new_exp extends  AST_EXP{
 
     public TEMP PrintCode()
     {
-       if(exp != null && ((AST_new_exp)exp).exp != null)
-           throw new Error("somsing wierd about the new exp");
-       UseableClass c = IR_Code.findUseableClass(type.type);
-       TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
-       IR_Code.getInstance().addLine(new IRcommand_AllocateClass(c, dst));
-        return dst;
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+        UseableClass c = IR_Code.findUseableClass(type.type);
+        if (exp != null) // need to allocate array.
+        {
+            if(!(exp instanceof AST_EXP_INT))
+                throw new Error("something wierd about the new exp");
+
+            IR_Code.getInstance().addLine(new IRcommand_AllocateArray(c, dst, ((AST_EXP_INT) exp).value));
+        }
+       else {
+            IR_Code.getInstance().addLine(new IRcommand_AllocateClass(c, dst));
+        }
+       return dst;
     }
 
 
