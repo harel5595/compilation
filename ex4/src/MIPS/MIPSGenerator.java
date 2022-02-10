@@ -24,6 +24,9 @@ public class MIPSGenerator
 	private PrintWriter fileWriter;
 	public ArrayList<int[]> isBorn = new ArrayList<>(); //line num, temp #, is alive after?
 	public ArrayList<String> original = new ArrayList<>();
+	public Map<Integer, Integer> branch = new HashMap<>();
+	public Map<String, Integer> labels = new HashMap<>();
+
 	public int lineNum = 1;
 	public Map<Integer, Set<Integer>> alive = new HashMap<>();
 
@@ -86,6 +89,7 @@ public class MIPSGenerator
 
 		original.add(String.format("\tla Temp_%d, %s\n", idx, label));
 		isBorn.add(new int[] {lineNum,idx,0});
+		labels.put(label,lineNum);
 		lineNum++;
 	}
 
@@ -336,7 +340,7 @@ public class MIPSGenerator
 	{
 		int idxsrc=src.getSerialNumber();
 		fileWriter.format("\tsw Temp_%d,%d(global_%s)\n",idxsrc,offset,var_name);
-		
+
 		original.add(String.format("%d\tsw Temp_%d,%d(global_%s)\n",lineNum,idxsrc,offset,var_name));
 		isBorn.add(new int[] {lineNum,src.getSerialNumber(),1});
 
@@ -430,6 +434,7 @@ public class MIPSGenerator
 			original.add(String.format("%d.text\n",lineNum));
 			lineNum++;
 			original.add(String.format("%d%s:\n",lineNum,inlabel));
+			labels.put(inlabel,lineNum);
 			lineNum++;
 		}
 		else
@@ -437,6 +442,7 @@ public class MIPSGenerator
 			fileWriter.format("%s:\n",inlabel);
 
 			original.add(String.format("%d%s:\n",lineNum,inlabel));
+			labels.put(inlabel, lineNum);
 			lineNum++;
 		}
 	}	
@@ -454,6 +460,7 @@ public class MIPSGenerator
 			fileWriter.format("\tj %s\n",inlabel);
 
 			original.add(String.format("%d\tj %s\n",lineNum,inlabel));
+			branch.put(labels.get(inlabel),lineNum);
 			lineNum++;
 		}
 	}	
@@ -467,6 +474,7 @@ public class MIPSGenerator
 		original.add(String.format("%d\tblt Temp_%d,Temp_%d,%s\n",lineNum,i1,i2,label));
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
+		branch.put(labels.get(label),lineNum);
 		lineNum++;
 	}
 	public void bge(TEMP oprnd1,TEMP oprnd2,String label)
@@ -479,6 +487,7 @@ public class MIPSGenerator
 		original.add(String.format("%d\tbge Temp_%d,Temp_%d,%s\n",lineNum,i1,i2,label));
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
+		branch.put(labels.get(label),lineNum);
 		lineNum++;
 	}
 	public void bne(TEMP oprnd1,TEMP oprnd2,String label)
@@ -492,6 +501,7 @@ public class MIPSGenerator
 
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
+		branch.put(labels.get(label),lineNum);
 		lineNum++;
 	}
 	public void beq(TEMP oprnd1,TEMP oprnd2,String label)
@@ -505,6 +515,7 @@ public class MIPSGenerator
 
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
+		branch.put(labels.get(label),lineNum);
 		lineNum++;
 	}
 	public void beqz(TEMP oprnd1,String label)
@@ -516,7 +527,7 @@ public class MIPSGenerator
 		original.add(String.format("%d\tbeq Temp_%d,$zero,%s\n",lineNum,i1,label));
 
 		isBorn.add(new int[] {lineNum,i1,1});
-
+		branch.put(labels.get(label),lineNum);
 		lineNum++;
 	}
 
