@@ -10,7 +10,9 @@ import java.util.Objects;
 import TEMP.*;
 import TYPES.*;
 import IR.*;
+import Useable.UseableClass;
 import Useable.UseableFunc;
+import Useable.UseableVar;
 
 public class AST_func_call2 extends AST_dec {
     public String name;
@@ -18,7 +20,14 @@ public class AST_func_call2 extends AST_dec {
     public List<AST_EXP> lexp = new LinkedList<>();
 
     public TEMP PrintCode() {
-        UseableFunc func = (UseableFunc) IR_Code.searchForUse(name);
+        UseableFunc func;
+        if(var == null)
+            func = (UseableFunc) IR_Code.searchForUse(name);
+        else
+        {
+            UseableClass from = ((UseableVar) IR_Code.searchForUse(var.getName())).type;
+            func = (UseableFunc) from.findField(name);
+        }
         List<TEMP> params = new LinkedList<TEMP>();
         for(AST_EXP a: lexp)
             params.add(a.PrintCode());
