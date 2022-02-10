@@ -7,7 +7,7 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
 
 import java.util.Objects;
-import TEMP.*;
+
 import Useable.UseableClass;
 import Useable.UseableVar;
 
@@ -24,7 +24,7 @@ public class AST_VAR_dec extends AST_dec{
     public TEMP PrintCode()
     {
 
-        IR_Code.getInstance().addLine(new IRcommand_Allocate(name)); // TODO: change the func to allocate by the type
+         // TODO: change the func to allocate by the type
         // TODO: search for type in classes and arrays.
         UseableVar thisVar = null;
         for(UseableClass c : IR_Code.classes)
@@ -38,7 +38,7 @@ public class AST_VAR_dec extends AST_dec{
             throw new Error("dont know this type.");
 
         IR_Code.addVar(thisVar);
-
+        IR_Code.getInstance().addLine(new IRcommand_AllocateLocal(thisVar));
         if (exp != null)
         {
             IR_Code.getInstance().addLine(new IRcommand_Store(name,exp.PrintCode()));

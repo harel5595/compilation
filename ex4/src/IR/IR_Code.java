@@ -140,6 +140,7 @@ public class IR_Code {
             return;
         //MIPSGenerator.getInstance().label(String.format("function_%s",this.toString())); there is no need
         //MIPSGenerator.getInstance().func_prologue_stack();
+        MIPSGenerator.getInstance().allocated_on_stack = 0;
         MIPSGenerator.getInstance().load_params(amountOfParams);
         for(IRcommand ir : code)
             ir.MIPSme();

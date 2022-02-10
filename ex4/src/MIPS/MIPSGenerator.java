@@ -225,6 +225,8 @@ public class MIPSGenerator
 	public void call_func_label(String t)
 	{
 		fileWriter.format("\tjal %s\n", t);//nothing changes here
+		original.add(String.format("%d\tjal %s\n",lineNum, t));
+		lineNum ++;
 	}
 
 	public void label_into_address(String label, TEMP t)
@@ -290,6 +292,7 @@ public class MIPSGenerator
 		lineNum++;
 	}
 
+
 	public void stack_push(TEMP t)
 	{
 		int idxdst=t.getSerialNumber();
@@ -317,6 +320,7 @@ public class MIPSGenerator
 
 	public void func_prologue_stack()
 	{
+
 		fileWriter.format("\tsubu $sp,$sp,4\n");
 		fileWriter.format("\tsw $ra,0($sp)\n");
 		fileWriter.format("\tsubu $sp,$sp,4\n");
@@ -412,20 +416,20 @@ public class MIPSGenerator
 
 	}
 
-	public Stack<Integer> alocatedOnStack = new Stack<>();
+	public int allocated_on_stack = 0;
 
 	public void allocate_local(UseableVar var) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
 	{
-		fileWriter.format(".data\n");
-		fileWriter.format("\tglobal_%s: .space 4\n", var.name);
+		fileWriter.format("\tsubu $sp,$sp,4\n");
+		//fileWriter.format("\tsw Temp_%d,0($sp)\n",idxdst);
 
-		original.add(String.format("%d.data\n",lineNum));
-		lineNum++;
-		original.add(String.format("%d\tglobal_%s: .space 4\n",lineNum, var.name));
-		lineNum++;
+		var.offset = allocated_on_stack;
+		allocated_on_stack += 4;
 
-		fileWriter.format(".text\n");
-		original.add(String.format("%d.text\n",lineNum));
+		original.add(String.format("%d\tsubu $sp,$sp,4\n",lineNum));
+		lineNum++;
+		//original.add(String.format("%d\tsw Temp_%d,0($sp)\n",lineNum,idxdst));
+		//isBorn.add(new int[] {lineNum,idxdst,1});
 		lineNum++;
 
 	}
@@ -771,6 +775,16 @@ public class MIPSGenerator
 		int idxaddress=address.getSerialNumber(), idxval = val.getSerialNumber();
 		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
 
+		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		lineNum++;
+	}
+
+	public void store_to_stack(TEMP val, int offset) {
+		int idxaddress= TEMP_FACTORY.getInstance().getFreshTEMP().getSerialNumber(), idxval = val.getSerialNumber();
+		fileWriter.format("\tadd Temp_%d,%d($fp)\n", idxaddress, offset);
+		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
+		original.add(String.format("%d\tadd Temp_%d,%d($fp)\n",lineNum, idxaddress, offset));
+		lineNum++;
 		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
 		lineNum++;
 	}

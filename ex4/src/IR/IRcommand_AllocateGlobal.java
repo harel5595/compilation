@@ -12,13 +12,12 @@ package IR;
 /*******************/
 
 import MIPS.*;
-import TEMP.*;
 
-public class IRcommand_Allocate extends IRcommand
+public class IRcommand_AllocateGlobal extends IRcommand
 {
 	String var_name;
 	
-	public IRcommand_Allocate(String var_name)
+	public IRcommand_AllocateGlobal(String var_name)
 	{
 		this.var_name = var_name;
 	}
