@@ -90,6 +90,7 @@ public class MIPSGenerator
 					{
 						changed = true;
 						alive.get(entry[0]).add(entry[1]);
+						alive.get(entry[0]-1).add(entry[1]);
 					}
 
 
