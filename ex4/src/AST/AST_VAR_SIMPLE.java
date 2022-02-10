@@ -6,6 +6,8 @@ import SYMBOL_TABLE.SYMBOL_TABLE;
 import TYPES.TYPE_VOID;
 import IR.*;
 import TEMP.*;
+import Useable.UseableVar;
+
 public class AST_VAR_SIMPLE extends AST_VAR
 {
 	/************************/
@@ -25,9 +27,18 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public TEMP PrintCode()
 	{
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
-		IR_Code.getInstance().addLine(new IRcommand_Load(dst, name));
+		IR_Code.getInstance().addLine(new IRcommand_Load(dst, (UseableVar) IR_Code.searchForUse(name)));
 		return dst;
 	}
+	@Override
+	public TEMP GetAddress()
+	{
+		// TODO: this maybe wrong. the IRcommand_GetAddressFromLabel might not work with variables on the stack!
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR_Code.getInstance().addLine(new IRcommand_GetAddressForStackVar(dst, (UseableVar) IR_Code.searchForUse(name))); // get the address of the var
+		return dst;
+	}
+
 
 
 	public AST_VAR_SIMPLE(String name, int line)

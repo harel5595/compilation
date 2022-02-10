@@ -265,6 +265,7 @@ public class MIPSGenerator
 	}
 
 
+
 	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
 	{ // TODO: this is not allocate !! only work for global !!! need to save locals on the stack !!!
 		fileWriter.format(".data\n");
@@ -281,7 +282,7 @@ public class MIPSGenerator
 
 	}
 	public void big_alloc(String var_name, int len)
-	{
+	{ // TODO: this is not allocate !! only work for global !!! need to save locals on the stack !!!
 		fileWriter.format(".data\n");
 		fileWriter.format("\tallocated_%s: .space %d\n",var_name, len);
 
@@ -320,6 +321,7 @@ public class MIPSGenerator
 	}
 
 	public void load(TEMP dst,String var_name)
+	// I think that we have to make a stack of as own that have the names of the variabels and the offset of them in the stack
 	{
 		int idxdst=dst.getSerialNumber();
 		fileWriter.format("\tlw Temp_%d,global_%s\n",idxdst,var_name);
@@ -605,6 +607,14 @@ public class MIPSGenerator
 			instance.fileWriter.format(".text\n");
 		}
 		return instance;
+	}
+
+	public void load_by_address(TEMP address, TEMP ret, int offset) {
+		int idxaddress=address.getSerialNumber(), idxval = ret.getSerialNumber();
+		fileWriter.format("\tlw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
+
+		original.add(String.format("%d\tlw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		lineNum++;
 	}
 
 	public void store_by_address(TEMP address, TEMP val, int offset) {
