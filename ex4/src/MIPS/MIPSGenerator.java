@@ -40,6 +40,7 @@ public class MIPSGenerator
 		/************************************/
 		//this is the clean code func, it does the coloring of the registers
 		/************************************/
+		/*
 		isBorn.sort((a, b) -> (Integer) (b[0])-(a[0]));
 		int prev = -10;
 		for (int[] entry :
@@ -66,7 +67,7 @@ public class MIPSGenerator
 
 		//////end//////
 
-
+		*/
 	}
 	public void call_func(TEMP t)
 	{

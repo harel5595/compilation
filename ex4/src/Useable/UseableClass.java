@@ -28,6 +28,8 @@ public class UseableClass extends Useable {
             if(Objects.equals(u.name, name))
                 return u;
         }
+        if(father != null)
+            return father.findField(name);
         return null;
     }
 
@@ -39,6 +41,19 @@ public class UseableClass extends Useable {
         if(fields != null)
             this.fields = fields;
     }
+
+    public int findFieldOffset(String name)
+    {
+        if(fields_not_func == null)
+            findFieldsForStruct();
+        for(int i = 0; i < fields_not_func.size(); i++)
+        {
+            if(Objects.equals(fields_not_func.get(i).name, name))
+                return i;
+        }
+        throw new Error("don't have this field in class!");
+    }
+
     public UseableClass(String name, List<Useable> fields, UseableClass father)
     {
         this(name, fields);
@@ -106,7 +121,7 @@ public class UseableClass extends Useable {
             }
         }
         fields_not_func = vals;
-            return vals;
+        return vals;
     }
 
 

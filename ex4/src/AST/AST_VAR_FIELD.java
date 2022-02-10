@@ -31,17 +31,11 @@ public class AST_VAR_FIELD extends AST_VAR
 
 	public TEMP PrintCode()
 	{
-		// TODO: handle this (I think it is working)
-		if(var instanceof AST_VAR_SIMPLE) {
-			TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
-			UseableVar the_val = (UseableVar) IR_Code.searchForUse(var.getName());
-			IR_Code.getInstance().addLine(new IRcommand_LoadField(dst, var.getName(), fieldName, the_val.type));
-			return dst;
-		}
-		else
-		{
-			throw new Error("don't know what to do.");
-		}
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		UseableVar the_val = (UseableVar) IR_Code.searchForUse(var.getName());
+		TEMP t = var.PrintCode();
+		IR_Code.getInstance().addLine(new IRcommand_LoadField(dst, t, fieldName, the_val.type));
+		return dst;
 	}
 
 

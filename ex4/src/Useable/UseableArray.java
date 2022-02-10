@@ -43,18 +43,19 @@ public class UseableArray extends UseableClass { // this is type of class, all t
                 address = TEMP_FACTORY.getInstance().getFreshTEMP();
         construct.addLine(new IRcommandConstInt(iterated, 4));
         String Slabel = IRcommand.getFreshLabel("start_of_while");
-        IR_Code.getInstance().addLine(new IRcommand_Label(Slabel));
+        construct.addLine(new IRcommand_Label(Slabel));
         String Elabel = IRcommand.getFreshLabel("end_of_while");
 
-        IR_Code.getInstance().addLine(new IRcommand_Jump_If_Eq(iterated, size,Elabel));
+        construct.addLine(new IRcommand_Jump_If_Eq(iterated, size,Elabel));
         construct.addLine(new IRcommand_Binop_Add_Integers(iterated, iterated, one));
 
         construct.addLine(new IRcommand_AllocateClass(type, temp)); // run the constractor
         construct.addLine(new IRcommand_Binop_Add_Integers(address, iterated, ret_val));
         construct.addLine(new IRcommand_Store(address, temp, 0));
 
-        IR_Code.getInstance().addLine(new IRcommand_Jump_Label(Slabel));
-        IR_Code.getInstance().addLine(new IRcommand_Label(Elabel));
+        construct.addLine(new IRcommand_Jump_Label(Slabel));
+        construct.addLine(new IRcommand_Label(Elabel));
+        construct.addLine(new IRcommand_Return());
 
         constructor = new UseableFunc("allocate_" + name, "allocate_" + name, ret_val, construct);
 
@@ -88,6 +89,8 @@ public class UseableArray extends UseableClass { // this is type of class, all t
     public void CreateVirtualTable()
     {
         // there is no virtual table for an array.
+        CreateConstructor();
+        IR_Code.addFunc(constructor.func_code, constructor);
     }
 
 }
