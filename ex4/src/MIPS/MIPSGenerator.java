@@ -387,6 +387,7 @@ public class MIPSGenerator
 		fileWriter.format("\tli $v0, 9\n");
 		fileWriter.format("\tsyscall\n");
 		fileWriter.format("\tadd Temp_%d, $v0, 0\n", idxdst);
+		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 	}
 
 	public void malloc_from_temp(TEMP dst, TEMP size)
@@ -396,6 +397,7 @@ public class MIPSGenerator
 		fileWriter.format("\tli $v0, 9\n");
 		fileWriter.format("\tsyscall\n");
 		fileWriter.format("\tadd Temp_%d, $v0, 0\n", idxdst);
+		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 	}
 
 
@@ -430,7 +432,7 @@ public class MIPSGenerator
 		lineNum++;
 		//original.add(String.format("%d\tsw Temp_%d,0($sp)\n",lineNum,idxdst));
 		//isBorn.add(new int[] {lineNum,idxdst,1});
-		lineNum++;
+
 
 	}
 
