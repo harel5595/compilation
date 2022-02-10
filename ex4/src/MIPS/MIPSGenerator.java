@@ -660,6 +660,8 @@ public class MIPSGenerator
 		int i2 =oprnd2.getSerialNumber();
 		int dstidx=dst.getSerialNumber();
 
+
+		fileWriter.format("\tbeq Temp_%d,$zero,infin_%d%d:\n",i2,dstidx,lineNum);
 		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
@@ -677,6 +679,12 @@ public class MIPSGenerator
 		//set to minf if was less.
 		fileWriter.format("minfin_%d%d:\n",dstidx,lineNum);
 		fileWriter.format("\tla Temp_%d, minusinfinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//zero_div
+		fileWriter.format("zero_div_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tli $a0,string_illegal_div_by_0\n");
+		fileWriter.format("\tli $v0,4\n");
+		fileWriter.format("\tsyscall\n");
 		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
 		//end
 		fileWriter.format("end%d%d:\n",dstidx,lineNum);
