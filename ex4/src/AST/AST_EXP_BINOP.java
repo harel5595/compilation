@@ -20,51 +20,56 @@ public class AST_EXP_BINOP extends AST_EXP
 		TEMP t1 = null;
 		TEMP t2 = null;
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		if(left == null || right == null)
+			throw new Error("dont have two sides of binary op");
+		t1 = left.PrintCode();
+		t2 = right.PrintCode();
 
-		if (left  != null) t1 = left.PrintCode();
-		if (right != null) t2 = right.PrintCode();
-
-		if (OP == 0)
-		{
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_Add_Integers(dst,t1,t2));
-		}
-		if (OP == 1)
-		{
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
-		}
-		if (OP == 2)
-		{
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
-		}
-		if (OP == 3)
-		{
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_Div_Integers(dst,t1,t2));
-		}
-		if (OP == 4)
-		{
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_LT_Integers(dst,t1,t2));
-		}
-		if (OP == 5) {
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_LT_Integers(dst,t2,t1));
-		}
-		if (OP == 6) {
-			IR_Code.
-					getInstance().
-					addLine(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
-		}
-		return dst;
+		//if(left.SemantMe() instanceof TYPE_INT)
+		//{
+			if (OP == 0)
+			{
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+			}
+			if (OP == 1)
+			{
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_Sub_Integers(dst,t1,t2));
+			}
+			if (OP == 2)
+			{
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
+			}
+			if (OP == 3)
+			{
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_Div_Integers(dst,t1,t2));
+			}
+			if (OP == 4)
+			{
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_LT_Integers(dst,t1,t2));
+			}
+			if (OP == 5) {
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_LT_Integers(dst,t2,t1));
+			}
+			if (OP == 6) {
+				IR_Code.
+						getInstance().
+						addLine(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+			}
+			return dst;
+		//}
+		//return null;
 	}
 
 	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP, int line)

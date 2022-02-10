@@ -129,7 +129,7 @@ public class IR_Code {
         code.addLine(new IRcommand_PrintInt(t));
         code.addLine(new IRcommand_Return());
         toUse.push(new UseableFunc("PrintInt", label, TEMP_FACTORY.getInstance().getFreshTEMP(), code));
-        classes.add(new UseableClass("int", new ArrayList<>(), null));
+        classes.add(new UseableInt()); // add the class of int.
         classes.add(new UseableClass("String", new ArrayList<>(), null));
 
         // TODO: this.
@@ -140,6 +140,7 @@ public class IR_Code {
             return;
         //MIPSGenerator.getInstance().label(String.format("function_%s",this.toString())); there is no need
         //MIPSGenerator.getInstance().func_prologue_stack();
+        MIPSGenerator.getInstance().allocated_on_stack = 0;
         MIPSGenerator.getInstance().load_params(amountOfParams);
         for(IRcommand ir : code)
             ir.MIPSme();
