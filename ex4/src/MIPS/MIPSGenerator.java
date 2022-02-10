@@ -50,6 +50,10 @@ public class MIPSGenerator
 
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 
+		for (int i = 0; i < lineNum; i++) {
+			alive.put(i,new ArrayList<>());
+		}
+
 
 		isBorn.sort((a, b) -> (Integer) (b[0])-(a[0]));
 		//useful graph code copied from geeks for geeks.
@@ -198,7 +202,7 @@ public class MIPSGenerator
 		{
 			e.printStackTrace();
 		}
-		
+
 
 
 
