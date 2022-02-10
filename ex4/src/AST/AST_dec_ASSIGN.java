@@ -7,6 +7,7 @@ import TYPES.*;
 import java.util.Objects;
 import IR.*;
 import TEMP.*;
+import Useable.UseableVar;
 
 public class AST_dec_ASSIGN extends AST_dec
 {
@@ -23,10 +24,10 @@ public class AST_dec_ASSIGN extends AST_dec
 	@Override
 	public TEMP PrintCode()
 	{
-		TEMP dst = var.PrintCode(); // TODO: understand where to save the val. this could be a field inside a class.
+		TEMP dst = var.GetAddress(); // TODO: understand where to save the val. this could be a field inside a class.
 
 		TEMP t = exp.PrintCode(); // TODO: store by type? or maybe it always pointer?
-		IR_Code.getInstance().addLine(new IRcommand_Store(var.getName(), t));
+		IR_Code.getInstance().addLine(new IRcommand_Store(dst, t, 0));
 		return null;
 	}
 

@@ -38,6 +38,15 @@ public class AST_VAR_FIELD extends AST_VAR
 		return dst;
 	}
 
+	public TEMP GetAddress()
+	{
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		UseableVar the_val = (UseableVar) IR_Code.searchForUse(var.getName());
+		TEMP t = var.PrintCode();
+		IR_Code.getInstance().addLine(new IRcommand_LoadField(dst, t, fieldName, the_val.type, true));
+		return dst;
+	}
+
 
 	public AST_VAR_FIELD(AST_VAR var,String fieldName, int line)
 	{

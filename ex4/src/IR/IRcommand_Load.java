@@ -13,16 +13,17 @@ package IR;
 
 import MIPS.*;
 import TEMP.*;
+import Useable.UseableVar;
 
 public class IRcommand_Load extends IRcommand
 {
 	TEMP dst;
-	String var_name;
+	UseableVar var;
 	
-	public IRcommand_Load(TEMP dst,String var_name)
+	public IRcommand_Load(TEMP dst,UseableVar var)
 	{
-		this.dst      = dst;
-		this.var_name = var_name;
+		this.dst = dst;
+		this.var = var;
 	}
 	
 	/***************/
@@ -30,6 +31,7 @@ public class IRcommand_Load extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().load(dst,var_name);
+		// TODO: load from the stack with the right offset.
+		//MIPSGenerator.getInstance().load(dst,);
 	}
 }

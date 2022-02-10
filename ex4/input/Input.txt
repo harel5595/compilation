@@ -1,8 +1,9 @@
-array IntArray = int[];
-array Matrix = IntArray[];
+int f(int x, int y) {
+    int z := x + y;
+    return z;
+}
 
-void main()
-{
-	Matrix k := new IntArray[10];
-	return;
+void main() {
+    int z := f(1, 2);
+    PrintInt(z);
 }

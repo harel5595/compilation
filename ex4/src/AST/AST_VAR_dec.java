@@ -37,7 +37,7 @@ public class AST_VAR_dec extends AST_dec{
         if(thisVar == null)
             throw new Error("dont know this type.");
 
-        IR_Code.toUse.push(thisVar);
+        IR_Code.addVar(thisVar);
 
         if (exp != null)
         {

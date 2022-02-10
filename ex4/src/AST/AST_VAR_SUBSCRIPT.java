@@ -27,6 +27,16 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
         return ret;
     }
 
+    public TEMP GetAddress()
+    {
+        TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP offset = subscript.PrintCode();
+        TEMP arr_pointer = var.PrintCode();
+        IR_Code.getInstance().addLine(new IRcommand_Binop_Add_Integers(ret, arr_pointer, offset));
+        return ret;
+    }
+
+
     public AST_VAR_SUBSCRIPT(AST_VAR var, AST_EXP subscript, int line) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
