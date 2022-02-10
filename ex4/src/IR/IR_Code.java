@@ -52,8 +52,6 @@ public class IR_Code {
         while (!Objects.equals(toUse.pop().name, "__not_a_name__")) {}
     }
 
-
-
     static public void addVar(UseableVar var)
     {
         toUse.push(var);
