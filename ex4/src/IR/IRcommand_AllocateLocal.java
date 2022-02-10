@@ -13,6 +13,7 @@ package IR;
 
 import MIPS.MIPSGenerator;
 import TEMP.TEMP;
+import Useable.UseableInt;
 import Useable.UseableVar;
 
 public class IRcommand_AllocateLocal extends IRcommand
@@ -30,9 +31,18 @@ public class IRcommand_AllocateLocal extends IRcommand
 	public void MIPSme()
 	{
 		MIPSGenerator.getInstance().allocate_local(var);
-		MIPSGenerator.getInstance().call_func_label("allocate_" + var.type.getConstructor().startLabel);
-		TEMP t = var.type.getConstructor().retRegister;
-		MIPSGenerator.getInstance().store_to_stack(t, var.offset);
+		if(var.type instanceof UseableInt)
+		{
+			// there is no need to do anything
+		}
+		else
+		{
+			MIPSGenerator.getInstance().call_func_label(var.type.getConstructor().startLabel);
+			TEMP t = var.type.getConstructor().retRegister;
+			MIPSGenerator.getInstance().store_to_stack(t, var.offset);
+		}
+
+
 
 	}
 }

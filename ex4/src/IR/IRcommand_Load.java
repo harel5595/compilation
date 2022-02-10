@@ -32,6 +32,7 @@ public class IRcommand_Load extends IRcommand
 	public void MIPSme()
 	{
 		// TODO: load from the stack with the right offset.
+		MIPSGenerator.getInstance().load_from_stack(dst, var.offset);
 		//MIPSGenerator.getInstance().load(dst,);
 	}
 }

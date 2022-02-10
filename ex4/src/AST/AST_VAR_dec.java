@@ -41,7 +41,7 @@ public class AST_VAR_dec extends AST_dec{
         IR_Code.getInstance().addLine(new IRcommand_AllocateLocal(thisVar));
         if (exp != null)
         {
-            IR_Code.getInstance().addLine(new IRcommand_Store(name,exp.PrintCode()));
+            IR_Code.getInstance().addLine(new IRcommand_Store(thisVar,exp.PrintCode()));
         }
         return null;
     }

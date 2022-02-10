@@ -198,7 +198,7 @@ public class MIPSGenerator
 			for (int i =t.getSerialNumber()-1; i>=0; i--)
 			{
 
-				code = code.replaceAll(String.format("Temp_%d",i),String.format("t_%d",coloring.getOrDefault(i,0)));
+				code = code.replaceAll(String.format("Temp_%d",i),"\\$"+String.format("t%d",coloring.getOrDefault(i,0)));
 			}
 			Files.write(Paths.get(dirname+filename), code.getBytes());
 
@@ -855,6 +855,15 @@ public class MIPSGenerator
 		fileWriter.format("\tlw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
 
 		original.add(String.format("%d\tlw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		lineNum++;
+	}
+
+	public void load_from_stack(TEMP ret, int offset) {
+		int idxval = ret.getSerialNumber();
+		fileWriter.format("\tlw Temp_%d,%d($fp)\n",idxval,offset);
+
+
+		original.add(String.format("%d\tlw Temp_%d,%d($fp)\n",lineNum,idxval,offset));
 		lineNum++;
 	}
 
