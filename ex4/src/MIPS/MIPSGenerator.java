@@ -549,14 +549,36 @@ public class MIPSGenerator
 		int dstidx=dst.getSerialNumber();
 
 		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		//compare to plus inf
+		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		//compare to minus inf
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to inf if it was more
+		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, infinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to minf if was less.
+		fileWriter.format("minfin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//end
+		fileWriter.format("end%d%d:\n",dstidx,lineNum);
+
+
 
 		original.add(String.format("%d\tadd Temp_%d,Temp_%d,Temp_%d\n",lineNum,dstidx,i1,i2));
 		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
+		isBorn.add(new int[] {lineNum,t.getSerialNumber(),1});
+		isBorn.add(new int[] {lineNum+12,t.getSerialNumber(),0});
 
 
-		lineNum++;
+		lineNum+= 13;
 	}
 	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
@@ -566,11 +588,32 @@ public class MIPSGenerator
 
 		fileWriter.format("\tsub Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		//compare to plus inf
+		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		//compare to minus inf
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to inf if it was more
+		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, infinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to minf if was less.
+		fileWriter.format("minfin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//end
+		fileWriter.format("end%d%d:\n",dstidx,lineNum);
+
 		original.add(String.format("%d\tsub Temp_%d,Temp_%d,Temp_%d\n",lineNum,dstidx,i1,i2));
 		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
-		lineNum++;
+		isBorn.add(new int[] {lineNum,t.getSerialNumber(),1});
+		isBorn.add(new int[] {lineNum+12,t.getSerialNumber(),0});
+		lineNum+=13;
 	}
 	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
@@ -580,11 +623,32 @@ public class MIPSGenerator
 
 		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		//compare to plus inf
+		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		//compare to minus inf
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to inf if it was more
+		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, infinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to minf if was less.
+		fileWriter.format("minfin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//end
+		fileWriter.format("end%d%d:\n",dstidx,lineNum);
+
 		original.add(String.format("%d\tmul Temp_%d,Temp_%d,Temp_%d\n",lineNum,dstidx,i1,i2));
 		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
-		lineNum++;
+		isBorn.add(new int[] {lineNum,t.getSerialNumber(),1});
+		isBorn.add(new int[] {lineNum+12,t.getSerialNumber(),0});
+		lineNum+=13;
 	}
 	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
@@ -594,11 +658,32 @@ public class MIPSGenerator
 
 		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		//compare to plus inf
+		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		//compare to minus inf
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to inf if it was more
+		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, infinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//set to minf if was less.
+		fileWriter.format("minfin_%d%d:\n",dstidx,lineNum);
+		fileWriter.format("\tla Temp_%d, minusinfinity\n",dstidx);
+		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
+		//end
+		fileWriter.format("end%d%d:\n",dstidx,lineNum);
+
 		original.add(String.format("%d\tdiv Temp_%d,Temp_%d,Temp_%d\n",lineNum,dstidx,i1,i2));
 		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 		isBorn.add(new int[] {lineNum,i1,1});
 		isBorn.add(new int[] {lineNum,i2,1});
-		lineNum++;
+		isBorn.add(new int[] {lineNum,t.getSerialNumber(),1});
+		isBorn.add(new int[] {lineNum+12,t.getSerialNumber(),0});
+		lineNum+=13;
 	}
 	public void label(String inlabel)
 	{
@@ -754,6 +839,8 @@ public class MIPSGenerator
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
 			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
+			instance.fileWriter.print("infinity: .word 32767");
+			instance.fileWriter.print("minusinfinity: .word -32768");
 			instance.fileWriter.format(".text\n");
 		}
 		return instance;
