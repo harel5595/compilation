@@ -7,6 +7,7 @@ import TYPES.*;
 import java.util.Objects;
 import IR.*;
 import TEMP.*;
+import Useable.UseableVar;
 
 public class AST_dec_ASSIGN extends AST_dec
 {

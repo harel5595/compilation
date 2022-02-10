@@ -11,6 +11,7 @@ import TYPES.*;
 import SYMBOL_TABLE.SYMBOL_TABLE;
 import IR.*;
 import Useable.UseableFunc;
+import Useable.UseableVar;
 
 public class AST_func_dec extends AST_dec{
     public List<AST_type> paramList = new ArrayList<>();
@@ -35,6 +36,10 @@ public class AST_func_dec extends AST_dec{
            label = IRcommand.getFreshLabel(name);
        }
        IR_Code.getInstance().addLine(new IRcommand_Label(label));
+       for(AST_type param : paramList)
+       {
+           IR_Code.addVar(new UseableVar(param.name, IR_Code.findUseableClass(param.type)));
+       }
        for(AST_dec command: commands)
            command.PrintCode();
        IR_Code funcCode = IR_Code.endFunc();

@@ -22,7 +22,7 @@ public class IRcommand_Load extends IRcommand
 	
 	public IRcommand_Load(TEMP dst,UseableVar var)
 	{
-		this.dst      = dst;
+		this.dst = dst;
 		this.var = var;
 	}
 	
