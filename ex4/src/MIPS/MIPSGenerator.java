@@ -374,9 +374,9 @@ public class MIPSGenerator
 
 	public void move(TEMP dst,TEMP src)
 	{
-		fileWriter.format("\tmov Temp_%d,Temp_%d\n",dst.getSerialNumber(), src.getSerialNumber());
+		fileWriter.format("\tmove Temp_%d,Temp_%d\n",dst.getSerialNumber(), src.getSerialNumber());
 
-		original.add(String.format("%d\tmov Temp_%d,Temp_%d\n",lineNum,dst.getSerialNumber(), src.getSerialNumber()));
+		original.add(String.format("%d\tmove Temp_%d,Temp_%d\n",lineNum,dst.getSerialNumber(), src.getSerialNumber()));
 		isBorn.add(new int[] {lineNum,dst.getSerialNumber(),0});
 		isBorn.add(new int[] {lineNum,src.getSerialNumber(),1});
 		lineNum++;
@@ -855,8 +855,8 @@ public class MIPSGenerator
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
 			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
-			instance.fileWriter.print("infinity: .word 32767");
-			instance.fileWriter.print("minusinfinity: .word -32768");
+			instance.fileWriter.print("infinity: .word 32767\n");
+			instance.fileWriter.print("minusinfinity: .word -32768\n");
 			instance.fileWriter.format(".text\n");
 		}
 		return instance;
@@ -886,8 +886,8 @@ public class MIPSGenerator
 		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
 
 		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
-		isBorn.add(new int[] {lineNum,idxval,1});
-		isBorn.add(new int[] {lineNum,idxaddress,0});
+		isBorn.add(new int[] {lineNum,idxval,0});
+		isBorn.add(new int[] {lineNum,idxaddress,1});
 		lineNum++;
 	}
 
@@ -899,7 +899,7 @@ public class MIPSGenerator
 		lineNum++;
 		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%d)\n",lineNum,idxval,offset,idxaddress));
 		lineNum++;
-		isBorn.add(new int[] {lineNum,idxval,1});
+		isBorn.add(new int[] {lineNum,idxval,0});
 		isBorn.add(new int[] {lineNum,idxaddress,0});
 	}
 }
