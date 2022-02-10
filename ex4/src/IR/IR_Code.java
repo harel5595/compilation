@@ -129,7 +129,7 @@ public class IR_Code {
         code.addLine(new IRcommand_PrintInt(t));
         code.addLine(new IRcommand_Return());
         toUse.push(new UseableFunc("PrintInt", label, TEMP_FACTORY.getInstance().getFreshTEMP(), code));
-        classes.add(new UseableClass("int", new ArrayList<>(), null));
+        classes.add(new UseableInt()); // add the class of int.
         classes.add(new UseableClass("String", new ArrayList<>(), null));
 
         // TODO: this.
