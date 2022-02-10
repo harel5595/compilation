@@ -116,8 +116,8 @@ public class MIPSGenerator
 				{
 					graph.get(alive.get(entry).get(i)).add(alive.get(entry).get(j));
 					graph.get(alive.get(entry).get(j)).add(alive.get(entry).get(i));
-					degrees.put(i,degrees.getOrDefault(i, 0) + 1);
-					degrees.put(j,degrees.getOrDefault(j, 0) + 1);
+					degrees.put(alive.get(entry).get(i),degrees.getOrDefault(alive.get(entry).get(i), 0) + 1);
+					degrees.put(alive.get(entry).get(j),degrees.getOrDefault(alive.get(entry).get(j), 0) + 1);
 				}
 			}
 		}
