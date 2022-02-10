@@ -42,28 +42,44 @@ public class MIPSGenerator
 		/************************************/
 
 		isBorn.sort((a, b) -> (Integer) (b[0])-(a[0]));
-		int prev = -10;
-		for (int[] entry :
-				isBorn) {
-			if(prev != -10 && entry[0] < prev)
-			{
-				for (int i = entry[0]; i < prev; i++)
-				{
-					alive.put(i,alive.get(entry[0]));
+		boolean changed = true;
+		while(changed) {
+			changed = false;
+			int prev = -10;
+			for (int[] entry :
+					isBorn) {
+				if (prev != -10 && entry[0] < prev) {
+					for (int i = entry[0]; i < prev; i++) {
+						if (!alive.get(i).equals(alive.get(entry[0]))) {
+							changed = true;
+						}
+						alive.put(i, alive.get(entry[0]));
+					}
 				}
-			}
-			if (entry[2] == 1)
-			{
-				alive.get(entry[0]).add(entry[1]);
-			}
-			else
-			{
-				alive.get(entry[0]).remove(entry[1]);
-			}
-			prev = entry[0];
+				if (entry[2] == 1) {
+					if(!alive.get(entry[0]).contains(entry[1]))
+					{
+						changed = true;
+					}
+					alive.get(entry[0]).add(entry[1]);
+				} else {
+					if(alive.get(entry[0]).contains(entry[1]))
+					{
+						changed = true;
+					}
+					alive.get(entry[0]).remove(entry[1]);
+				}
+				prev = entry[0];
 
+			}
+
+			for (int jump :
+					branch.keySet()) {
+				alive.get(jump).addAll(alive.get(branch.get(jump)));
+			}
+			
+			
 		}
-		
 
 		//////end//////
 
