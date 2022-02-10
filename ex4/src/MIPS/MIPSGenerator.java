@@ -874,6 +874,7 @@ public class MIPSGenerator
 
 
 		original.add(String.format("%d\tlw Temp_%d,%d($fp)\n",lineNum,idxval,offset));
+		isBorn.add(new int[] {lineNum,idxval,0});
 		lineNum++;
 	}
 
@@ -882,16 +883,20 @@ public class MIPSGenerator
 		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
 
 		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		isBorn.add(new int[] {lineNum,idxval,0});
+		isBorn.add(new int[] {lineNum,idxaddress,1});
 		lineNum++;
 	}
 
 	public void store_to_stack(TEMP val, int offset) {
 		int idxaddress= TEMP_FACTORY.getInstance().getFreshTEMP().getSerialNumber(), idxval = val.getSerialNumber();
 		fileWriter.format("\tadd Temp_%d,%d($fp)\n", idxaddress, offset);
-		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
+		fileWriter.format("\tsw Temp_%d,%d(Temp_%d)\n",idxval,offset,idxaddress);
 		original.add(String.format("%d\tadd Temp_%d,%d($fp)\n",lineNum, idxaddress, offset));
 		lineNum++;
-		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%d)\n",lineNum,idxval,offset,idxaddress));
 		lineNum++;
+		isBorn.add(new int[] {lineNum,idxval,0});
+		isBorn.add(new int[] {lineNum,idxaddress,0});
 	}
 }
