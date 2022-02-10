@@ -558,10 +558,10 @@ public class MIPSGenerator
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		//compare to plus inf
 		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
 		//compare to minus inf
 		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
 		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
 		//set to inf if it was more
 		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
@@ -597,10 +597,10 @@ public class MIPSGenerator
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		//compare to plus inf
 		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
 		//compare to minus inf
 		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
 		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
 		//set to inf if it was more
 		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
@@ -632,10 +632,10 @@ public class MIPSGenerator
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		//compare to plus inf
 		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
 		//compare to minus inf
 		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
 		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
 		//set to inf if it was more
 		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
@@ -663,16 +663,16 @@ public class MIPSGenerator
 		int dstidx=dst.getSerialNumber();
 
 
-		fileWriter.format("\tbeq Temp_%d,$zero,infin_%d%d:\n",i2,dstidx,lineNum);
+		fileWriter.format("\tbeq Temp_%d,$zero,infin_%d%d\n",i2,dstidx,lineNum);
 		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
 		//compare to plus inf
 		fileWriter.format("\tla Temp_%d, infinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d:\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,infin_%d%d\n",t.getSerialNumber(),dstidx,dstidx,lineNum);
 		//compare to minus inf
 		fileWriter.format("\tla Temp_%d, minusinfinity\n",t.getSerialNumber());
-		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d:\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
+		fileWriter.format("\tblt Temp_%d,Temp_%d,minfin_%d%d\n",dstidx,t.getSerialNumber(),dstidx,lineNum);
 		fileWriter.format("\tj end%d%d\n",dstidx,lineNum);
 		//set to inf if it was more
 		fileWriter.format("infin_%d%d:\n",dstidx,lineNum);
