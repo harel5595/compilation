@@ -8,9 +8,12 @@ package MIPS;
 /*******************/
 
 import TEMP.*;
+import sun.swing.BakedArrayList;
 
 import java.io.PrintWriter;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -26,8 +29,10 @@ public class MIPSGenerator
 	public Map<Integer, Integer> branch = new HashMap<>();
 	public Map<String, Integer> labels = new HashMap<>();
 
+
+
 	public int lineNum = 1;
-	public Map<Integer, Set<Integer>> alive = new HashMap<>();
+	public Map<Integer, ArrayList<Integer>> alive = new HashMap<>();
 
 	/***********************/
 	/* The file writer ... */
@@ -37,11 +42,27 @@ public class MIPSGenerator
 		fileWriter.print("\tli $v0,10\n");
 		fileWriter.print("\tsyscall\n");
 		fileWriter.close();
+
 		/************************************/
 		//this is the clean code func, it does the coloring of the registers
 		/************************************/
-		/*
+
+
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+
 		isBorn.sort((a, b) -> (Integer) (b[0])-(a[0]));
+		//useful graph code copied from geeks for geeks.
+		ArrayList<ArrayList<Integer>> graph = new ArrayList<>(t.getSerialNumber()-1);
+		for (int i = 0; i < t.getSerialNumber()-1; i++)
+			graph.add(new ArrayList<Integer>());
+
+		Map<Integer, Integer> degrees = new HashMap<>();
+
+		Stack<Integer> nodeStack = new Stack<>();
+
+		Map<Integer, Integer> coloring = new HashMap<>();
+
 		boolean changed = true;
 		while(changed) {
 			changed = false;
@@ -52,22 +73,24 @@ public class MIPSGenerator
 					for (int i = entry[0]; i < prev; i++) {
 						if (!alive.get(i).equals(alive.get(entry[0]))) {
 							changed = true;
+							alive.put(i, alive.get(entry[0]));
 						}
-						alive.put(i, alive.get(entry[0]));
+
 					}
 				}
 				if (entry[2] == 1) {
 					if(!alive.get(entry[0]).contains(entry[1]))
 					{
 						changed = true;
+						alive.get(entry[0]).add(entry[1]);
 					}
-					alive.get(entry[0]).add(entry[1]);
+
+
 				} else {
-					if(alive.get(entry[0]).contains(entry[1]))
-					{
+					if(alive.get(entry[0]).contains(entry[1])) {
 						changed = true;
+						alive.get(entry[0]).remove(entry[1]);
 					}
-					alive.get(entry[0]).remove(entry[1]);
 				}
 				prev = entry[0];
 
@@ -81,9 +104,107 @@ public class MIPSGenerator
 			
 		}
 
+		for (int entry :
+				alive.keySet()) {
+			for(int i = 0; i < alive.get(entry).size(); i ++)
+			{
+				for(int j = i+1; j < alive.get(entry).size(); j ++)
+				{
+					graph.get(alive.get(entry).get(i)).add(alive.get(entry).get(j));
+					graph.get(alive.get(entry).get(j)).add(alive.get(entry).get(i));
+					degrees.put(i,degrees.get(i) + 1);
+					degrees.put(j,degrees.get(j) + 1);
+				}
+			}
+		}
+
+		for (int i = 0; i < t.getSerialNumber()-1; i++) {
+			int maxValueInMap=(Collections.max(degrees.values()));
+			for (int entry :
+					degrees.keySet()) {
+				if (degrees.get(entry) == maxValueInMap) {
+					nodeStack.push(entry);
+					for (int a:
+					graph.get(entry)){
+						degrees.put(a,degrees.get(a)-1);
+						degrees.put(entry,degrees.get(entry)-1);
+					}
+
+					break;
+				}
+			}
+		}
+
+		graph = new ArrayList<>(t.getSerialNumber()-1);
+		for (int i = 0; i < t.getSerialNumber()-1; i++)
+			graph.add(new ArrayList<Integer>());
+
+		degrees = new HashMap<>();
+
+		for (int i = 0; i < t.getSerialNumber()-1; i++) {
+			int maxValueInMap=(Collections.max(degrees.values()));
+			for (int entry :
+					degrees.keySet()) {
+				if (degrees.get(entry) == maxValueInMap) {
+					nodeStack.push(entry);
+					for (int a:
+							graph.get(entry)){
+						degrees.put(a,degrees.get(a)-1);
+						degrees.put(entry,degrees.get(entry)-1);
+					}
+
+					break;
+				}
+			}
+		}
+
+		while(!nodeStack.empty())
+		{
+			int node = nodeStack.pop();
+			int available[] = new int[10];
+			for (int a :
+					graph.get(node)) {
+				{
+					int j = coloring.getOrDefault(a,-1);
+					if(j != -1)
+					{
+						available[j] = 1;
+					}
+				}
+			}
+			for (int i = 0; i < 10; i++) {
+				if(available[i] == 0)
+				{
+					coloring.put(node,i);
+				}
+			}
+		}
+
+		try
+		{
+			String dirname="./output/";
+			String filename=String.format("MIPS.txt");
+
+			String code = new String(Files.readAllBytes(Paths.get(dirname+filename)));
+
+			for (int i =t.getSerialNumber()-1; i>=0; i--)
+			{
+				code = code.replaceAll(String.format("Temp_%d",i),String.format("t_%d",coloring.get(i)));
+			}
+			Files.write(Paths.get(dirname+filename), code.getBytes());
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+
+
+
 		//////end//////
 
-		*/
+
 	}
 	public void call_func(TEMP t)
 	{
