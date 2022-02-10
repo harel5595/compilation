@@ -301,12 +301,12 @@ public class MIPSGenerator
 		lineNum++;
 
 	}
-	public void store(String var_name,TEMP src)
+	public void store(String var_name,TEMP src, int offset)
 	{
 		int idxsrc=src.getSerialNumber();
-		fileWriter.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name);
+		fileWriter.format("\tsw Temp_%d,%d(global_%s)\n",idxsrc,offset,var_name);
 
-		original.add(String.format("%d\tsw Temp_%d,global_%s\n",lineNum,idxsrc,var_name));
+		original.add(String.format("%d\tsw Temp_%d,%d(global_%s)\n",lineNum,idxsrc,offset,var_name));
 		lineNum++;
 	}
 

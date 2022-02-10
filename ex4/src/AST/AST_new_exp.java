@@ -2,10 +2,11 @@ package AST;
 
 import Printer.Printer;
 import SYMBOL_TABLE.SYMBOL_TABLE;
-import TEMP.TEMP;
+import TEMP.*;
 import TYPES.TYPE;
 import TYPES.TYPE_ARRAY;
 import IR.*;
+import Useable.UseableClass;
 
 import java.util.Objects;
 
@@ -20,25 +21,12 @@ public class AST_new_exp extends  AST_EXP{
 
     public TEMP PrintCode()
     {
-        /*******************************/
-        /* AST NODE TYPE = AST INT EXP */
-        /*******************************/
-        if(exp != null)
-            System.out.format("AST New_EXP( type:%s, value: %s)\n",type.type, ((AST_EXP_INT)exp).value);
-        else
-            System.out.format("AST New_EXP( type:%s)\n",type.type);
-        /*********************************/
-        /* Print to AST GRAPHIZ DOT file */
-        /*********************************/
-        if(type.name != null)
-            AST_GRAPHVIZ.getInstance().logNode(
-                    SerialNumber,
-                    String.format("NEW %s(%s)",type.type, type.name));
-        else
-            AST_GRAPHVIZ.getInstance().logNode(
-                    SerialNumber,
-                    String.format("NEW %s",type.type));
-        return null;
+       if(exp != null && ((AST_new_exp)exp).exp != null)
+           throw new Error("somsing wierd about the new exp");
+       UseableClass c = IR_Code.findUseableClass(type.type);
+       TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+       IR_Code.getInstance().addLine(new IRcommand_AllocateClass(c, dst));
+        return dst;
     }
 
 

@@ -22,11 +22,22 @@ public class UseableClass extends Useable {
         return constructor;
     }
 
+    public Useable findField(String name)
+    {
+        for (Useable u: fields){
+            if(Objects.equals(u.name, name))
+                return u;
+        }
+        return null;
+    }
+
+
     public UseableClass(String name, List<Useable> fields)
     {
         super(name);
         compiled = false;
-        this.fields = fields;
+        if(fields != null)
+            this.fields = fields;
     }
     public UseableClass(String name, List<Useable> fields, UseableClass father)
     {

@@ -59,9 +59,17 @@ public class AST_class extends AST_dec {
         }
         IR_Code constractor = IR_Code.endFunc();
 
-        my_class = new UseableClass(ID,inner_fields);
+
+        if(thisClass.father != null)
+        {
+            my_class = new UseableClass(ID,inner_fields, IR_Code.findUseableClass(thisClass.father.name));
+        }
+        else
+        {
+            my_class = new UseableClass(ID,inner_fields);
+        }
         IR_Code.classes.add(my_class);
-        IR_Code.addFunc(constractor, new UseableFunc("constractor_"+ID,"allocate_"+ID,TEMP_FACTORY.getInstance().getFreshTEMP(), constractor));
+        //IR_Code.addFunc(constractor, new UseableFunc("constractor_"+ID,"allocate_"+ID,TEMP_FACTORY.getInstance().getFreshTEMP(), constractor));
         //new UseableClass(ID, )
 
 

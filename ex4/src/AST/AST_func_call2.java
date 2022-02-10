@@ -15,7 +15,7 @@ import Useable.UseableFunc;
 public class AST_func_call2 extends AST_dec {
     public String name;
     public AST_VAR var;
-    public List<AST_EXP> lexp;
+    public List<AST_EXP> lexp = new LinkedList<>();
 
     public TEMP PrintCode() {
         UseableFunc func = (UseableFunc) IR_Code.searchForUse(name);
@@ -80,7 +80,14 @@ public class AST_func_call2 extends AST_dec {
 
     public TYPE SemantMe()
     {
-        TYPE_FUNCTION func_type = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(name);
+        TYPE_FUNCTION func_type;
+        if(var == null)
+            func_type = (TYPE_FUNCTION) SYMBOL_TABLE.getInstance().find(name);
+        else
+        {
+            func_type = ((TYPE_CLASS) var.SemantMe()).findFunc(name);
+        }
+
         if(func_type == null)
         {
             System.out.format("ERROR: try to call undefined func %s", name);

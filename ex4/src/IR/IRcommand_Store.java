@@ -49,7 +49,7 @@ public class IRcommand_Store extends IRcommand
 	{
 		// TODO: this is not ready! need to be able to store into address and not only into global var.
 		if(var_name != null)
-			MIPSGenerator.getInstance().store(var_name,src);
+			MIPSGenerator.getInstance().store(var_name,src, offset);
 		else
 		{
 			MIPSGenerator.getInstance().store_by_address(address_dst, src, offset);

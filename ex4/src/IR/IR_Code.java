@@ -59,6 +59,7 @@ public class IR_Code {
         toUse.push(var);
     }
 
+
     static public Useable searchForUse(String name)
     {
         Stack<Useable> tempS = new Stack<>();
@@ -93,6 +94,7 @@ public class IR_Code {
         {
             defineGlobalFuncs();
             code = new IR_Code();
+            code.addLine(new IRcommand_Label("main"));
             instances.push(code);
             return code;
         }
@@ -102,6 +104,16 @@ public class IR_Code {
             return code;
         }
     }
+
+    static public UseableClass findUseableClass(String name)
+    {
+        for(UseableClass c : classes)
+            if(Objects.equals(c.name, name))
+                return c;
+        return null;
+    }
+
+
     public void addLine(IRcommand line)
     {
         code.add(line);
@@ -140,7 +152,6 @@ public class IR_Code {
         {
             c.CreateVirtualTable();
         }
-        mainCode.addLine(new IRcommand_Label("main"));
         for(IR_Code f : funcsCode)
             f.MIPSmeAsFunc(0);
         for(Useable u : toUse)
