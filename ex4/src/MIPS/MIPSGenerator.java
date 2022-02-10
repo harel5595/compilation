@@ -116,8 +116,8 @@ public class MIPSGenerator
 				{
 					graph.get(alive.get(entry).get(i)).add(alive.get(entry).get(j));
 					graph.get(alive.get(entry).get(j)).add(alive.get(entry).get(i));
-					degrees.put(i,degrees.get(i) + 1); // ERROR: java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because the return value of "java.util.Map.get(Object)" is null
-					degrees.put(j,degrees.get(j) + 1);
+					degrees.put(i,degrees.getOrDefault(i, 0) + 1);
+					degrees.put(j,degrees.getOrDefault(j, 0) + 1);
 				}
 			}
 		}
@@ -145,22 +145,20 @@ public class MIPSGenerator
 
 		degrees = new HashMap<>();
 
-		for (int i = 0; i < t.getSerialNumber()-1; i++) {
-			int maxValueInMap=(Collections.max(degrees.values()));
-			for (int entry :
-					degrees.keySet()) {
-				if (degrees.get(entry) == maxValueInMap) {
-					nodeStack.push(entry);
-					for (int a:
-							graph.get(entry)){
-						degrees.put(a,degrees.get(a)-1);
-						degrees.put(entry,degrees.get(entry)-1);
-					}
-
-					break;
+		for (int entry :
+				alive.keySet()) {
+			for(int i = 0; i < alive.get(entry).size(); i ++)
+			{
+				for(int j = i+1; j < alive.get(entry).size(); j ++)
+				{
+					graph.get(alive.get(entry).get(i)).add(alive.get(entry).get(j));
+					graph.get(alive.get(entry).get(j)).add(alive.get(entry).get(i));
+					degrees.put(i,degrees.getOrDefault(i, 0) + 1);
+					degrees.put(j,degrees.getOrDefault(j, 0) + 1);
 				}
 			}
 		}
+
 
 		while(!nodeStack.empty())
 		{
