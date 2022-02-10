@@ -41,10 +41,10 @@ public class MIPSGenerator
 
 		for(int i = this.lineNum; i > 1; i --)
 		{
-			if(original.get(i - 1).contains("li"))
-			{
-				alive.get(i).add(original.get(i - 1).indexOf("Temp")+1);
-			}
+			//if(original.get(i - 1).contains("li")) // index out of range here
+			//{
+			//	alive.get(i).add(original.get(i - 1).indexOf("Temp")+1);
+			//}
 		}
 
 		//////end//////
@@ -201,7 +201,11 @@ public class MIPSGenerator
 
 	public void malloc(TEMP dst, int size)
 	{
-
+		int idxdst = dst.getSerialNumber();
+		fileWriter.format("\tli $a0, %d\n", size);
+		fileWriter.format("\tli $v0, 9\n");
+		fileWriter.format("\tsyscall\n");
+		fileWriter.format("\tadd Temp_%d, $v0, 0\n", idxdst);
 	}
 
 
@@ -504,5 +508,13 @@ public class MIPSGenerator
 			instance.fileWriter.format(".text\n");
 		}
 		return instance;
+	}
+
+	public void store_by_address(TEMP address, TEMP val, int offset) {
+		int idxaddress=address.getSerialNumber(), idxval = val.getSerialNumber();
+		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
+
+		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
+		lineNum++;
 	}
 }

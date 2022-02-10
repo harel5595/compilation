@@ -12,9 +12,15 @@ public class UseableClass extends Useable {
     UseableClass father;
     boolean compiled;
     List<Useable> fields = new LinkedList<Useable>();
-    UseableFunc constructor;
+    UseableFunc constructor = null;
     List<Pair<UseableFunc, Integer>>  offset_for_vt = null;
     List<UseableVar> fields_not_func = null;
+
+    public UseableFunc getConstructor() {
+        if(constructor == null)
+            CreateConstructor();
+        return constructor;
+    }
 
     public UseableClass(String name, List<Useable> fields)
     {
@@ -100,13 +106,14 @@ public class UseableClass extends Useable {
         TEMP ret_val = TEMP_FACTORY.getInstance().getFreshTEMP();
         findFieldsForStruct();
         construct.addLine(new IRcommand_Malloc(ret_val, (fields_not_func.size() + 1) * 4));
-
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        construct.addLine(new IRcommand_GetAddressFromLabel(t, "allocated_"+name + "_VT"));
+        construct.addLine(new IRcommand_Store(ret_val, t, 0));
         for(int i = 0; i < fields_not_func.size(); i++)
         {
             UseableVar u = fields_not_func.get(i);
             construct.addCode(u.type.CreateInnerConstructor(t));
-            construct.addLine(new IRcommand_Store(ret_val, t, i * 4));
+            construct.addLine(new IRcommand_Store(ret_val, t, (i + 1) * 4));
         }
         construct.addLine(new IRcommand_Return());
         constructor = new UseableFunc("allocate_" + name, "allocate_" + name, ret_val, construct);
@@ -120,6 +127,8 @@ public class UseableClass extends Useable {
         construct.addLine(new IRcommand_Malloc(ret, (fields_not_func.size() + 1) * 4));
 
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        construct.addLine(new IRcommand_GetAddressFromLabel(t, "allocated_"+ name + "_VT"));
+        construct.addLine(new IRcommand_Store(ret, t, 0));
         for(int i = 0; i < fields_not_func.size(); i++)
         {
             UseableVar u = fields_not_func.get(i);
