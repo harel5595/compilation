@@ -98,7 +98,7 @@ public class MIPSGenerator
 				} else {
 					if(alive.get(entry[0]).contains(entry[1])) {
 						changed = true;
-						alive.get(entry[0]).remove(entry[1]);
+						alive.get(entry[0]).remove(alive.get(entry[0]).indexOf(entry[1]));
 					}
 				}
 				prev = entry[0];
