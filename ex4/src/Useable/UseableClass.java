@@ -1,9 +1,6 @@
 package Useable;
 
-import IR.IR_Code;
-import IR.IRcommand_GetAddressFromLabel;
-import IR.IRcommand_Label;
-import IR.IRcommand_Store;
+import IR.*;
 import MIPS.MIPSGenerator;
 import TEMP.*;
 
@@ -17,6 +14,7 @@ public class UseableClass extends Useable {
     List<Useable> fields = new LinkedList<Useable>();
     UseableFunc constructor;
     List<Pair<UseableFunc, Integer>>  offset_for_vt = null;
+    List<UseableVar> fields_not_func = null;
 
     public UseableClass(String name, List<Useable> fields)
     {
@@ -65,16 +63,71 @@ public class UseableClass extends Useable {
         return already_in_place;
     }
 
+    public List<UseableVar> findFieldsForStruct()
+    {
+        List<UseableVar> vals = new LinkedList<UseableVar>();
+        if(father != null)
+            vals = father.findFieldsForStruct();
+
+        for(Useable u : fields)
+        {
+            if(u instanceof UseableVar)
+            {
+                boolean seen = false;
+                for(UseableVar k : vals)
+                {
+                    if(Objects.equals(k.name, u.name))
+                    {
+                        seen = true;
+                        break;
+                    }
+                }
+                if(!seen)
+                {
+                    vals.add((UseableVar) u);
+                }
+            }
+        }
+        fields_not_func = vals;
+            return vals;
+    }
+
+
     public void CreateConstructor()
     {
         IR_Code construct = new IR_Code();
         construct.addLine(new IRcommand_Label("allocate_" + name));
-        construct.addLine();
+        TEMP ret_val = TEMP_FACTORY.getInstance().getFreshTEMP();
+        findFieldsForStruct();
+        construct.addLine(new IRcommand_Malloc(ret_val, (fields_not_func.size() + 1) * 4));
+
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        for(int i = 0; i < fields_not_func.size(); i++)
+        {
+            UseableVar u = fields_not_func.get(i);
+            construct.addCode(u.type.CreateInnerConstructor(t));
+            construct.addLine(new IRcommand_Store(ret_val, t, i * 4));
+        }
+        construct.addLine(new IRcommand_Return());
+        constructor = new UseableFunc("allocate_" + name, "allocate_" + name, ret_val, construct);
     }
 
-    public IR_Code CreateInnerConstructor() // for values inside others
+    public IR_Code CreateInnerConstructor(TEMP ret) // for values inside others
     {
+        IR_Code construct = new IR_Code();
+        //construct.addLine(new IRcommand_Label("allocate_" + name));
+        findFieldsForStruct();
+        construct.addLine(new IRcommand_Malloc(ret, (fields_not_func.size() + 1) * 4));
 
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        for(int i = 0; i < fields_not_func.size(); i++)
+        {
+            UseableVar u = fields_not_func.get(i);
+            construct.addCode(u.type.CreateInnerConstructor(t));
+            construct.addLine(new IRcommand_Store(ret, t, i * 4));
+        }
+        //constructor = new UseableFunc("allocate_" + name, "allocate_" + name, ret_val, construct);
+        return construct;
     }
 
 
@@ -93,6 +146,8 @@ public class UseableClass extends Useable {
             IR_Code.getInstance().addLine(new IRcommand_Store(name + "_VT", t, pair.right));
             pair.left.compile();
         }
+        CreateConstructor();
+        IR_Code.addFunc(constructor.func_code, constructor);
         //MIPSGenerator.getInstance().my_big_alloc("Class_" + name + "_VT", );
     }
 }
