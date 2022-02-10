@@ -28,6 +28,6 @@ public class IRcommand_Allocate extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().allocate(var_name);
+		MIPSGenerator.getInstance().allocate_global(var_name);
 	}
 }

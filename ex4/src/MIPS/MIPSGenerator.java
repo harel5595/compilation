@@ -8,6 +8,7 @@ package MIPS;
 /*******************/
 
 import TEMP.*;
+import Useable.UseableVar;
 
 import java.io.PrintWriter;
 
@@ -115,7 +116,7 @@ public class MIPSGenerator
 				{
 					graph.get(alive.get(entry).get(i)).add(alive.get(entry).get(j));
 					graph.get(alive.get(entry).get(j)).add(alive.get(entry).get(i));
-					degrees.put(i,degrees.get(i) + 1);
+					degrees.put(i,degrees.get(i) + 1); // ERROR: java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because the return value of "java.util.Map.get(Object)" is null
 					degrees.put(j,degrees.get(j) + 1);
 				}
 			}
@@ -390,8 +391,8 @@ public class MIPSGenerator
 
 
 
-	public void allocate(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
-	{ // TODO: this is not allocate !! only work for global !!! need to save locals on the stack !!!
+	public void allocate_global(String var_name) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
+	{
 		fileWriter.format(".data\n");
 		fileWriter.format("\tglobal_%s: .space 4\n",var_name);
 
@@ -405,6 +406,26 @@ public class MIPSGenerator
 		lineNum++;
 
 	}
+
+	public Stack<Integer> alocatedOnStack = new Stack<>();
+
+	public void allocate_local(UseableVar var) // by default allocates 4 bytes. if you need more (or less) use big_alloc.
+	{
+		fileWriter.format(".data\n");
+		fileWriter.format("\tglobal_%s: .space 4\n", var.name);
+
+		original.add(String.format("%d.data\n",lineNum));
+		lineNum++;
+		original.add(String.format("%d\tglobal_%s: .space 4\n",lineNum, var.name));
+		lineNum++;
+
+		fileWriter.format(".text\n");
+		original.add(String.format("%d.text\n",lineNum));
+		lineNum++;
+
+	}
+
+
 	public void big_alloc(String var_name, int len)
 	{ // TODO: this is not allocate !! only work for global !!! need to save locals on the stack !!!
 		fileWriter.format(".data\n");
