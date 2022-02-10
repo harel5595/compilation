@@ -883,8 +883,8 @@ public class MIPSGenerator
 		fileWriter.format("\tsw Temp_%d,%d(Temp_%s)\n",idxval,offset,idxaddress);
 
 		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%s)\n",lineNum,idxval,offset,idxaddress));
-		isBorn.add(new int[] {lineNum,idxval,0});
-		isBorn.add(new int[] {lineNum,idxaddress,1});
+		isBorn.add(new int[] {lineNum,idxval,1});
+		isBorn.add(new int[] {lineNum,idxaddress,0});
 		lineNum++;
 	}
 
@@ -896,7 +896,7 @@ public class MIPSGenerator
 		lineNum++;
 		original.add(String.format("%d\tsw Temp_%d,%d(Temp_%d)\n",lineNum,idxval,offset,idxaddress));
 		lineNum++;
-		isBorn.add(new int[] {lineNum,idxval,0});
+		isBorn.add(new int[] {lineNum,idxval,1});
 		isBorn.add(new int[] {lineNum,idxaddress,0});
 	}
 }
