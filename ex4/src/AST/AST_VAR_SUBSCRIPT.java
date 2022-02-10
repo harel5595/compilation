@@ -19,31 +19,12 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR {
     /* CONSTRUCTOR(S) */
     /******************/
 
-    public TEMP PrintCode() {
-        /*************************************/
-        /* AST NODE TYPE = AST SUBSCRIPT VAR */
-        /*************************************/
-        System.out.print("AST NODE SUBSCRIPT VAR\n");
-
-        /****************************************/
-        /* RECURSIVELY PRINT VAR + SUBSRIPT ... */
-        /****************************************/
-        if (var != null) var.PrintMe();
-        if (subscript != null) subscript.PrintMe();
-
-        /***************************************/
-        /* PRINT Node to AST GRAPHVIZ DOT file */
-        /***************************************/
-        AST_GRAPHVIZ.getInstance().logNode(
-                SerialNumber,
-                "SUBSCRIPT\nVAR\n...[...]");
-
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, var.getSerialNumber());
-        if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, subscript.getSerialNumber());
-        return null;
+    public TEMP PrintCode() { // TODO: this is working only for reading from the array! need to think about how to write into it!
+        TEMP ret = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP offset = subscript.PrintCode();
+        TEMP arr_pointer = var.PrintCode();
+        IR_Code.getInstance().addLine(new IRcommand_LoadArrayElement(ret, arr_pointer, offset));
+        return ret;
     }
 
     public AST_VAR_SUBSCRIPT(AST_VAR var, AST_EXP subscript, int line) {
