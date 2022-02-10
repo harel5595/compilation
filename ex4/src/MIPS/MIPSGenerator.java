@@ -62,6 +62,9 @@ public class MIPSGenerator
 			graph.add(new ArrayList<Integer>());
 
 		Map<Integer, Integer> degrees = new HashMap<>();
+		for (int i = 0; i < t.getSerialNumber()-1; i++)
+			degrees.put(i,0);
+
 
 		Stack<Integer> nodeStack = new Stack<>();
 
@@ -144,6 +147,8 @@ public class MIPSGenerator
 			graph.add(new ArrayList<Integer>());
 
 		degrees = new HashMap<>();
+		for (int i = 0; i < t.getSerialNumber()-1; i++)
+			degrees.put(i,0);
 
 		for (int entry :
 				alive.keySet()) {
