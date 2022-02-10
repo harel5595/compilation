@@ -124,12 +124,13 @@ public class MIPSGenerator
 				}
 			}
 		}
-
+		int [] used = new int [t.getSerialNumber()-1];
 		for (int i = 0; i < t.getSerialNumber()-1; i++) {
 			int maxValueInMap=(Collections.max(degrees.values()));
 			for (int entry :
 					degrees.keySet()) {
-				if (degrees.get(entry) == maxValueInMap) {
+				if (degrees.get(entry) == maxValueInMap && used[entry] == 0) {
+					used[entry] = 1;
 					nodeStack.push(entry);
 					for (int a:
 					graph.get(entry)){
@@ -168,7 +169,7 @@ public class MIPSGenerator
 		while(!nodeStack.empty())
 		{
 			int node = nodeStack.pop();
-			int available[] = new int[10];
+			int[] available = new int[10];
 			for (int a :
 					graph.get(node)) {
 				{
