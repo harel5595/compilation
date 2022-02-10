@@ -1,5 +1,6 @@
 package Useable;
 
+import AST.AST_dec;
 import IR.*;
 import MIPS.MIPSGenerator;
 import TEMP.*;
@@ -37,6 +38,26 @@ public class UseableArray extends UseableClass { // this is type of class, all t
         construct.addLine(new IRcommand_Malloc(ret_val, size)); // until here we calc the scape needed for the array
         construct.addLine(new IRcommand_Store(ret_val, size, 0)); // save the len for run time check.
         // TODO: create while that run the constractor of the desiered class
+        TEMP iterated = TEMP_FACTORY.getInstance().getFreshTEMP(),
+                temp = TEMP_FACTORY.getInstance().getFreshTEMP(),
+                address = TEMP_FACTORY.getInstance().getFreshTEMP();
+        construct.addLine(new IRcommandConstInt(iterated, 4));
+        String Slabel = IRcommand.getFreshLabel("start_of_while");
+        IR_Code.getInstance().addLine(new IRcommand_Label(Slabel));
+        String Elabel = IRcommand.getFreshLabel("end_of_while");
+
+        IR_Code.getInstance().addLine(new IRcommand_Jump_If_Eq(iterated, size,Elabel));
+        construct.addLine(new IRcommand_Binop_Add_Integers(iterated, iterated, one));
+
+        construct.addLine(new IRcommand_AllocateClass(type, temp)); // run the constractor
+        construct.addLine(new IRcommand_Binop_Add_Integers(address, iterated, ret_val));
+        construct.addLine(new IRcommand_Store(address, temp, 0));
+
+        IR_Code.getInstance().addLine(new IRcommand_Jump_Label(Slabel));
+        IR_Code.getInstance().addLine(new IRcommand_Label(Elabel));
+
+        constructor = new UseableFunc("allocate_" + name, "allocate_" + name, ret_val, construct);
+
         //TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         //construct.addLine(new IRcommand_GetAddressFromLabel(t, "allocated_"+name + "_VT"));
         //construct.addLine(new IRcommand_Store(ret_val, t, 0));
