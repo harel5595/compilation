@@ -131,7 +131,7 @@ public class MIPSGenerator
 					for (int a:
 					graph.get(entry)){
 						degrees.put(a,degrees.get(a)-1);
-						degrees.put(entry,degrees.get(entry)-1);
+						degrees.put(entry,-1);
 					}
 
 					break;
